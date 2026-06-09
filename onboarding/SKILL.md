@@ -779,6 +779,36 @@ Notes :
 - Caractères interdits dans les noms de dossier (`/`, `\`, `:`, `*`, `?`) → demande une variante au client.
 - Si nom > 40 caractères → propose un raccourci.
 
+### Step 1b — Fichiers techniques (.claude/settings.json, .env, .gitignore)
+
+Crée ces 3 fichiers **automatiquement** — le client n'a rien à faire à la main. Tu les expliqueras simplement en Phase 4. **Ne JAMAIS écraser un de ces fichiers s'il existe déjà** : compléter / fusionner, et le signaler en Phase 4. (`.claude/` existe déjà car le client y a déposé ses skills ; sinon `mkdir -p .claude`.)
+
+1. **`.claude/settings.json`** — désactive la mémoire automatique de Claude Code (le second cerveau a sa propre mémoire dans `memory.md`, on évite les doublons). S'il existe déjà, ajoute SEULEMENT la clé `"autoMemoryEnabled": false` sans toucher au reste. Sinon, crée-le avec :
+
+```json
+{
+  "autoMemoryEnabled": false
+}
+```
+
+2. **`.env`** (à la racine) — le coffre-fort des clés API du client. Crée-le **sans aucune vraie clé**, juste un en-tête commenté qui explique l'usage :
+
+```
+# .env — tes clés API (les "mots de passe" pour brancher des outils à ton IA).
+# Une par ligne, au format NOM=valeur. Exemple :
+# OPENAI_API_KEY=sk-...
+# Ne partage JAMAIS ce fichier. Il est déjà protégé par .gitignore.
+```
+
+3. **`.gitignore`** (à la racine) — empêche de partager/sauvegarder en ligne les fichiers sensibles ou inutiles (surtout `.env` avec ses clés). Crée-le avec :
+
+```
+.env
+.DS_Store
+node_modules/
+.obsidian/workspace*.json
+```
+
 ### Step 2 — `profil.md`
 
 Sections complètes, dans cet ordre.
@@ -1575,6 +1605,46 @@ seul, de DEUX manières différentes. Tu n'as jamais à prendre de notes.
 La différence en une phrase : une CORRECTION change comment je me
 comporte (→ memory.md, en direct) ; /save garde la MATIÈRE d'une session
 (→ tes dossiers, à la demande). Les deux sont séparés et automatiques.
+
+──────────────────────────────────────────────
+   LE DOSSIER .claude ET LES 3 PETITS FICHIERS TECHNIQUES
+──────────────────────────────────────────────
+
+Il y a aussi un dossier "caché" qui s'appelle ".claude" et trois petits
+fichiers techniques que je t'ai créés. Bonne nouvelle : tu n'as quasiment
+JAMAIS à y toucher. Je te les explique juste pour que tu ne sois pas
+perdu si tu les croises.
+
+[Le dossier .claude]
+   C'est la "boîte à outils" de ton IA. Dedans il y a tes SKILLS : des
+   compétences que ton IA sait faire sur commande. Tu en as déjà deux :
+   - /onboarding (celui qu'on vient d'utiliser pour tout construire)
+   - /save (celui qui range ta session quand tu tapes "/save")
+   Tu pourras en ajouter d'autres plus tard. Rien à faire ici.
+
+[settings.json] — un mini réglage
+   Claude a une petite mémoire automatique à lui. Le souci : nous, on a
+   déjà NOTRE propre mémoire (ton memory.md), bien à toi. Donc on
+   débranche celle de Claude pour éviter les doublons. Ce fichier dit
+   juste "mémoire automatique de Claude : non". C'est tout. Tu n'y
+   touches pas.
+
+[.env] — ton coffre-fort de clés
+   Le jour où tu voudras brancher un outil à ton IA (par exemple un outil
+   qui poste sur tes réseaux, ou qui lit tes mails), il te faudra une
+   "clé API" : c'est comme un mot de passe que l'outil te donne. Toutes
+   ces clés se rangent dans CE fichier ".env", jamais ailleurs. Une par
+   ligne, sous la forme NOM=valeur, par exemple :
+       OPENAI_API_KEY=sk-123...
+   Règle d'or : ce fichier ne se partage JAMAIS (ce sont tes mots de
+   passe). Je l'ai créé vide pour toi, prêt à recevoir tes clés.
+
+[.gitignore] — la liste "à ne jamais partager"
+   Si un jour tu sauvegardes ton cerveau en ligne (pour ne jamais le
+   perdre), il y a des fichiers qu'on ne veut SURTOUT pas envoyer — en
+   premier, ton ".env" et ses clés secrètes. Le ".gitignore" est la
+   petite liste de ces fichiers à garder privés. Je l'ai déjà rempli
+   correctement. Rien à faire.
 
 ──────────────────────────────────────────────
    COMMENT ON CONTINUE À PARTIR DE MAINTENANT
