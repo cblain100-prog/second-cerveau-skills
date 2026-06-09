@@ -83,7 +83,7 @@ Le routing est automatique. Tu ne demandes PAS confirmation. Tu exécutes. Et tu
 - **Créer un nouveau fichier** : Write avec un frontmatter minimal si utile (`date`, `source`).
 - **Header du jour** dans un `notes.md` : section `## AAAA-MM-JJ` (la créer si absente, le plus récent en haut), puis des bullets.
 
-## Étape 3.5 — Relier (wikilinks + MOC)
+## Étape 3.5 — Relier (wikilinks)
 
 Un second cerveau vaut par ses **connexions**, pas son rangement. Après avoir écrit, relie ce qui a une **valeur connective** (note nommée, concept, méthode, idée, client). On NE relie PAS les logs/états bruts dans un `notes.md`.
 
@@ -91,7 +91,6 @@ Pour chaque élément à valeur connective :
 
 1. **Grep** le vault sur ses concepts/noms clés (`grep -ri "[terme]" --include=*.md`, hors `.claude/` et `3 Archives/`).
 2. **Ajoute des `[[wikilinks]]`** depuis l'élément vers les 3-5 notes les plus pertinentes. Ne lie que dans **un sens** — Obsidian crée le backlink de l'autre côté. Cible des noms de fichiers uniques (si la cible est un `notes.md`, utilise le chemin : `[[1 Terrains/.../notes|alias lisible]]`).
-3. **MOC du sujet** : si un fichier `[Sujet] - MOC.md` existe → y ajouter le lien. Sinon, si le sujet a déjà ≥3 notes éparses → créer le MOC dans le bon dossier.
 
 Si rien de pertinent à relier → ne force pas de lien.
 
@@ -104,7 +103,6 @@ Message final structuré, sans fioritures :
 - 1 Terrains/[terrain]/[chemin] : N entrées
 - 2 Ressources/[titre].md : nouveau fichier → relié à [[X]], [[Y]]
 - 0 Inbox/AAAA-MM-JJ-[titre].md : nouveau fichier
-- MOC [sujet] : màj
 ```
 
 Pas d'explication détaillée.
