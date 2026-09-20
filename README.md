@@ -17,7 +17,7 @@ Ce dossier contient les six skills qui installent et font vivre un second cervea
 2. Ouvre Claude Code dans ce dossier.
 3. Colle cette phrase (Claude fait tout : il télécharge, range les skills dans un dossier `Skills/` visible, et les relie) :
 
-> Installe les skills de https://github.com/cblain100-prog/second-cerveau-skills dans ce dossier : télécharge le dépôt, copie ses six dossiers de skills (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me) dans un dossier `Skills/` ici (visible, pas caché), puis lance `bash Skills/onboarding/setup/scripts/link-skills.sh` pour que Claude Code les voie, vérifie que les six sont bien là, et dis-moi quoi faire ensuite.
+> Installe les skills de https://github.com/cblain100-prog/second-cerveau-skills dans ce dossier : télécharge le dépôt, copie ses six dossiers de skills (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me) dans un dossier `Skills/` ici (visible, pas caché), puis lance une fois `bash Skills/onboarding/setup/scripts/link-skills.sh` pour que Claude Code et Codex sachent où ils sont, vérifie que les six sont bien là, et dis-moi quoi faire ensuite.
 
 4. Claude installe, puis te dit de le relancer. Tu relances Claude Code dans le même dossier et tu tapes `/onboarding`.
 
@@ -25,7 +25,7 @@ Tu n'as pas à choisir entre `/onboarding` et `/onboarding-migrate` : si ton dos
 
 Si tu préfères faire à la main : télécharge `pack-second-cerveau.zip` sur la page du dépôt, décompresse, et copie les six dossiers qui sont dans `skills/` vers un dossier `Skills/` à l'intérieur de ton dossier cerveau. Puis ouvre Claude Code dans ce dossier et dis « lance Skills/onboarding/setup/scripts/link-skills.sh ».
 
-Pourquoi `Skills/` et pas un dossier caché : tes outils doivent être visibles dans le Finder et dans Obsidian, comme le reste de ton cerveau, et **ils t'appartiennent, pas à un outil**. Ton cerveau ne contient aucun dossier caché de skills. Chaque outil (Claude Code, Codex) lit les skills à sa propre adresse cachée dans ton dossier personnel, en dehors du cerveau (`~/.claude/skills/` pour Claude Code, `~/.agents/skills/` pour Codex) : le petit script y pose des raccourcis vers `Skills/`, pour les deux à la fois. Le jour où tu changes d'outil, tu n'emportes rien : ton cerveau et tes skills sont déjà au bon endroit, seul le raccourci change, et il se pose tout seul. Si tu supprimes un skill de `Skills/`, les raccourcis disparaissent à la session suivante. Si tu utilises Codex sans jamais ouvrir Claude Code, lance une fois `bash Skills/onboarding/setup/scripts/link-skills.sh` depuis ton cerveau.
+Pourquoi `Skills/` et pas un dossier caché : tes outils doivent être visibles dans le Finder et dans Obsidian, comme le reste de ton cerveau, et **ils t'appartiennent, pas à un outil**. Ton cerveau ne contient aucun dossier caché de skills. Chaque outil (Claude Code, Codex) lit les skills à sa propre adresse cachée dans ton dossier personnel, en dehors du cerveau : le petit script fait de cette adresse un raccourci vers ton `Skills/`, une fois pour toutes, pour les deux outils. Après ça, tu ajoutes ou supprimes un skill dans `Skills/`, et c'est tout : rien à relancer. Le jour où tu changes d'outil, tu n'emportes rien, tout est déjà au bon endroit.
 
 ## Ce que ces skills ne contiennent pas
 
