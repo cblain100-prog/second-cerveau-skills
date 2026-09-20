@@ -74,6 +74,8 @@ les fichiers sous les yeux) :
 - ton cerveau = des fichiers texte, rangés par « terrains » (ton
   business d'un côté, ta vie de l'autre) ;
 - quand tu me corriges, je le note tout seul, au bon endroit ;
+- tes façons de faire deviennent des « skills » : des outils que tu
+  m'apprends une fois et que je refais pareil ensuite ;
 - en fin de session, tu tapes « /save » et je range ce qu'on s'est dit.
 
 Durée : fondations seules, 30 minutes ; installation complète, 1 heure.
@@ -212,7 +214,7 @@ Suis `references/structure.md` dans cet ordre. Toujours les vraies réponses, ja
 5. **Terrains de vie** (§ 5) : `Perso/_context.md` (identité, proches, valeurs, parcours, rythme, vision, finances, notes privées), `Admin/_context.md` (légal, RIB, logement, charges), `Santé/_context.md` si demandé. Chacun avec son `Docs/`.
 6. **Assets** : chaque fichier fourni est copié au bon endroit (charte → `Docs/charte/`, modèles → `Docs/templates/`, photos → `Docs/charte/`) ; un lien ou un document lourd reste où il est et la note pointe dessus. Jamais un copier-coller brut : l'essentiel, plus le pointeur.
 7. **Première note du journal** (§ 6).
-8. **Skills du pack.** Le pack livré à la personne, c'est exactement : `onboarding`, `onboarding-migrate`, `app`, `save`, `tri-inbox`, `grill-me`. Ils vivent dans `Skills/` à la racine du cerveau (dossier visible, comme le reste). **Rien dans le `.claude/` du cerveau** : ni skill, ni lien, ni script. Chaque outil lit les skills à une adresse fixe du dossier personnel de l'utilisateur, hors du cerveau (Claude Code : `~/.claude/skills` ; Codex : `~/.agents/skills`) : `link-skills.sh` fait de chacune UN raccourci vers `Skills/`, une fois pour toutes. Un skill ajouté dans `Skills/` est vu immédiatement, rien à relancer. La phrase d'installation du pack a déjà fait ça. Ici tu vérifies : `ls Skills/` montre les six, `readlink ~/.claude/skills` renvoie le chemin de `Skills/`, et `.claude/` du cerveau est vide ou ne contient que `settings.json`. Si des skills ou des liens traînent dans `.claude/skills/` du cerveau (installation à l'ancienne) : déplacer les vrais dossiers vers `Skills/`, supprimer `.claude/skills/`, relancer `CLAUDE_PROJECT_DIR="$(pwd)" bash Skills/onboarding/setup/scripts/link-skills.sh`. Un skill du pack absent : ne pas le recréer, le dire en Phase 4. Aucun autre skill n'est promis à la personne. Les skills propres au business que la personne créera plus tard iront dans `1 Terrains/<Business>/Skills/` (partagés avec l'équipe par Drive) ; le même script les relie.
+8. **Skills du pack.** Le pack livré à la personne, c'est exactement : `onboarding`, `onboarding-migrate`, `app`, `save`, `tri-inbox`, `grill-me`, `partager`. Ils vivent dans `Skills/` à la racine du cerveau (dossier visible, comme le reste). **Rien dans le `.claude/` du cerveau** : ni skill, ni lien, ni script. Chaque outil lit les skills à une adresse fixe du dossier personnel de l'utilisateur, hors du cerveau (Claude Code : `~/.claude/skills` ; Codex : `~/.agents/skills`) : `link-skills.sh` fait de chacune UN raccourci vers `Skills/`, une fois pour toutes. Un skill ajouté dans `Skills/` est vu immédiatement, rien à relancer. La phrase d'installation du pack a déjà fait ça. Ici tu vérifies : `ls Skills/` montre les sept, `readlink ~/.claude/skills` renvoie le chemin de `Skills/`, et `.claude/` du cerveau est vide ou ne contient que `settings.json`. Si des skills ou des liens traînent dans `.claude/skills/` du cerveau (installation à l'ancienne) : déplacer les vrais dossiers vers `Skills/`, supprimer `.claude/skills/`, relancer `CLAUDE_PROJECT_DIR="$(pwd)" bash Skills/onboarding/setup/scripts/link-skills.sh`. Un skill du pack absent : ne pas le recréer, le dire en Phase 4. Aucun autre skill n'est promis à la personne. Les skills propres au business que la personne créera plus tard iront dans `1 Terrains/<Business>/Skills/` (partagés avec l'équipe par Drive) ; le même script les relie.
 9. **Contrôles** (§ 7) : les six, exécutés tels qu'écrits (avec `/usr/bin/grep` et les motifs quotés) et lus. Un échec se corrige avant de continuer.
 
 ### Plomberie : sauvegarde en ligne et relevé du soir (proposés, jamais imposés)
@@ -294,9 +296,7 @@ Inbox : tu y déposes en vrac ce que tu ne sais pas où ranger (un
    document, une capture, une note). Tu me dis « trie l'inbox », je range.
 Journal : une note par jour, ce qu'on a fait ensemble.
 Archives : ce qui est terminé. Un client qui a fini son programme va là.
-Skills : mes outils à moi. Tu n'y touches pas, mais tu peux les appeler
-   en tapant leur nom précédé d'une barre oblique, dans notre
-   conversation : /save, /tri-inbox, /app, /grill-me (je détaille en bas).
+Skills : tes outils, j'y reviens juste en dessous, c'est important.
 
 ET LE DOSSIER « APPS », À CÔTÉ
 Juste à côté de ton cerveau, j'ai créé un dossier « Apps », vide pour
@@ -320,12 +320,39 @@ COMMENT ON TRAVAILLE À PARTIR DE MAINTENANT
    rangée au bon endroit, reliée à ce qui existe déjà.
 5. Avant de fermer, tu tapes /save : je range ce qu'on s'est dit.
 
-Les quatre mots à connaître :
-   /save : à la fin, je range.
+TES SKILLS : LES OUTILS QUE TU ME DONNES
+Un skill, c'est une façon de faire écrite dans un fichier texte, que
+j'applique quand tu me la demandes. Exemple : « facturer » peut devenir
+un skill qui sait ta numérotation, tes mentions légales, où est ton RIB.
+Tu tapes /facturer et je le fais comme toi, à chaque fois.
+
+Où ils sont : dans le dossier « Skills » de ton cerveau, un dossier par
+skill, visible comme le reste. Tu en as sept pour commencer :
+   /onboarding, /onboarding-migrate : ce qu'on vient de faire.
+   /save : à la fin d'une session, je range ce qu'on s'est dit.
    /tri-inbox : je vide le dossier Inbox.
    /app : je crée ou je reprends une application.
    /grill-me : je te pose des questions pour sortir ce que tu sais sur
    un sujet et l'écrire proprement.
+   /partager : je donne ton dossier business à quelqu'un de ton équipe,
+   par Google Drive, dans le bon ordre.
+
+Comment les voir : tape /skills dans notre conversation, la liste
+s'affiche. Ou ouvre le dossier « Skills » dans le Finder ou Obsidian.
+
+Comment en créer un : dis-moi « crée un skill qui fait … » avec ce que
+tu fais aujourd'hui à la main, étape par étape. Je l'écris dans Skills,
+tu le relis, et il est disponible tout de suite. Un bon premier skill,
+c'est ta tâche la plus répétitive de la semaine ([D8, la première]).
+Un skill qui sert à ton business (facturer, répondre à un client) va
+dans Skills du dossier [Business] : c'est ce que ton équipe recevra le
+jour où tu partages. Un skill perso reste dans Skills à la racine.
+
+Un détail technique, une fois pour toutes : Claude Code et les autres
+outils (Codex…) cherchent les skills à une adresse cachée dans ton
+dossier personnel. J'y ai posé un raccourci vers ton dossier Skills.
+Tu ne le verras jamais, il ne bougera plus, et tes skills restent chez
+toi, pas dans un outil.
 
 [SI plomberie installée :]
 Ta sauvegarde en ligne est active : à chaque fin de session, ton cerveau
