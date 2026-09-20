@@ -49,7 +49,8 @@ Règles de génération, valables pour tous les gabarits :
 │   └── Santé/                         optionnel : _context.md (sommeil, sport, dossier médical) + Docs/
 ├── 2 Archives/                        ce qui est mort, en bloc
 ├── .claude/settings.json              le SEUL fichier caché du cerveau (mémoire auto désactivée, hooks). Aucun skill, aucun lien, aucun script là-dedans :
-│                                      les liens vers Skills/ vont dans ~/.claude/skills/ (dossier personnel, hors du cerveau), posés par link-skills.sh
+│                                      les raccourcis vers Skills/ vont dans le dossier personnel, hors du cerveau (~/.claude/skills/ pour Claude Code,
+│                                      ~/.agents/skills/ pour Codex), posés par link-skills.sh : le cerveau est portable d'un outil à l'autre
 ├── .env                               clés API locales, jamais partagé
 └── .gitignore
 ```
@@ -632,4 +633,4 @@ wc -l AGENTS.md
 ls Skills/ ; ls -la ~/.claude/skills/ | $G "$(pwd)" ; ls -A .claude/
 ```
 
-Attendu : 1, 2 et 4 vides ; 3 sans « MANQUE » ; 5 sous 200 ; 6 : chaque skill de `Skills/` a son lien dans `~/.claude/skills/`, et `ls -A .claude/` ne montre que `settings.json`. Un contrôle qui échoue se corrige avant de passer à la Phase 4. Le résultat est dit à la personne en une ligne (« 6 vérifications passées »).
+Attendu : 1, 2 et 4 vides ; 3 sans « MANQUE » ; 5 sous 200 ; 6 : chaque skill de `Skills/` a son raccourci dans `~/.claude/skills/` (et dans `~/.agents/skills/` pour Codex), et `ls -A .claude/` ne montre que `settings.json`. Un contrôle qui échoue se corrige avant de passer à la Phase 4. Le résultat est dit à la personne en une ligne (« 6 vérifications passées »).
