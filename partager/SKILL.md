@@ -40,7 +40,12 @@ ls -d ~/Library/CloudStorage/GoogleDrive-*/ 2>/dev/null          # Mac : Drive p
 pwd -P | grep -q "CloudStorage/GoogleDrive" && echo "le cerveau est dans Drive" || echo "le cerveau n'est PAS dans Drive"
 ```
 
-Trois situations :
+Deux montages possibles, à choisir avant tout :
+
+- **Le cerveau entier dans Mon Drive** (cas standard pour quelqu'un sans Git : tout est au même endroit, on ne partage qu'un sous-dossier). C'est le montage décrit plus bas.
+- **Seulement le terrain dans Drive, le cerveau reste où il est** (cas de quelqu'un dont le cerveau est déjà synchronisé autrement, par Git par exemple, ou qui ne veut pas mettre sa vie perso dans Drive). Drive pour ordinateur sait synchroniser un dossier de l'ordinateur sans le déplacer : Préférences → Mon ordinateur (Mon Mac) → Ajouter un dossier → choisir `1 Terrains/<Business>` → « Synchroniser avec Google Drive ». Le dossier apparaît dans Drive sur le web sous « Ordinateurs », synchronisé dans les deux sens, et c'est ce dossier-là qu'on partage (§ 3). Rien ne bouge sur le disque, Obsidian et Git continuent comme avant. Le premier envoi prend quelques minutes. À vérifier la première fois : que le dossier sous « Ordinateurs » accepte bien le partage (sinon, montage 1).
+
+Trois situations pour le montage 1 :
 
 - **Drive pas installé** : dire d'installer « Google Drive pour ordinateur » (google.com/drive/download), de se connecter avec le compte Google du business, et dans ses préférences de choisir « Mettre en miroir les fichiers » (tout est sur le disque, pas seulement dans le cloud). Puis reprendre ici.
 - **Drive installé, cerveau ailleurs** (le cas normal la première fois) : déplacer le cerveau entier dans `Mon Drive/`. Avant : fermer Claude Code et Obsidian. Le déplacement : `mv "<cerveau>" ~/Library/CloudStorage/GoogleDrive-<mail>/Mon\ Drive/<cerveau>` (sur Mac ; sur Windows, glisser le dossier dans `G:\Mon Drive`). Après : rouvrir Claude Code depuis le nouveau chemin, relancer une fois `Skills/onboarding/setup/scripts/link-skills.sh` (le raccourci des skills pointe sur l'ancien chemin), et si le cerveau a une sauvegarde en ligne par Git, sortir le dépôt du dossier Drive avec `git init --separate-git-dir ~/.<cerveau>-git` (Git et Drive ne cohabitent pas sur le même dossier). Vérifier que `AGENTS.md` s'ouvre wifi coupé.
