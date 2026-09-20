@@ -1,46 +1,30 @@
-# Skills — Second cerveau (Entrepreneurs 2.0)
+# Pack second cerveau : les 6 skills
 
-Les skills à installer pour ton second cerveau Claude Code :
+Ce dossier contient les six skills qui installent et font vivre un second cerveau avec Claude Code, selon la méthode des Terrains.
 
-| Skill | Rôle |
-|---|---|
-| **onboarding** | Construit ton second cerveau sur-mesure (interview adaptée à ton métier). Lance-le avec `/onboarding`. |
-| **save** | Range automatiquement ce qui s'est dit en fin de session. Lance-le avec `/save`. |
-| **morning-brief** | Brief du matin : mails importants, RDV du jour, tâches en cours. Lance-le avec `/morning-brief`. |
-| **reponse-inbox** | Génère des drafts de réponse contextualisés sur ton inbox messagerie (jamais d'envoi automatique). |
-| **triage-mails** | Trie tes mails des dernières 24h en important / pas important, avec rapport structuré. |
-| **clean-memory** | Archive les leçons de plus de 30 jours pour garder ta mémoire auto-chargée légère. |
-| **audit-mcp** | Audit de sécurité d'un serveur MCP avant de l'installer. |
-| **audit-skills** | Audit de sécurité d'un skill avant de l'installer. |
-| **brainstorm-automation** | Analyse ton second cerveau et te propose des idées d'automatisation (skill ou routine planifiée). |
-| **discover-automations** | Croise ton vault avec les outils réellement connectés pour te proposer des automatisations exécutables tout de suite. |
-| **tri-inbox** | Vide et range ton dossier d'inbox brute vers les bons dossiers de ton vault. |
-| **grill-me** | T'interviewe question par question pour faire sortir une connaissance de ta tête et l'écrire en note structurée. |
+| Skill | Ce qu'il fait | Tu le lances quand |
+|---|---|---|
+| `onboarding` | Installe le cerveau de zéro : une interview adaptée à ton métier, puis la création de tout le dossier, puis l'explication. | Dossier vide, première fois. Tape `/onboarding`. |
+| `onboarding-migrate` | Pareil, mais reprend ce que tu as déjà (notes, un ancien AGENTS.md, des dossiers de clients) sans rien perdre. | Dossier déjà rempli. Tape `/onboarding-migrate`. |
+| `app` | Crée ou reprend une application : le code va dans le dossier Apps à côté du cerveau, la fiche reste dans le cerveau. | « crée-moi une app… », « bosse sur l'app… ». |
+| `save` | Range ce qui mérite d'être gardé à la fin d'une session. | Avant de fermer. Tape `/save`. |
+| `tri-inbox` | Vide le dossier « 0 Inbox » : chaque fichier déposé part au bon endroit. | Quand l'inbox déborde. Tape `/tri-inbox`. |
+| `grill-me` | Claude te pose des questions, une par une, pour sortir ce que tu sais sur un sujet et l'écrire proprement. | « grille-moi sur … ». |
 
-## Installation (2 minutes)
+## Installation : une phrase à coller
 
-1. **Télécharge** le(s) zip(s) qui t'intéressent (lien direct `?raw=1` sur chaque fichier) :
-   - [`onboarding-skill.zip`](onboarding-skill.zip?raw=1)
-   - [`save-skill.zip`](save-skill.zip?raw=1)
-   - [`morning-brief-skill.zip`](morning-brief-skill.zip?raw=1)
-   - [`reponse-inbox-skill.zip`](reponse-inbox-skill.zip?raw=1)
-   - [`triage-mails-skill.zip`](triage-mails-skill.zip?raw=1)
-   - [`clean-memory-skill.zip`](clean-memory-skill.zip?raw=1)
-   - [`audit-mcp-skill.zip`](audit-mcp-skill.zip?raw=1)
-   - [`audit-skills-skill.zip`](audit-skills-skill.zip?raw=1)
-   - [`brainstorm-automation-skill.zip`](brainstorm-automation-skill.zip?raw=1)
-   - [`discover-automations-skill.zip`](discover-automations-skill.zip?raw=1)
-   - [`tri-inbox-skill.zip`](tri-inbox-skill.zip?raw=1)
-   - [`grill-me-skill.zip`](grill-me-skill.zip?raw=1)
-2. **Dézippe-les** : chaque zip donne un dossier du même nom (ex. `onboarding`, `save`, `morning-brief`...).
-3. **Glisse** ces dossiers dans le dossier `.claude/skills/` de ton second cerveau. Au final tu dois avoir par exemple :
-   - `.claude/skills/onboarding/SKILL.md`
-   - `.claude/skills/save/SKILL.md`
-   - `.claude/skills/morning-brief/SKILL.md`
-4. Ouvre Claude Code, tape `/` : tu dois voir les skills installés (`/onboarding`, `/save`, `/morning-brief`...).
+1. Crée un dossier vide sur ton ordinateur, là où tu veux ton cerveau (par exemple `Documents/Mon cerveau`). Si tu as déjà un dossier avec des notes ou un ancien contexte, utilise celui-là.
+2. Ouvre Claude Code dans ce dossier.
+3. Colle cette phrase :
 
-> `onboarding` et `save` sont les deux indispensables pour démarrer. Les autres sont des extras à piocher selon tes besoins — tous pilotés par la carte de routing de ton propre `CLAUDE.md`, pas de configuration cachée.
+> Installe les skills de https://github.com/cblain100-prog/second-cerveau-skills dans ce dossier : télécharge le dépôt, copie le contenu de son dossier `skills/` dans `.claude/skills/` ici, vérifie qu'il y a six dossiers, puis dis-moi quoi faire ensuite.
 
-> Le guide complet (avec captures et la routine de récap du soir) explique tout pas à pas.
+4. Claude installe, puis te dit de le relancer. Tu relances Claude Code dans le même dossier et tu tapes `/onboarding`.
 
-Tu peux aussi parcourir le contenu de chaque skill directement dans son dossier sur ce dépôt.
+Tu n'as pas à choisir entre `/onboarding` et `/onboarding-migrate` : si ton dossier contient déjà des notes ou un ancien contexte, `/onboarding` le voit et te propose de basculer sur la version qui reprend l'existant.
+
+Si tu préfères faire à la main : télécharge `pack-second-cerveau.zip` sur la page du dépôt, décompresse, et copie les six dossiers de `skills/` dans un dossier `.claude/skills/` à l'intérieur de ton dossier cerveau.
+
+## Ce que ces skills ne contiennent pas
+
+Aucune information sur une autre personne, aucun client, aucun outil imposé. Tout ce qui est propre à toi sera écrit pendant l'onboarding, dans ton dossier. Les skills lisent ensuite ton `AGENTS.md` pour savoir où ranger chaque chose.
