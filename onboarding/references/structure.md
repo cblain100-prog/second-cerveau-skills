@@ -48,7 +48,8 @@ Règles de génération, valables pour tous les gabarits :
 │   ├── Admin/                         terrain de vie : _context.md (légal, banque, logement, charges, assurances) + Docs/ (pièces)
 │   └── Santé/                         optionnel : _context.md (sommeil, sport, dossier médical) + Docs/
 ├── 2 Archives/                        ce qui est mort, en bloc
-├── .claude/                           plomberie invisible : settings.json (mémoire auto désactivée, hooks), scripts/, skills/ (que des liens vers Skills/, régénérés à chaque session)
+├── .claude/settings.json              le SEUL fichier caché du cerveau (mémoire auto désactivée, hooks). Aucun skill, aucun lien, aucun script là-dedans :
+│                                      les liens vers Skills/ vont dans ~/.claude/skills/ (dossier personnel, hors du cerveau), posés par link-skills.sh
 ├── .env                               clés API locales, jamais partagé
 └── .gitignore
 ```
@@ -60,7 +61,7 @@ Ce qui n'existe plus par rapport à l'ancien schéma (2026-09-18) : `profil.md` 
 ## 2. Commandes de création
 
 ```bash
-mkdir -p "0 Inbox" Journal Skills "2 Archives" .claude/scripts
+mkdir -p "0 Inbox" Journal Skills "2 Archives" .claude
 mkdir -p "$(dirname "$(pwd)")/Apps"     # le dossier jumeau du cerveau, À CÔTÉ de lui (même dossier parent) : le code, jamais dans Drive (règle Apps, skill /app)
 B="1 Terrains/<Business>"
 mkdir -p "$B/Clients" "$B/Process/Marketing" "$B/Outils" "$B/Docs/charte" "$B/Docs/offre" "$B/Docs/templates"
@@ -73,7 +74,7 @@ Nom du terrain business : l'orthographe donnée par la personne (accents, casse)
 
 Fichiers techniques (ne jamais écraser, compléter) :
 
-- `.claude/settings.json` : `{"autoMemoryEnabled": false}` (la mémoire du cerveau est dans `AGENTS.md`, on évite les doublons). Les hooks sont posés par `setup/install.sh`.
+- `.claude/settings.json` : `{"autoMemoryEnabled": false}` (la mémoire du cerveau est dans `AGENTS.md`, on évite les doublons). Les hooks sont posés par `setup/install.sh` et appellent les scripts là où ils sont, dans `Skills/onboarding/setup/scripts/`. C'est le seul contenu de `.claude/` : jamais de `.claude/skills/` ni de `.claude/scripts/` dans le cerveau.
 - `.env` : en-tête commenté seulement, aucune vraie clé.
 - `.gitignore` :
 
@@ -627,8 +628,8 @@ for t in "1 Terrains"/*/; do [ -f "$t/_context.md" ] || echo "MANQUE _context.md
 find "$B/Docs" -maxdepth 1 -type f ! -name _index.md | head
 # 5. AGENTS.md racine sous 200 lignes
 wc -l AGENTS.md
-# 6. les skills du pack sont visibles et liés
-ls Skills/ ; ls -la .claude/skills/ | head
+# 6. les skills du pack sont visibles, reliés hors du cerveau, et .claude/ ne contient que settings.json
+ls Skills/ ; ls -la ~/.claude/skills/ | $G "$(pwd)" ; ls -A .claude/
 ```
 
-Attendu : 1, 2 et 4 vides ; 3 sans « MANQUE » ; 5 sous 200 ; 6 : chaque skill de `Skills/` a son lien dans `.claude/skills/`. Un contrôle qui échoue se corrige avant de passer à la Phase 4. Le résultat est dit à la personne en une ligne (« 6 vérifications passées »).
+Attendu : 1, 2 et 4 vides ; 3 sans « MANQUE » ; 5 sous 200 ; 6 : chaque skill de `Skills/` a son lien dans `~/.claude/skills/`, et `ls -A .claude/` ne montre que `settings.json`. Un contrôle qui échoue se corrige avant de passer à la Phase 4. Le résultat est dit à la personne en une ligne (« 6 vérifications passées »).

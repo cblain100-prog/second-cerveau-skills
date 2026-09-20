@@ -64,12 +64,12 @@ if [ -z "$(git log -1 2>/dev/null)" ]; then
 fi
 
 # ------------------------------------------------------ 2. Scripts de sync
-mkdir -p "$VAULT_DIR/.claude/scripts"
-cp "$KIT_DIR/scripts/session-pull.sh" "$VAULT_DIR/.claude/scripts/"
-cp "$KIT_DIR/scripts/session-push.sh" "$VAULT_DIR/.claude/scripts/"
-cp "$KIT_DIR/scripts/link-skills.sh" "$VAULT_DIR/.claude/scripts/"
-chmod +x "$VAULT_DIR/.claude/scripts/"*.sh
-echo "[2/5] scripts de sync et de liaison des skills installes"
+# Les scripts restent dans Skills/onboarding/setup/scripts/ (visible) : rien dans .claude/ a part settings.json
+chmod +x "$KIT_DIR/scripts/"*.sh
+SCRIPTS_REL="Skills/onboarding/setup/scripts"
+[ -d "$VAULT_DIR/$SCRIPTS_REL" ] || { echo "ATTENTION : $VAULT_DIR/$SCRIPTS_REL absent ; les hooks pointeront dessus, installe le pack dans Skills/ d'abord"; }
+rm -rf "$VAULT_DIR/.claude/scripts" "$VAULT_DIR/.claude/skills"   # ancienne methode : plus rien de tel dans le cerveau
+echo "[2/5] scripts : $SCRIPTS_REL (aucun script copie dans .claude/)"
 
 # ------------------------------------------------------ 3. Hooks SessionStart / SessionEnd
 SETTINGS="$VAULT_DIR/.claude/settings.json"
@@ -85,7 +85,7 @@ if os.path.exists(path):
         data = {}
 hooks = data.setdefault("hooks", {})
 for event, script in (("SessionStart", "session-pull.sh"), ("SessionStart", "link-skills.sh"), ("SessionEnd", "session-push.sh")):
-    cmd = 'bash "$CLAUDE_PROJECT_DIR/.claude/scripts/%s"' % script
+    cmd = 'bash "$CLAUDE_PROJECT_DIR/Skills/onboarding/setup/scripts/%s"' % script
     entries = hooks.setdefault(event, [])
     existing = [h.get("command") for e in entries for h in e.get("hooks", [])]
     if cmd not in existing:
@@ -112,7 +112,7 @@ cat > "$PLIST" <<EOPL
     <array>
       <string>/bin/bash</string>
       <string>-c</string>
-      <string>cd "$VAULT_DIR" &amp;&amp; "$CLAUDE_BIN" -p "Lis le fichier $TASK_DIR/SKILL.md et execute exactement les instructions qu il contient, dans le vault courant ($VAULT_DIR). Ne pose aucune question, travaille en autonomie totale, termine proprement." --dangerously-skip-permissions ; CLAUDE_PROJECT_DIR="$VAULT_DIR" bash "$VAULT_DIR/.claude/scripts/session-push.sh"</string>
+      <string>cd "$VAULT_DIR" &amp;&amp; "$CLAUDE_BIN" -p "Lis le fichier $TASK_DIR/SKILL.md et execute exactement les instructions qu il contient, dans le vault courant ($VAULT_DIR). Ne pose aucune question, travaille en autonomie totale, termine proprement." --dangerously-skip-permissions ; CLAUDE_PROJECT_DIR="$VAULT_DIR" bash "$VAULT_DIR/Skills/onboarding/setup/scripts/session-push.sh"</string>
     </array>
     <key>EnvironmentVariables</key>
     <dict>

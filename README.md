@@ -25,7 +25,7 @@ Tu n'as pas à choisir entre `/onboarding` et `/onboarding-migrate` : si ton dos
 
 Si tu préfères faire à la main : télécharge `pack-second-cerveau.zip` sur la page du dépôt, décompresse, et copie les six dossiers qui sont dans `skills/` vers un dossier `Skills/` à l'intérieur de ton dossier cerveau. Puis ouvre Claude Code dans ce dossier et dis « lance Skills/onboarding/setup/scripts/link-skills.sh ».
 
-Pourquoi `Skills/` et pas un dossier caché : tes outils doivent être visibles dans le Finder et dans Obsidian, comme le reste de ton cerveau. Claude Code, lui, lit un dossier caché `.claude/skills/` : le petit script y pose des liens vers `Skills/`, c'est tout.
+Pourquoi `Skills/` et pas un dossier caché : tes outils doivent être visibles dans le Finder et dans Obsidian, comme le reste de ton cerveau. Ton cerveau ne contient aucun dossier caché de skills. Claude Code, lui, lit un dossier caché dans ton dossier personnel (`~/.claude/skills/`, en dehors du cerveau) : le petit script y pose des raccourcis vers `Skills/`, c'est tout. Si tu supprimes un skill de `Skills/`, le raccourci disparaît à la session suivante.
 
 ## Ce que ces skills ne contiennent pas
 
