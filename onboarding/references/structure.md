@@ -48,9 +48,9 @@ Règles de génération, valables pour tous les gabarits :
 │   ├── Admin/                         terrain de vie : _context.md (légal, banque, logement, charges, assurances) + Docs/ (pièces)
 │   └── Santé/                         optionnel : _context.md (sommeil, sport, dossier médical) + Docs/
 ├── 2 Archives/                        ce qui est mort, en bloc
-├── .claude/settings.json              le SEUL fichier caché du cerveau (mémoire auto désactivée, hooks). Aucun skill, aucun lien, aucun script là-dedans :
-│                                      les raccourcis vers Skills/ vont dans le dossier personnel, hors du cerveau (~/.claude/skills/ pour Claude Code,
-│                                      ~/.agents/skills/ pour Codex), posés par link-skills.sh : le cerveau est portable d'un outil à l'autre
+├── .claude/settings.json              le SEUL fichier caché du cerveau (mémoire auto désactivée ; hooks de sauvegarde en ligne si la personne a dit oui).
+│                                      Aucun skill là-dedans. Dans le dossier personnel de l'utilisateur, hors du cerveau, un raccourci posé une fois :
+│                                      ~/.claude/skills → Skills/ (Claude Code) et ~/.agents/skills → Skills/ (Codex). Un skill ajouté dans Skills/ est vu tout de suite.
 ├── .env                               clés API locales, jamais partagé
 └── .gitignore
 ```
@@ -75,7 +75,7 @@ Nom du terrain business : l'orthographe donnée par la personne (accents, casse)
 
 Fichiers techniques (ne jamais écraser, compléter) :
 
-- `.claude/settings.json` : `{"autoMemoryEnabled": false}` (la mémoire du cerveau est dans `AGENTS.md`, on évite les doublons). Les hooks sont posés par `setup/install.sh` et appellent les scripts là où ils sont, dans `Skills/onboarding/setup/scripts/`. C'est le seul contenu de `.claude/` : jamais de `.claude/skills/` ni de `.claude/scripts/` dans le cerveau.
+- `.claude/settings.json` : `{"autoMemoryEnabled": false}` (la mémoire du cerveau est dans `AGENTS.md`, on évite les doublons). Les hooks de sauvegarde en ligne sont posés par `setup/install.sh` (si la personne dit oui) et appellent les scripts là où ils sont, dans `Skills/onboarding/setup/scripts/`. C'est le seul contenu de `.claude/` : jamais de `.claude/skills/` ni de `.claude/scripts/` dans le cerveau. Les skills sont rendus visibles par UN raccourci dans le dossier personnel (`~/.claude/skills → Skills/`, idem `~/.agents/skills` pour Codex), posé une fois par `link-skills.sh`.
 - `.env` : en-tête commenté seulement, aucune vraie clé.
 - `.gitignore` :
 
@@ -629,8 +629,8 @@ for t in "1 Terrains"/*/; do [ -f "$t/_context.md" ] || echo "MANQUE _context.md
 find "$B/Docs" -maxdepth 1 -type f ! -name _index.md | head
 # 5. AGENTS.md racine sous 200 lignes
 wc -l AGENTS.md
-# 6. les skills du pack sont visibles, reliés hors du cerveau, et .claude/ ne contient que settings.json
-ls Skills/ ; ls -la ~/.claude/skills/ | $G "$(pwd)" ; ls -A .claude/
+# 6. les skills du pack sont dans Skills/, le raccourci du dossier personnel pointe dessus, et .claude/ ne contient (au plus) que settings.json
+ls Skills/ ; readlink ~/.claude/skills ; readlink ~/.agents/skills ; ls -A .claude/ 2>/dev/null
 ```
 
-Attendu : 1, 2 et 4 vides ; 3 sans « MANQUE » ; 5 sous 200 ; 6 : chaque skill de `Skills/` a son raccourci dans `~/.claude/skills/` (et dans `~/.agents/skills/` pour Codex), et `ls -A .claude/` ne montre que `settings.json`. Un contrôle qui échoue se corrige avant de passer à la Phase 4. Le résultat est dit à la personne en une ligne (« 6 vérifications passées »).
+Attendu : 1, 2 et 4 vides ; 3 sans « MANQUE » ; 5 sous 200 ; 6 : les deux `readlink` renvoient le chemin de `Skills/` (ou, si l'utilisateur avait déjà des skills à lui, un raccourci par skill dedans), et `.claude/` est vide ou ne contient que `settings.json`. Un contrôle qui échoue se corrige avant de passer à la Phase 4. Le résultat est dit à la personne en une ligne (« 6 vérifications passées »).

@@ -85,7 +85,7 @@ if os.path.exists(path):
         os.rename(path, path + ".corrompu")
         data = {}
 hooks = data.setdefault("hooks", {})
-for event, script in (("SessionStart", "session-pull.sh"), ("SessionStart", "link-skills.sh"), ("SessionEnd", "session-push.sh")):
+for event, script in (("SessionStart", "session-pull.sh"), ("SessionEnd", "session-push.sh")):
     cmd = 'bash "$CLAUDE_PROJECT_DIR/Skills/onboarding/setup/scripts/%s"' % script
     entries = hooks.setdefault(event, [])
     existing = [h.get("command") for e in entries for h in e.get("hooks", [])]
@@ -95,6 +95,8 @@ json.dump(data, open(path, "w"), indent=2, ensure_ascii=False)
 print("      hooks pull/push branches")
 EOP
 echo "[3/5] hooks configures"
+# Raccourci des skills (une fois, pas un hook) : ~/.claude/skills et ~/.agents/skills → Skills/
+CLAUDE_PROJECT_DIR="$VAULT_DIR" bash "$KIT_DIR/scripts/link-skills.sh"
 
 # ------------------------------------------------------ 4. Routine du soir (launchd)
 TASK_DIR="$HOME/.claude/scheduled-tasks/daily-recap-$SLUG"

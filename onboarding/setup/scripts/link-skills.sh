@@ -1,33 +1,26 @@
 #!/bin/bash
-# Rend les skills du cerveau visibles pour CHAQUE outil, sans rien mettre dans le cerveau lui-même.
-# Les skills vivent dans "Skills/<skill>/" (racine du cerveau) et "1 Terrains/<Terrain>/Skills/<skill>/" :
-# c'est le format portable (un dossier par skill, un SKILL.md dedans). Chaque outil cherche les skills
-# à une adresse fixe dans le dossier personnel de l'utilisateur, et suit les raccourcis :
-#   Claude Code : ~/.claude/skills/      Codex : ~/.agents/skills/
-# Le script pose un raccourci par skill à chaque adresse. Lancé au SessionStart (hook) ; relançable à la main.
-# Ne touche qu'aux raccourcis qui pointent vers CE cerveau : les autres skills de l'utilisateur restent intacts.
-ROOT="${CLAUDE_PROJECT_DIR:-$(pwd)}"
-ROOT="$(cd "$ROOT" && pwd -P)"
-[ -d "$ROOT/Skills" ] || [ -d "$ROOT/1 Terrains" ] || exit 0   # pas un cerveau : rien à faire
-DESTS="$HOME/.claude/skills $HOME/.agents/skills"
-
-collect() {
-  [ -d "$ROOT/Skills" ] && find "$ROOT/Skills" -mindepth 1 -maxdepth 1 -type d
-  [ -d "$ROOT/1 Terrains" ] && find "$ROOT/1 Terrains" -mindepth 3 -maxdepth 3 -path "*/Skills/*" -type d
-}
-for DEST in $DESTS; do
-  mkdir -p "$DEST"
-  # 1. purge des raccourcis qui pointaient vers ce cerveau (skill renommé ou supprimé)
-  for l in "$DEST"/*; do
-    [ -L "$l" ] || continue
-    t="$(cd "$(dirname "$l")" 2>/dev/null && cd "$(readlink "$l")" 2>/dev/null && pwd -P)" || { rm -f "$l"; continue; }
-    case "$t" in "$ROOT"/*) rm -f "$l";; esac
-  done
-  # 2. un raccourci par skill
-  collect | while IFS= read -r skill; do
-    name="$(basename "$skill")"
-    if [ -e "$DEST/$name" ]; then echo "skill déjà présent dans $DEST, non remplacé : $name" >&2; continue; fi
-    ln -s "$skill" "$DEST/$name"
-  done
+# Rend les skills visibles pour Claude Code et Codex, une fois pour toutes, sans rien mettre dans le cerveau.
+#   ~/.claude/skills  (Claude Code)  et  ~/.agents/skills  (Codex)  →  raccourci vers le dossier Skills/ visible.
+# Cas simple (un seul Skills/, à la racine du dossier ouvert) : UN raccourci sur le dossier entier. Un skill ajouté
+# ou supprimé dans Skills/ est vu immédiatement, plus rien à relancer.
+# Cas avancé (plusieurs Skills/ : racine + 1 Terrains/<X>/Skills/) : un raccourci par skill, relancer après un ajout.
+# Si l'utilisateur a déjà de vrais skills à cette adresse, on ne les touche pas : raccourcis par skill à côté.
+ROOT="${CLAUDE_PROJECT_DIR:-$(pwd)}"; ROOT="$(cd "$ROOT" && pwd -P)"
+DIRS=()
+[ -d "$ROOT/Skills" ] && DIRS+=("$ROOT/Skills")
+for d in "$ROOT"/1\ Terrains/*/Skills; do [ -d "$d" ] && DIRS+=("$d"); done
+[ ${#DIRS[@]} -gt 0 ] || { echo "aucun dossier Skills/ dans $ROOT : rien à faire"; exit 0; }
+for DEST in "$HOME/.claude/skills" "$HOME/.agents/skills"; do
+  mkdir -p "$(dirname "$DEST")"
+  mine=0; if [ -L "$DEST" ]; then case "$(cd "$DEST" 2>/dev/null && pwd -P)" in "$ROOT"/*) mine=1;; esac; fi
+  if [ ${#DIRS[@]} -eq 1 ] && { [ $mine -eq 1 ] || [ ! -e "$DEST" ] || [ -z "$(ls -A "$DEST" 2>/dev/null)" ]; }; then
+    [ -d "$DEST" ] && [ ! -L "$DEST" ] && rmdir "$DEST"
+    ln -sfn "${DIRS[0]}" "$DEST"; echo "$DEST → ${DIRS[0]}"
+  else
+    [ $mine -eq 1 ] && rm -f "$DEST"; mkdir -p "$DEST"
+    for l in "$DEST"/*; do [ -L "$l" ] && case "$(cd "$l" 2>/dev/null && pwd -P)" in "$ROOT"/*|"") rm -f "$l";; esac; done
+    for d in "${DIRS[@]}"; do for s in "$d"/*/; do n="$(basename "$s")"; [ -e "$DEST/$n" ] && { echo "déjà présent, non remplacé : $n" >&2; continue; }; ln -s "${s%/}" "$DEST/$n"; done; done
+    echo "$DEST : un raccourci par skill (${#DIRS[@]} dossiers Skills/)"
+  fi
 done
 exit 0
