@@ -15,15 +15,17 @@ Ce dossier contient les six skills qui installent et font vivre un second cervea
 
 1. Crée un dossier vide sur ton ordinateur, là où tu veux ton cerveau (par exemple `Documents/Mon cerveau`). Si tu as déjà un dossier avec des notes ou un ancien contexte, utilise celui-là.
 2. Ouvre Claude Code dans ce dossier.
-3. Colle cette phrase :
+3. Colle cette phrase (Claude fait tout : il télécharge, range les skills dans un dossier `Skills/` visible, et les relie) :
 
-> Installe les skills de https://github.com/cblain100-prog/second-cerveau-skills dans ce dossier : télécharge le dépôt, copie ses six dossiers de skills (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me) dans `.claude/skills/` ici, vérifie qu'ils y sont, puis dis-moi quoi faire ensuite.
+> Installe les skills de https://github.com/cblain100-prog/second-cerveau-skills dans ce dossier : télécharge le dépôt, copie ses six dossiers de skills (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me) dans un dossier `Skills/` ici (visible, pas caché), puis lance `bash Skills/onboarding/setup/scripts/link-skills.sh` pour que Claude Code les voie, vérifie que les six sont bien là, et dis-moi quoi faire ensuite.
 
 4. Claude installe, puis te dit de le relancer. Tu relances Claude Code dans le même dossier et tu tapes `/onboarding`.
 
 Tu n'as pas à choisir entre `/onboarding` et `/onboarding-migrate` : si ton dossier contient déjà des notes ou un ancien contexte, `/onboarding` le voit et te propose de basculer sur la version qui reprend l'existant.
 
-Si tu préfères faire à la main : télécharge `pack-second-cerveau.zip` sur la page du dépôt, décompresse, et copie les six dossiers qui sont dans `skills/` vers un dossier `.claude/skills/` à l'intérieur de ton dossier cerveau.
+Si tu préfères faire à la main : télécharge `pack-second-cerveau.zip` sur la page du dépôt, décompresse, et copie les six dossiers qui sont dans `skills/` vers un dossier `Skills/` à l'intérieur de ton dossier cerveau. Puis ouvre Claude Code dans ce dossier et dis « lance Skills/onboarding/setup/scripts/link-skills.sh ».
+
+Pourquoi `Skills/` et pas un dossier caché : tes outils doivent être visibles dans le Finder et dans Obsidian, comme le reste de ton cerveau. Claude Code, lui, lit un dossier caché `.claude/skills/` : le petit script y pose des liens vers `Skills/`, c'est tout.
 
 ## Ce que ces skills ne contiennent pas
 

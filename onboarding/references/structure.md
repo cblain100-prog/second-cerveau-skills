@@ -21,7 +21,7 @@ Règles de génération, valables pour tous les gabarits :
 ├── AGENTS.md                          SEUL fichier lu automatiquement : qui est la personne, ses règles, sa mémoire, la carte, le routing
 ├── 0 Inbox/                           dépôt brut, trié par /tri-inbox
 ├── Journal/                           une note par jour (personnel, jamais partagé)
-├── Skills/                            les skills perso et génériques du pack (save, tri-inbox, grill-me, onboarding…), visibles
+├── Skills/                            les skills du pack (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me), VISIBLES ; jamais de vrai skill dans .claude/
 ├── 1 Terrains/
 │   ├── <Business>/                    LE terrain business, celui qui se partage le jour où il y a une équipe
 │   │   ├── AGENTS.md                  mode d'emploi du terrain (racine des employés)
@@ -48,7 +48,7 @@ Règles de génération, valables pour tous les gabarits :
 │   ├── Admin/                         terrain de vie : _context.md (légal, banque, logement, charges, assurances) + Docs/ (pièces)
 │   └── Santé/                         optionnel : _context.md (sommeil, sport, dossier médical) + Docs/
 ├── 2 Archives/                        ce qui est mort, en bloc
-├── .claude/                           plomberie : settings.json (mémoire auto désactivée, hooks), scripts/, skills/ (liens, régénérés)
+├── .claude/                           plomberie invisible : settings.json (mémoire auto désactivée, hooks), scripts/, skills/ (que des liens vers Skills/, régénérés à chaque session)
 ├── .env                               clés API locales, jamais partagé
 └── .gitignore
 ```
