@@ -21,7 +21,7 @@ Règles de génération, valables pour tous les gabarits :
 ├── AGENTS.md                          SEUL fichier lu automatiquement : qui est la personne, ses règles, sa mémoire, la carte, le routing
 ├── 0 Inbox/                           dépôt brut, trié par /tri-inbox
 ├── Journal/                           une note par jour (personnel, jamais partagé)
-├── Skills/                            les skills du pack (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me, partager), VISIBLES ; jamais de vrai skill dans .claude/
+├── Skills/                            les skills du pack (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me, partager, nouveau-skill), VISIBLES ; jamais de vrai skill dans .claude/
 ├── 1 Terrains/
 │   ├── <Business>/                    LE terrain business, celui qui se partage le jour où il y a une équipe
 │   │   ├── AGENTS.md                  mode d'emploi du terrain (racine des employés)
@@ -207,7 +207,7 @@ Le skill `/save` lit cette carte avant de ranger. Quand la structure évolue, me
 - `/tri-inbox` : vide `0 Inbox/` vers les terrains.
 - `/grill-me` : Claude interroge la personne pour sortir ce qu'elle sait sur un sujet et l'écrire en note rangée.
 - `/partager` : donne le terrain business à quelqu'un de l'équipe via Google Drive : contrôles, droits dans l'ordre, message à envoyer, test.
-- Créer un skill : « crée un skill qui fait … » ; business → `1 Terrains/<Business>/Skills/`, perso → `Skills/`. La liste : `/skills`.
+- `/nouveau-skill` : transforme une tâche répétée en process (en mots) puis en skill, au bon endroit (business → `1 Terrains/<Business>/Skills/`, perso → `Skills/`), testé sur un cas réel. La liste des skills : `/skills`.
 ```
 
 ---

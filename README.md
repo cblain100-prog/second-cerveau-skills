@@ -1,6 +1,6 @@
-# Pack second cerveau : les 7 skills
+# Pack second cerveau : les 8 skills
 
-Ce dossier contient les sept skills qui installent et font vivre un second cerveau avec Claude Code, selon la méthode des Terrains.
+Ce dossier contient les huit skills qui installent et font vivre un second cerveau avec Claude Code, selon la méthode des Terrains.
 
 | Skill | Ce qu'il fait | Tu le lances quand |
 |---|---|---|
@@ -11,6 +11,7 @@ Ce dossier contient les sept skills qui installent et font vivre un second cerve
 | `tri-inbox` | Vide le dossier « 0 Inbox » : chaque fichier déposé part au bon endroit. | Quand l'inbox déborde. Tape `/tri-inbox`. |
 | `grill-me` | Claude te pose des questions, une par une, pour sortir ce que tu sais sur un sujet et l'écrire proprement. | « grille-moi sur … ». |
 | `partager` | Donne ton dossier business à quelqu'un de ton équipe par Google Drive : vérifications, droits dans le bon ordre, message à lui envoyer, test. | « partage mon business avec … », `/partager`. |
+| `nouveau-skill` | Transforme une tâche que tu fais à la main en skill : Claude t'interroge, écrit ta façon de faire, puis l'outil, et l'essaie sur un vrai cas. | « crée un skill qui … », `/nouveau-skill`. |
 
 ## Installation : une phrase à coller
 
@@ -18,13 +19,13 @@ Ce dossier contient les sept skills qui installent et font vivre un second cerve
 2. Ouvre Claude Code dans ce dossier.
 3. Colle cette phrase (Claude fait tout : il télécharge, range les skills dans un dossier `Skills/` visible, et les relie) :
 
-> Installe les skills de https://github.com/cblain100-prog/second-cerveau-skills dans ce dossier : télécharge le dépôt, copie ses sept dossiers de skills (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me, partager) dans un dossier `Skills/` ici (visible, pas caché), puis lance une fois `bash Skills/onboarding/setup/scripts/link-skills.sh` pour que Claude Code et Codex sachent où ils sont, vérifie que les sept sont bien là, et dis-moi quoi faire ensuite.
+> Installe les skills de https://github.com/cblain100-prog/second-cerveau-skills dans ce dossier : télécharge le dépôt, copie ses huit dossiers de skills (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me, partager, nouveau-skill) dans un dossier `Skills/` ici (visible, pas caché), puis lance une fois `bash Skills/onboarding/setup/scripts/link-skills.sh` pour que Claude Code et Codex sachent où ils sont, vérifie que les huit sont bien là, et dis-moi quoi faire ensuite.
 
 4. Claude installe, puis te dit de le relancer. Tu relances Claude Code dans le même dossier et tu tapes `/onboarding`.
 
 Tu n'as pas à choisir entre `/onboarding` et `/onboarding-migrate` : si ton dossier contient déjà des notes ou un ancien contexte, `/onboarding` le voit et te propose de basculer sur la version qui reprend l'existant.
 
-Si tu préfères faire à la main : télécharge `pack-second-cerveau.zip` sur la page du dépôt, décompresse, et copie les sept dossiers qui sont dans `skills/` vers un dossier `Skills/` à l'intérieur de ton dossier cerveau. Puis ouvre Claude Code dans ce dossier et dis « lance Skills/onboarding/setup/scripts/link-skills.sh ».
+Si tu préfères faire à la main : télécharge `pack-second-cerveau.zip` sur la page du dépôt, décompresse, et copie les huit dossiers qui sont dans `skills/` vers un dossier `Skills/` à l'intérieur de ton dossier cerveau. Puis ouvre Claude Code dans ce dossier et dis « lance Skills/onboarding/setup/scripts/link-skills.sh ».
 
 Pourquoi `Skills/` et pas un dossier caché : tes outils doivent être visibles dans le Finder et dans Obsidian, comme le reste de ton cerveau, et **ils t'appartiennent, pas à un outil**. Ton cerveau ne contient aucun dossier caché de skills. Chaque outil (Claude Code, Codex) lit les skills à sa propre adresse cachée dans ton dossier personnel, en dehors du cerveau : le petit script fait de cette adresse un raccourci vers ton `Skills/`, une fois pour toutes, pour les deux outils. Après ça, tu ajoutes ou supprimes un skill dans `Skills/`, et c'est tout : rien à relancer. Le jour où tu changes d'outil, tu n'emportes rien, tout est déjà au bon endroit.
 
