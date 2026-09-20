@@ -1,6 +1,6 @@
 ---
 name: nouveau-skill
-description: Transforme une façon de faire de la personne en skill, toujours de la même manière. Part d'une tâche qu'elle fait à la main (facturer, répondre à un lead, préparer une séance, publier un post), l'interviewe pour sortir les étapes, les règles et les pièges, écrit d'abord le process en mots (Process/<Équipe>/<verbe>.md) puis le skill qui l'exécute (Skills/<nom>/SKILL.md), au bon endroit (business → Skills du terrain, partagé avec l'équipe ; perso → Skills à la racine), le teste sur un cas réel, et vérifie qu'il répond. Utiliser quand l'utilisateur dit "/nouveau-skill", "crée un skill qui…", "fais-en un skill", "automatise ça", "j'aimerais que tu fasses ça à chaque fois pareil", "je fais toujours la même chose quand…".
+description: Transforme une façon de faire en skill, toujours de la même manière, dans deux situations. AU DÉBUT : la personne décrit une tâche qu'elle fait à la main (facturer, répondre à un lead, préparer une séance), Claude l'interviewe, écrit le process en mots puis le skill. À LA FIN D'UNE DISCUSSION : ce qu'on vient de faire ensemble (une proposition, un compte rendu, une relance, avec les corrections de la personne en route) devient un skill, en relisant la conversation plutôt qu'en posant des questions. Dans les deux cas : process dans Process/<Équipe>/<verbe>.md, skill dans Skills/<nom>/SKILL.md au bon endroit (business → Skills du terrain, partagé avec l'équipe ; perso → Skills à la racine), test sur un cas réel. Utiliser quand l'utilisateur dit "/nouveau-skill", "crée un skill qui…", "fais-en un skill", "garde ça comme skill", "la prochaine fois fais pareil", "automatise ça", "je fais toujours la même chose quand…", ou en fin de session après une tâche qu'il voudra refaire.
 ---
 
 # Nouveau skill : d'une tâche répétée à un outil
@@ -8,6 +8,13 @@ description: Transforme une façon de faire de la personne en skill, toujours de
 Un skill, c'est une façon de faire écrite pour que Claude la refasse pareil à chaque fois. Un bon skill vient toujours d'un process : d'abord la façon de faire en mots, lisible par un humain, puis sa version exécutable. Ce skill fait les deux dans l'ordre, et ne dit « prêt » qu'après un test sur un cas réel.
 
 Parler simple : « on écrit comment tu fais », « je le transforme en outil », « on l'essaie ». Pas de « frontmatter », « trigger », « prompt ».
+
+## Deux points de départ, un seul chemin
+
+- **Au début** (« crée un skill qui… », `/nouveau-skill` à froid) : la matière est dans la tête de la personne. On l'interviewe (§ 2), puis process, skill, test.
+- **À la fin d'une discussion** (« fais-en un skill », « garde ça », « la prochaine fois fais pareil », ou proposé par Claude quand une tâche vient d'être faite à la main et qu'elle reviendra) : la matière est **dans la conversation**. On ne repose pas les questions, on relit ce qui vient de se passer (§ 2 bis) et on fait valider en une fois. C'est le meilleur moment : les étapes sont fraîches, et les corrections de la personne en cours de route (« non, plutôt comme ça ») sont les règles du skill.
+
+Quand une session vient de produire quelque chose de répétable (un mail type, une proposition, un compte rendu, une relance, un tri), Claude propose en une phrase, à la fin : « Ça reviendra : on en fait un skill maintenant ? Trois minutes. » Une fois, pas à chaque message.
 
 ## 1. La tâche
 
@@ -29,6 +36,18 @@ Sortir ce que la personne a dans la tête. Dans cet ordre, en creusant une fois 
 8. **Un exemple réel** : un vrai cas récent, avec les vraies données (ou un fichier existant), pour le test de la fin.
 
 Si la personne a déjà un modèle (un mail type, une facture, un compte rendu), le demander et s'en servir : un exemple réel vaut mille descriptions.
+
+## 2 bis. À la fin d'une discussion : relire au lieu de demander
+
+Reconstituer le skill depuis la conversation, puis présenter le tout en un seul récap à valider (pas une question par point) :
+
+1. **Le déclencheur** : ce qui a lancé la tâche (la demande de la personne, un événement).
+2. **Les étapes réellement faites**, dans l'ordre, avec les fichiers lus et écrits (ce sont les chemins du cerveau qui ont servi : les reprendre tels quels).
+3. **Les corrections de la personne** pendant la session : chacune devient une règle du skill (« jamais de tiret dans un mail », « toujours le RIB en pièce jointe », « le prix en toutes lettres »). C'est ce qui rend le skill fidèle.
+4. **Ce qui a été laissé à la personne** (envoi, publication, validation) : ça reste en brouillon dans le skill.
+5. **Le cas réel** : celui qu'on vient de traiter, pour le test (on le refait à blanc dans un fichier temporaire, ou on vérifie que le skill aurait produit la même chose).
+
+Récap type : « Voilà ce que j'ai retenu de ce qu'on vient de faire : quand <déclencheur>, je <étapes en 3 à 6 lignes>, en respectant <règles issues de tes corrections>, et je te laisse <ce qui reste à toi>. Je l'appelle /<nom>, il ira dans <emplacement>. Je corrige quelque chose ? » Une seule validation, puis § 3.
 
 ## 3. D'abord le process, en mots
 
