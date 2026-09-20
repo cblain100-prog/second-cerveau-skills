@@ -73,7 +73,8 @@ echo "[2/5] scripts : $SCRIPTS_REL (aucun script copie dans .claude/)"
 
 # ------------------------------------------------------ 3. Hooks SessionStart / SessionEnd
 SETTINGS="$VAULT_DIR/.claude/settings.json"
-python3 - "$SETTINGS" <<'EOP'
+mkdir -p "$VAULT_DIR/.claude"
+python3 - "$SETTINGS" <<'EOP' || { echo "ECHEC : hooks non ecrits dans $SETTINGS"; exit 1; }
 import json, os, sys
 path = sys.argv[1]
 data = {}
@@ -102,6 +103,7 @@ cp "$KIT_DIR/routine/daily-recap.md" "$TASK_DIR/SKILL.md"
 
 LABEL="com.claude.schedule.daily-recap-$SLUG"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
+mkdir -p "$HOME/Library/LaunchAgents"
 cat > "$PLIST" <<EOPL
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
