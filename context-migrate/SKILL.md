@@ -1,6 +1,6 @@
 ---
 name: context-migrate
-description: "Installe ton contexte Claude Code avec la méthode des Terrains (structure figée le 2026-09-18) dans un dossier qui en contient DÉJÀ une partie (AGENTS.md, memory.md, profil.md, notes, dossiers de projets ou de clients, ancien schéma profil/memory/2 Ressources/3 Archives). Explore l'existant en silence, en déduit ce qui est déjà su, ne pose que les questions qui manquent (avec le même deep-dive métier que /create-context), puis range chaque information au bon endroit de la structure cible (AGENTS.md unique, terrain business avec Clients/ Process/<Équipe>/ Outils/ Docs/ en sous-dossiers, terrains de vie Perso/Admin/Santé) sans rien perdre : l'ancien contexte est archivé, jamais supprimé. Utiliser quand l'utilisateur dit \"/context-migrate\", \"migre mon contexte\", \"j'ai déjà un AGENTS.md\", \"reprends mon contexte existant\", \"mets mon contexte à la nouvelle structure\", \"range ce que j'ai déjà dans la structure\", ou quand /create-context découvre un dossier déjà rempli (ancien nom : /onboarding-migrate)."
+description: "Installe ton contexte Claude Code avec la méthode des Terrains dans un dossier qui en contient DÉJÀ une partie (AGENTS.md, memory.md, profil.md, notes, dossiers de clients, ancien schéma). Explore l'existant en silence, récupère aussi ce que ChatGPT ou Claude savent déjà (textes à copier-coller pour leur mémoire et chaque projet), ne pose que les questions qui manquent, puis range chaque information dans la structure cible (AGENTS.md unique, terrain business, terrains de vie) sans rien perdre : l'ancien contexte est archivé, jamais supprimé. Utiliser quand l'utilisateur dit \"/context-migrate\", \"migre mon contexte\", \"j'ai déjà un AGENTS.md\", \"reprends mon contexte existant\", \"mets mon contexte à la nouvelle structure\", ou quand /create-context découvre un dossier déjà rempli (ancien nom : /onboarding-migrate)."
 ---
 
 # Context migrate : absorber un contexte existant, puis structurer en Terrains
@@ -57,6 +57,12 @@ la structure. Rien n'est supprimé : tes anciens fichiers seront
 archivés tels quels dans « 2 Archives/contexte-pre-migration-[date] »,
 au cas où.
 ```
+
+---
+
+## Phase 0.3 : ce que ChatGPT et Claude savent déjà
+
+Comme `/create-context` : suis `../create-context/references/import-ia.md` (la question, les textes à copier-coller pour la mémoire et pour chaque projet, le rangement des réponses). Chaque réponse collée est une source de plus dans la carte de couverture de la Phase -1. Si un fichier du dossier et l'import se contredisent, demande lequel est vrai, ne choisis pas seul. « non » → Phase 0.5.
 
 ---
 
@@ -158,7 +164,7 @@ Suis `../create-context/references/structure.md` pour tout ce qui est créé. Ce
 
 ### 3.3 Le reste
 
-Steps 3 à 9 de `/create-context` (structure.md § 3 à § 7), en écrivant les nouveaux fichiers **à partir de l'existant plus l'interview**, sans placeholder. Les contrôles de fin (§ 7) sont obligatoires, plus un septième :
+Steps 3 à 10 de la Phase 3 de `/create-context` (structure.md § 3 à § 7, et l'import ChatGPT / Claude s'il a eu lieu), en écrivant les nouveaux fichiers **à partir de l'existant plus l'interview**, sans placeholder. Les contrôles de fin (§ 7) sont obligatoires, plus un septième :
 
 ```bash
 # 7. plus aucune trace de l'ancien schéma hors archive

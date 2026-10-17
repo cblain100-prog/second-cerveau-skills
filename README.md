@@ -4,7 +4,7 @@ Ce dossier contient les huit skills qui installent et font vivre ton contexte av
 
 | Skill | Ce qu'il fait | Tu le lances quand |
 |---|---|---|
-| `create-context` | Installe ton contexte de zéro : une interview adaptée à ton métier, puis la création de tout le dossier, puis l'explication. | Dossier vide, première fois. Tape `/create-context`. |
+| `create-context` | Installe ton contexte de zéro : il récupère d'abord ce que ChatGPT ou Claude savent déjà de toi (mémoire, projets), puis une interview adaptée à ton métier qui ne te repose pas ces questions, la création de tout le dossier, et l'explication. | Dossier vide, première fois. Tape `/create-context`. |
 | `context-migrate` | Pareil, mais reprend ce que tu as déjà (notes, un ancien AGENTS.md, des dossiers de clients) sans rien perdre. | Dossier déjà rempli. Tape `/context-migrate`. |
 | `create-app` | Cadre ton projet (qui l'utilise, quelles données), pose la bonne stack Supabase/Vercel/sécurité, crée ou reprend une application : le code va dans le dossier Apps à côté de ton dossier de contexte, la fiche reste dans le contexte. | « crée-moi une app… », « bosse sur l'app… ». |
 | `save` | Range ce qui mérite d'être gardé à la fin d'une session. | Avant de fermer. Tape `/save`. |
