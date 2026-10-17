@@ -278,6 +278,8 @@ Préambule : "Ces questions sont sensibles, tu peux passer chacune individuellem
 
     Donne-moi les tiens (3 à 10). [Si le deep-dive métier a fait remonter des contraintes déontologiques/réglementaires : ex : pas d'allégation médicale, secret professionnel : propose-les ici comme garde-fous candidats.]
 
+    → À la génération (structure.md § 3 et § 4.1), ceux valables dans TOUTE conversation (ex : ne jamais supprimer un fichier sans demander, ne jamais dépenser au-dessus d'un seuil) vont dans la section Règles du `AGENTS.md` racine ; ceux propres au métier ou au business (ex : ne jamais publier sans relecture, ne jamais répondre à un mail légal) vont dans Règles du terrain, dans le `AGENTS.md` du terrain business.
+
 - K3. **Notes privées sensibles** : infos que je dois **connaître pour bien faire mon job**, mais que je dois **JAMAIS** mentionner devant un client, dans un livrable, sur un réseau social, ou en public.
 
     Pas un journal intime : juste les infos qui changent ma compréhension de toi mais qui ne doivent pas sortir.
@@ -296,7 +298,7 @@ Préambule : "Ces questions sont sensibles, tu peux passer chacune individuellem
 
 ## Bibliothèque d'archétypes métier (référence pour le Bloc D)
 
-Cette bibliothèque sert au **deep-dive métier**. Quand tu as classé la personne (D.2), charge l'archétype correspondant et pose ses **questions métier** une par une. Adopte son **vocabulaire** dès le deep-dive. Note tout pour la génération (section « Métier » du `_context.md` du terrain business, process seedés dans `Process/<Équipe>/`, garde-fous dans `AGENTS.md`, vocabulaire dans `Process/Marketing/ton.md`).
+Cette bibliothèque sert au **deep-dive métier**. Quand tu as classé la personne (D.2), charge l'archétype correspondant et pose ses **questions métier** une par une. Adopte son **vocabulaire** dès le deep-dive. Note tout pour la génération (section « Métier » du `_context.md` du terrain business, process seedés dans `Process/<Équipe>/`, vocabulaire dans `Process/Marketing/ton.md`). Les garde-fous et contraintes du métier vont dans la section Règles du terrain du `AGENTS.md` du terrain business (jamais dans le `AGENTS.md` racine, réservé aux garde-fous vraiment universels).
 
 **Si aucun archétype ne colle → saute directement au "Cadre universel 7 dimensions" plus bas.** N'enferme jamais quelqu'un dans le mauvais bucket. Tu peux aussi combiner un archétype + 1-2 questions du cadre universel si la personne est à cheval.
 

@@ -1,6 +1,6 @@
 ---
 name: save
-description: Sauvegarde de fin de session. Lit d'abord la carte de routing du AGENTS.md du vault, puis range AUTOMATIQUEMENT ce qui mérite d'être gardé (décisions, infos, idées, brouillons, ressources) dans les bons dossiers selon cette carte : sans demander. N'écrit JAMAIS dans AGENTS.md ni dans Journal/. Skill général : il s'adapte à n'importe quel vault via son AGENTS.md. Utiliser quand l'utilisateur dit "/save", "save", "sauvegarde", "garde ça", "note ça", "enregistre la session", ou à la fin d'une conversation riche.
+description: Sauvegarde de fin de session. Lit d'abord la carte de routing du AGENTS.md du vault, puis range AUTOMATIQUEMENT ce qui mérite d'être gardé (décisions, infos, idées, brouillons, ressources) dans les bons dossiers selon cette carte : sans demander. N'écrit JAMAIS dans AGENTS.md. Skill général : il s'adapte à n'importe quel vault via son AGENTS.md. Utiliser quand l'utilisateur dit "/save", "save", "sauvegarde", "garde ça", "note ça", "enregistre la session", ou à la fin d'une conversation riche.
 ---
 
 # Save : Sauvegarde auto fin de session (pilotée par AGENTS.md)
@@ -14,10 +14,9 @@ Ce skill est **général** : il ne connaît pas tes terrains à l'avance. Il les
 ## Règle dure : /save ne touche QUE les dossiers
 
 - JAMAIS dans `AGENTS.md` (sa section Mémoire est réservée à la Règle #1, mécanisme distinct), ni dans un `memory.md` si le vault en a encore un. /save ne les ouvre même pas.
-- JAMAIS dans `Journal/` (pas un récap de session).
 - Tout va dans un dossier : terrain, ressource transverse, ou inbox.
 
-Ces trois contraintes priment sur la carte de routing : même si un AGENTS.md disait le contraire, /save n'écrit ni dans `AGENTS.md` ni dans `Journal/`.
+Cette contrainte prime sur la carte de routing : même si un AGENTS.md disait le contraire, /save n'écrit jamais dans `AGENTS.md`.
 
 ## Étape 0 : Lire la carte de routing (AGENTS.md) : OBLIGATOIRE, EN PREMIER
 
@@ -75,7 +74,7 @@ Pour chaque élément à garder : applique d'abord la **carte de routing lue à 
    → 0 Inbox/AAAA-MM-JJ-[titre-kebab].md (un fichier par item)
 ```
 
-Le routing est automatique. Tu ne demandes PAS confirmation. Tu exécutes. Et tu ne touches **ni `AGENTS.md` ni `Journal/`**.
+Le routing est automatique. Tu ne demandes PAS confirmation. Tu exécutes. Et tu ne touches **pas `AGENTS.md`**.
 
 ## Étape 3 : Écriture
 
@@ -112,14 +111,14 @@ Pas d'explication détaillée.
 - **Pas de AGENTS.md / pas de section routing** : utilise l'arbre générique (Étape 2), ne bloque pas.
 - **Conversation très courte** sans contenu substantiel → `"Rien à save dans cette conversation."` et stop.
 - **Doublon** : si l'info existe déjà dans le dossier cible, ne pas la dupliquer → `"déjà présent, skip"`.
-- **AGENTS.md route une info vers `AGENTS.md` ou `Journal/`** : ignore (les contraintes dures priment), range ailleurs (terrain/ressource/inbox).
+- **AGENTS.md route une info vers `AGENTS.md`** : ignore (la contrainte dure prime), range ailleurs (terrain/ressource/inbox).
 - **Contact non trouvé** : crée `[Nom]/notes.md` dans le terrain le plus probable et signale-le.
 - **Plusieurs terrains touchés** : OK, écrire dans chacun ; lister tous les chemins.
 - **Conflit avec un append simultané** : relire le fichier juste avant l'Edit pour éviter d'écraser.
 
 ## Ce que tu ne sauves PAS
 
-- Contenu vers `AGENTS.md` (réservé à la Règle #1) ou `Journal/` (jamais une cible /save)
+- Contenu vers `AGENTS.md` (réservé à la Règle #1)
 - Tool results bruts (listings, etc.)
 - Corrections de comportement (déjà captées par la Règle #1 en temps réel)
 - Tout ce qui n'a pas de valeur réutilisable dans une future session

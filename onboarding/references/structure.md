@@ -20,7 +20,6 @@ Règles de génération, valables pour tous les gabarits :
 <dossier ouvert>/                     le second cerveau, le dossier ouvert lui-même (pas de sous-dossier Brain/)
 ├── AGENTS.md                          SEUL fichier lu automatiquement : qui est la personne, ses règles, sa mémoire, la carte, le routing
 ├── 0 Inbox/                           dépôt brut, trié par /tri-inbox
-├── Journal/                           une note par jour (personnel, jamais partagé)
 ├── Skills/                            les skills du pack (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me, partager, nouveau-skill), VISIBLES ; jamais de vrai skill dans .claude/
 ├── 1 Terrains/
 │   ├── <Business>/                    LE terrain business, celui qui se partage le jour où il y a une équipe
@@ -55,15 +54,15 @@ Règles de génération, valables pour tous les gabarits :
 └── .gitignore
 ```
 
-Ce qui n'existe plus par rapport à l'ancien schéma (2026-09-18) : `profil.md` et `memory.md` (fusionnés dans `AGENTS.md` et dans les `_context.md` de Perso et Admin), `2 Ressources/` (une ressource vit dans le terrain qui s'en sert), `3 Archives/` (devient `2 Archives/`), `branding.md` (devient `Docs/charte/charte-<marque>.md`), `Contenu/` et `Personal Brand` (c'est `Process/Marketing/` + `Docs/marketing/`), `ressources/` dans chaque terrain (c'est `Docs/`).
+Ce qui n'existe plus par rapport à l'ancien schéma (2026-09-18) : `profil.md` et `memory.md` (fusionnés dans `AGENTS.md` et dans les `_context.md` de Perso et Admin), `2 Ressources/` (une ressource vit dans le terrain qui s'en sert), `3 Archives/` (devient `2 Archives/`), `branding.md` (devient `Docs/charte/charte-<marque>.md`), `Contenu/` et `Personal Brand` (c'est `Process/Marketing/` + `Docs/marketing/`), `ressources/` dans chaque terrain (c'est `Docs/`). Depuis le 2026-09-21 : plus de `Journal/` (une note déjà datée en frontmatter rend un journal séparé redondant ; tout va direct dans le terrain concerné).
 
 ---
 
 ## 2. Commandes de création
 
 ```bash
-mkdir -p "0 Inbox" Journal Skills "2 Archives" .claude
-mkdir -p "$(dirname "$(pwd)")/Apps"     # le dossier jumeau du cerveau, À CÔTÉ de lui (même dossier parent) : le code, jamais dans Drive (règle Apps, skill /app)
+mkdir -p "0 Inbox" Skills "2 Archives" .claude
+mkdir -p "$(dirname "$(pwd)")/Apps"     # le dossier jumeau du cerveau, À CÔTÉ de lui (même dossier parent) : le code, jamais dans Drive (règle Apps, skill /create-app)
 B="1 Terrains/<Business>"
 mkdir -p "$B/Clients" "$B/Process/Marketing" "$B/Outils" "$B/Docs/charte" "$B/Docs/offre" "$B/Docs/templates"
 # une équipe par process seedé : Sales, Ops, Finance, Support, RH, seulement celles qui reçoivent un fichier
@@ -103,112 +102,93 @@ __pycache__/
 
 ## 3. `AGENTS.md` racine (le seul fichier auto-chargé)
 
-Moins de 200 lignes. Il contient tout ce qui doit être vrai dans toute conversation ; le détail vit dans les terrains.
+**Ce fichier reste petit indéfiniment.** Cible 70 à 100 lignes, jamais plus. Il contient uniquement : une présentation courte, une arborescence courte (les dossiers racine, une ligne par terrain, jamais le détail des sous-dossiers), les 3 règles absolues, une poignée de règles universelles compactes (celles qui sont vraies dans TOUTE conversation, quel que soit le métier), et un routing d'une ligne par terrain vers le point d'entrée de CE terrain. **Tout ce qui grandit avec l'usage (routing métier détaillé, doctrine du domaine, corrections spécifiques à un sujet) vit dans le terrain business (§ 4.1, section Routing détaillé), jamais ici.** C'est ce terrain qui absorbe la croissance ; la racine ne bouge presque plus après le setup.
 
 ```markdown
 # <Prénom> : second cerveau
 
-Tu l'ouvres en lançant `claude` depuis ce dossier. Ce fichier est le seul lu automatiquement : il dit qui est <Prénom>, ses règles, sa mémoire, et où vit chaque chose. Tout le reste se lit à la demande.
+Tu l'ouvres en lançant `claude` depuis ce dossier. Ce fichier est le seul lu automatiquement : il dit qui est <Prénom>, ses règles, et où vit chaque chose. Tout le reste se lit à la demande, dans les terrains.
 
 ## Qui est <Prénom> (résumé)
 
 - <Âge>, <Ville>, valeur non-négociable : <valeur racine>.
-- <Activité principale en une phrase>. Métier : <archétype ou sur-mesure>, parle sa langue (vocabulaire dans `1 Terrains/<Business>/Process/Marketing/ton.md`).
-- [SI entrepreneur] Marque : <Marque>. Offre principale : <offre + prix>. Client idéal : <une ligne>.
-- [SI entrepreneur] Émetteur des factures : <nom légal>, <qualité>, SIRET <n°>, <mention TVA>, <email>. Détail → `1 Terrains/Admin/_context.md`.
-- Semaine type : <une ligne>. Créneaux protégés : <liste courte>.
-- <Langue> / <tutoiement ou vouvoiement> / <direct ou bienveillant> / <bullets ou paragraphes> / emoji <on ou off>.
+- <Activité principale en une phrase>. [SI entrepreneur] Sous la marque <Marque>.
+- Identité complète, agenda, légal → `_context.md` du terrain concerné (`1 Terrains/Perso/`, `1 Terrains/Admin/`).
 
-## SessionStart
-
-Ce fichier suffit pour démarrer. Selon la tâche, lire ensuite : `1 Terrains/<Business>/_context.md` (le business), `1 Terrains/<Business>/Clients/etat-pipeline.md` (où on en est), `1 Terrains/Perso/_context.md` (la personne en détail), `1 Terrains/Admin/_context.md` (légal, banque).
-
-## Règle #1 : une correction modifie la source, ne s'empile pas
-
-Toute correction de <Prénom> (négation, « en fait », « plutôt », « je préfère », reproche, préférence) est bloquante : la traiter avant de continuer.
-1. L'appliquer dans la réponse en cours.
-2. La router vers sa source de vérité : universelle (vaut partout) → ce fichier, section Mémoire ; propre à un domaine → le fichier du terrain (ton → `Process/Marketing/ton.md`, facturation → `Process/Finance/facturer.md`, info client → `Clients/<slug>/`, outil → `Outils/outils.md`).
-3. Upsert : info nouvelle → ajouter ; info qui contredit l'existant → modifier la ligne, jamais deux versions côte à côte.
-4. Confirmer : `✓ noté dans AGENTS.md` ou `✓ <fichier> mis à jour`.
-
-## Règle #2 : tout asset entrant devient une note reliée
-
-Quand <Prénom> donne un fichier, un lien ou lâche une idée réutilisable : extraire l'essentiel avec tes mots, une note = une idée, titre descriptif, frontmatter `date` et `source`, rangée via la carte de routing, reliée par 3 à 5 `[[wikilinks]]` aux notes voisines (grep le vault). Si ça venait de `0 Inbox/`, sortir l'original. Confirmer : `✓ capturé dans <chemin>, relié à [[X]], [[Y]]`. Ce qui n'a pas de valeur réutilisable (filler, code) ne devient pas une note.
-
-## Règle #3 : fix de bon sens automatique
-
-Problème évident et bas risque croisé en route (typo, chemin cassé, incohérence) : corriger sans demander, le dire dans le récap. La question reste pour les vraies décisions et les actions irréversibles ou tournées vers l'extérieur.
-
-## Mémoire
-
-Règles universelles, vraies dans toute conversation. Reçoit les corrections de la Règle #1 (upsert, jamais empiler).
-
-### Règles de travail
-- Jamais de tiret cadratin « — » ni de demi-cadratin « – », ni de tiret en incise « mot - mot » : virgule, deux-points, point ou parenthèses.
-- Exécuter d'abord : jamais de confirmation avant une action demandée. Confirmation uniquement pour l'irréversible non demandé.
-- Vérifier avant de dire « fait » : un résultat contrôlé, pas une commande exécutée.
-- Bugs : cause racine, pas de rustine.
-- Apps : deux dossiers côte à côte, ce cerveau (<chemin réel du cerveau, écrit à la génération>) et `<chemin réel du parent>/Apps/` (le code). Quand je crée ou reprends une app, le code va dans `Apps/<app>/` (Git et sauvegarde en ligne gérés par moi) et j'écris sa fiche `<app>.md` dans le cerveau, à l'endroit demandé (`code:`, rôle, URL, lancement, décisions). « Bosse sur l'app X » : je lis la fiche et je vais dans le code. Jamais de `node_modules` ni de `.env` dans le cerveau. Je n'en parle pas, je le fais.
-
-### Communication
-- Parler simple, toujours : des mots de tous les jours, un exemple concret avant l'idée, des phrases courtes. Un mot technique se dit une fois avec sa traduction entre parenthèses, puis on garde la traduction. Jamais de commande ni de chemin technique sans dire d'abord à quoi ça sert. Avant d'envoyer, relire : si un ami non technicien ne comprend pas la phrase, la réécrire.
-- <Ce que les autres assistants font qui l'énerve (F6), formulé en règle>.
-- <Ce qu'il adore (F7), formulé en règle>.
-- Expliquer tout acronyme à la première mention.
-- Fin de tâche avec un livrable qui a une URL : redonner le lien.
-
-### Garde-fous (ne jamais faire sans <Prénom>)
-- <K2, une ligne par garde-fou, y compris ceux déduits de la déontologie du métier>
-
-### Leçons récentes (< 30 jours, fenêtre glissante)
-(vide au setup ; quand une leçon a plus de 30 jours, Claude la déplace lui-même vers `2 Archives/lessons-archive.md`)
-
-## Structure : la méthode des Terrains
-
-Un seul concept : un terrain, c'est un domaine où <Prénom> opère. Chaque terrain a un `_context.md` (ce qui y est vrai, l'état du moment) et un `Docs/` (la matière). Le terrain business ajoute `Clients/`, `Process/` (un sous-dossier par équipe), `Equipe/`, `Outils/`, `Skills/`, `Apps/` et son propre `AGENTS.md` : c'est lui qui se partage via Google Drive le jour où quelqu'un rejoint l'équipe. Aucun fichier seul à la racine d'un terrain ; `Docs/` n'a que des sous-dossiers par type.
+## Structure du vault
 
 ```
 <dossier>/
-├── AGENTS.md               ce fichier
-├── 0 Inbox/                dépôt brut, trié par /tri-inbox
-├── Journal/                une note par jour
-├── Skills/                 skills perso et génériques (save, tri-inbox, grill-me, onboarding…)
-├── 1 Terrains/
-│   ├── <Business>/         AGENTS.md, _context.md, Clients/, Process/<Équipe>/, [Equipe/], Outils/, [Skills/], [Apps/], Docs/
-│   ├── Perso/              _context.md + Docs/
-│   ├── Admin/              _context.md + Docs/
-│   [└── Santé/             _context.md + Docs/]
-└── 2 Archives/             ce qui est mort
+├── AGENTS.md              ce fichier, seul auto-chargé
+├── 0 Inbox/                dépôt brut, vidé par /tri-inbox
+├── Skills/                 les outils que <Prénom> te donne (save, tri-inbox, grill-me…)
+├── 1 Terrains/              un dossier par domaine où <Prénom> opère
+│   ├── <Business>/          business[, un des <N> business] : AGENTS.md = son point d'entrée
+[│   ├── <Business 2>/        idem]
+│   └── Perso/  Admin/  [Santé/]   terrains de vie
+└── 2 Archives/              ce qui est mort, en bloc
 ```
 
-## Routing : où lire et écrire
+Un terrain = un `_context.md` (ce qui y est vrai) + un `Docs/` (la matière). Le terrain business ajoute `Clients/`, `Process/`, `Outils/`, `Skills/`, `Apps/`, `Equipe/` et son propre `AGENTS.md` : c'est lui qui se partage le jour où quelqu'un rejoint l'équipe.
 
-- « Qu'est-ce que je dois faire aujourd'hui ? » → `1 Terrains/<Business>/Clients/etat-pipeline.md` + `Journal/` (dernière date)
-- Info sur un client, prospect, partenaire → `1 Terrains/<Business>/Clients/<slug>/` (brief.md + notes datées). Lire avant de répondre, écrire sur toute info nouvelle. [SI CRM] Les chiffres et l'état commercial fin restent dans <CRM> ; le dossier garde le résumé et les décisions.
-- Comment on fait X → `1 Terrains/<Business>/Process/<Équipe>/<verbe>.md` ; index dans `Process/_index.md`
-- Ton, voix, règles de contenu → `1 Terrains/<Business>/Process/Marketing/ton.md` et `regles.md` ; stratégie → `Process/Marketing/_context.md`
-- Posts, scripts, vidéos, photos → `1 Terrains/<Business>/Docs/marketing/`
-- Charte graphique → `1 Terrains/<Business>/Docs/charte/`
-- Offre, prix, programmes → `1 Terrains/<Business>/_context.md` (décisions) et `Docs/offre/` (matière)
-- Facturation, légal, RIB → `1 Terrains/Admin/_context.md` ; le process → `Process/Finance/facturer.md` ; modèles → `Docs/templates/`
-- Où vit un outil, un identifiant, une variable → `1 Terrains/<Business>/Outils/outils.md`
-- Coder, modifier ou lancer une app → lire sa fiche `<app>.md` (dans le terrain ou le dossier client) et aller dans `~/Apps/<app>/` ; ce qu'elle fait et où elle tourne → la fiche
-- Identité, proches, agenda, vision, notes privées → `1 Terrains/Perso/_context.md`
-- Correction universelle → ce fichier, § Mémoire ; correction de domaine → le fichier du terrain
-- Capture brute → `0 Inbox/` ; résumé de session → `Journal/YYYY-MM-DD.md`
-- Terrain ou client terminé → `2 Archives/`
+## Règle #1 ABSOLUE : Une correction modifie la source, ne s'empile pas
 
-Le skill `/save` lit cette carte avant de ranger. Quand la structure évolue, mettre la carte à jour.
+Toute correction de <Prénom> (négation, « en fait », « plutôt », « je préfère », reproche) est bloquante : la traiter avant de continuer.
 
-## Skills mémoire
+1. Appliquer la correction dans la réponse en cours.
+2. Router vers la source de vérité : universelle (vaut dans toute conversation) → **reformuler ou remplacer** la règle correspondante dans la section Règles ou Technique ci-dessous, jamais en empiler une nouvelle à côté ; spécifique à un domaine ou au métier → le fichier-source du terrain business (son `AGENTS.md`, sa `_context.md`, ou le fichier de process concerné : créer la ligne si besoin).
+3. Upsert : info nouvelle → ajouter ; info qui contredit l'existant → modifier la ligne, jamais deux versions côte à côte.
+4. Confirmer où c'est parti.
 
-- `/app` : crée ou reprend une app selon la règle Apps (code dans `Apps/<app>/` à côté du cerveau, fiche dans le cerveau). « Crée-moi une app… » ou « bosse sur l'app… » suffisent.
-- `/save` : fin de session, range ce qui mérite d'être gardé selon la carte de routing.
-- `/tri-inbox` : vide `0 Inbox/` vers les terrains.
-- `/grill-me` : Claude interroge la personne pour sortir ce qu'elle sait sur un sujet et l'écrire en note rangée.
-- `/partager` : donne le terrain business à quelqu'un de l'équipe via Google Drive : contrôles, droits dans l'ordre, message à envoyer, test.
-- `/nouveau-skill` : transforme une tâche répétée en process (en mots) puis en skill, au bon endroit (business → `1 Terrains/<Business>/Skills/`, perso → `Skills/`), testé sur un cas réel. La liste des skills : `/skills`.
+Il n'y a pas de section « leçons récentes » ni de journal des corrections qui s'accumule ici : une correction universelle modifie directement une règle ci-dessous, elle ne s'ajoute jamais en paragraphe daté à part.
+
+## Règle #2 ABSOLUE : Tout asset entrant devient une note atomique reliée
+
+Quand <Prénom> donne un fichier, un lien ou lâche une idée réutilisable : extraire l'essentiel avec tes mots (jamais un copier-coller brut), créer une note atomique (1 idée, titre descriptif, frontmatter `date` et `source`), la ranger dans le bon terrain, la relier en `[[wikilinks]]` à 3-5 notes voisines (grep le vault). Si ça venait de `0 Inbox/`, sortir l'original. Confirmer : `✓ capturé dans <chemin>, relié à [[X]], [[Y]]`. Ce qui n'a pas de valeur réutilisable (filler, code) ne devient pas une note.
+
+## Règle #3 : Fix de bon sens automatique
+
+Problème évident et bas risque croisé en route (typo, chemin cassé, incohérence), même hors périmètre de la tâche : corriger directement sans demander, le dire dans le récap. La question reste pour les vraies décisions et les actions irréversibles ou tournées vers l'extérieur.
+
+## Règles
+
+- Exécuter sans demander confirmation, sauf action irréversible non demandée.
+- Plan d'abord pour toute tâche à 3+ étapes ou décision d'architecture ; si ça déraille, stop et re-planifie.
+- Ne jamais marquer une tâche terminée sans preuve du résultat, pas juste l'exécution de la commande.
+- Bugs : cause racine, pas de rustine.
+- Jamais de tiret cadratin « — » ni de demi-cadratin « – », ni de tiret en incise « mot - mot » : virgule, deux-points, point ou parenthèses à la place.
+- Expliquer tout acronyme ou terme technique dès la première mention.
+- Secrets : jamais dans le chat, jamais hardcodés, `.env` gitignored.
+- Fin de tâche avec un livrable qui a une URL : toujours redonner le lien dans le récap.
+- <Ce que les autres assistants font qui énerve <Prénom> (F6), formulé en règle>.
+- <Ce qu'il/elle adore qu'ils fassent (F7), formulé en règle>.
+- <Garde-fous de K2 valables dans TOUTE conversation, un par ligne : ex. jamais supprimer un fichier sans demander, jamais dépenser au-dessus de <seuil> sans validation. Les garde-fous propres au métier ou au business vont dans `Règles du terrain` du terrain business (§ 4.1), pas ici.>
+- Ton conversationnel (<tutoiement ou vouvoiement>, <langue>, accents, emoji <on/off>, <bullets ou paragraphes>) d'après le Bloc F.
+
+## Technique
+
+- Jamais ouvrir un navigateur pour authentifier une API : fetch/token direct.
+- Zéro clé API Claude par défaut (`ANTHROPIC_API_KEY`, SDK `anthropic`) : toujours `claude -p`.
+- WebFetch pour tout le web, jamais demander à <Prénom> d'ouvrir un navigateur.
+- Fichiers générés (PNG, PDF, exports) → `~/Downloads/`, jamais dans le vault.
+- `/audit-mcp` avant d'installer un MCP communautaire ; `/audit-skills` avant un skill.
+- Jamais d'Artifact (claude.ai) sans demande explicite : le vrai livrable, ouvert en local.
+- Jamais ouvrir une note Obsidian automatiquement : donner le lien `obsidian://...` en texte, cliquable.
+- Code : jamais dans ce dossier. Le code d'une app vit dans `<chemin réel du parent>/Apps/<app>/` (Git et sauvegarde en ligne gérés par moi) ; ici, une fiche `<app>.md` (`code:`, rôle, URL, lancement, décisions). « Bosse sur l'app X » : je lis la fiche et je vais dans le code.
+- <garde-fous techniques additionnels que le deep-dive métier a fait remonter, s'il y en a ; sinon retirer cette ligne>
+
+## Routing par terrain
+
+- **<Business>** (<3-4 mots : ce qu'il couvre, ex. offre, clients, process, outils>) → `1 Terrains/<Business>/AGENTS.md`
+[- **<Business 2>** (<idem>) → `1 Terrains/<Business 2>/AGENTS.md`]
+- **Perso** (identité, proches, agenda, vision) → `1 Terrains/Perso/_context.md`
+- **Admin** (légal, factures perso, logement) → `1 Terrains/Admin/_context.md`
+[- **Santé** → `1 Terrains/Santé/_context.md`]
+- **Capture rapide non triée** → `0 Inbox/`
+- **Terrain ou client terminé** → `2 Archives/`
 ```
+
+Le détail métier (process, ton/voix, charte, offre, facturation, outils, pipeline client…) n'apparaît jamais ici : il est généré directement dans `1 Terrains/<Business>/AGENTS.md`, section Routing détaillé (§ 4.1). Le skill `/save` lit d'abord ce fichier, puis descend dans le terrain concerné.
 
 ---
 
@@ -228,9 +208,29 @@ Terrain business de <Prénom Nom> (<marque>). C'est le dossier qui se partage : 
 2. `Clients/etat-pipeline.md` : où on en est (clients actifs, leads chauds, prochaines étapes).
 3. `Outils/outils.md` : où vit quoi dans les outils. Jamais de valeur de clé dedans.
 4. `Process/_index.md` : la table des façons de faire.
+5. `AGENTS.md` lui-même, section Routing détaillé plus bas : le routing métier fin (process, ton, charte, offre, facturation…) vit ici, jamais dans le `AGENTS.md` racine du cerveau.
 
 ## Carte du terrain
 <arbre du terrain tel que généré, avec une ligne de description par dossier>
+
+## Routing détaillé
+
+Toute question métier ou tout routing spécifique au business atterrit ici, jamais dans le `AGENTS.md` racine (qui ne garde qu'une ligne par terrain). C'est aussi ici qu'une correction de domaine (Règle #1 de la racine) vient se ranger : upsert, jamais empilé.
+
+- « Qu'est-ce que je dois faire aujourd'hui ? » → `Clients/etat-pipeline.md`
+- Info sur un client, un prospect, un partenaire → `Clients/<slug>/` (brief.md + notes datées). Lire avant de répondre, écrire sur toute info nouvelle. [SI CRM] Les chiffres et l'état commercial fin restent dans <CRM> ; le dossier garde le résumé et les décisions.
+- Comment on fait X (un process) → `Process/<Équipe>/<verbe>.md` ; index dans `Process/_index.md`
+- Ton, voix, règles de contenu → `Process/Marketing/ton.md` et `regles.md` ; stratégie → `Process/Marketing/_context.md`
+- Posts, scripts, vidéos, photos → `Docs/marketing/`
+- Charte graphique → `Docs/charte/`
+- Offre, prix, programmes → `_context.md` (décisions) et `Docs/offre/` (matière)
+- Facturation, légal, RIB → `1 Terrains/Admin/_context.md` ; le process → `Process/Finance/facturer.md` ; modèles → `Docs/templates/`
+- Où vit un outil, un identifiant, une variable → `Outils/outils.md`
+- Coder, modifier ou lancer une app → lire sa fiche `Apps/<app>.md` (ou `Clients/<client>/<app>.md`) et aller dans `~/Apps/<app>/`
+- Créer ou modifier un skill propre au métier → `Skills/<nom>/SKILL.md`, process source dans `Process/<Équipe>/`
+<une ligne de plus par sujet métier que le deep-dive (Bloc D) ou un archétype de la bibliothèque a fait remonter>
+
+Cette section grandit avec l'usage : c'est elle qui absorbe le routing détaillé, pas le `AGENTS.md` racine.
 
 ## Règles du terrain
 - Aucun fichier seul à la racine : à part `AGENTS.md` et `_context.md`, tout vit dans un module. `Docs/` n'a que des sous-dossiers par type, carte dans `Docs/_index.md`.
@@ -585,14 +585,10 @@ Sommeil, sport (quoi, fréquence, coach), alimentation, suivi médical si donné
 
 ---
 
-## 6. Première note du journal
+## 6. Message de fin d'installation
 
-`Journal/<YYYY-MM-DD>.md` :
+Pas de fichier journal (abandonné le 2026-09-21 : une note déjà datée en frontmatter rend un journal séparé redondant). Ce récap se DIT à la personne, dans le chat, à la fin de la Phase 4 :
 
-```markdown
-# Journal : <date>
-
-## Installation du second cerveau
 - Installé dans `<pwd>` via `/onboarding` [ou `/onboarding-migrate`].
 - Terrain business : <Business> (<archétype>), process seedés : <liste>.
 - Terrains de vie : Perso, Admin[, Santé].
@@ -600,13 +596,12 @@ Sommeil, sport (quoi, fréquence, coach), alimentation, suivi médical si donné
 - Assets intégrés : <voix, charte, modèles ; ou « aucun »>.
 - [SI migrate] Contexte précédent archivé dans `2 Archives/contexte-pre-migration-<date>/` ; détails non repris : <liste ou « aucun »>.
 
-## Prochaines étapes
+Puis les prochaines étapes :
 - Ouvrir le dossier dans Obsidian (Fichier → Ouvrir un dossier).
 - Première vraie discussion : `cd <pwd>` puis `claude`, et demander « qu'est-ce que je dois faire aujourd'hui ? ».
 - Compléter les process marqués « à préciser ».
 - Déposer dans `0 Inbox/` tout ce qui traîne (docs, exports, notes) puis taper `/tri-inbox`.
 - En fin de session : `/save`.
-```
 
 ---
 
@@ -629,10 +624,10 @@ for t in "1 Terrains"/*/; do [ -f "$t/_context.md" ] || echo "MANQUE _context.md
 [ -f "$B/AGENTS.md" ] || echo "MANQUE $B/AGENTS.md"; [ -f "$B/Process/_index.md" ] || echo "MANQUE $B/Process/_index.md"
 # 4. aucun fichier seul à la racine de Docs/ du terrain business (les terrains de vie ont des pièces à plat, c'est prévu)
 find "$B/Docs" -maxdepth 1 -type f ! -name _index.md | head
-# 5. AGENTS.md racine sous 200 lignes
+# 5. AGENTS.md racine sous 100 lignes (cible 70-90 ; il reste petit indéfiniment)
 wc -l AGENTS.md
 # 6. les skills du pack sont dans Skills/, le raccourci du dossier personnel pointe dessus, et .claude/ ne contient (au plus) que settings.json
 ls Skills/ ; readlink ~/.claude/skills ; readlink ~/.agents/skills ; ls -A .claude/ 2>/dev/null
 ```
 
-Attendu : 1, 2 et 4 vides ; 3 sans « MANQUE » ; 5 sous 200 ; 6 : les deux `readlink` renvoient le chemin de `Skills/` (ou, si l'utilisateur avait déjà des skills à lui, un raccourci par skill dedans), et `.claude/` est vide ou ne contient que `settings.json`. Un contrôle qui échoue se corrige avant de passer à la Phase 4. Le résultat est dit à la personne en une ligne (« 6 vérifications passées »).
+Attendu : 1, 2 et 4 vides ; 3 sans « MANQUE » ; 5 sous 100 ; 6 : les deux `readlink` renvoient le chemin de `Skills/` (ou, si l'utilisateur avait déjà des skills à lui, un raccourci par skill dedans), et `.claude/` est vide ou ne contient que `settings.json`. Un contrôle qui échoue se corrige avant de passer à la Phase 4. Le résultat est dit à la personne en une ligne (« 6 vérifications passées »).

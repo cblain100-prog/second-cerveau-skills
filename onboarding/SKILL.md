@@ -58,7 +58,7 @@ Salut. Je suis là pour installer ton second cerveau.
 Le dossier de travail : tu m'as ouvert dans [pwd].
 Ce dossier va devenir ton second cerveau. C'est lui qui contiendra tout
 ton contexte (qui tu es, ton métier, tes clients, tes façons de faire,
-tes règles, ton journal) et qui te suivra dans toutes nos discussions.
+tes règles) et qui te suivra dans toutes nos discussions.
 
 [SI contenu : « Il y a déjà des fichiers dedans : [liste]. Je n'écrase
 rien. On continue ici, ou tu préfères un dossier vide ? »]
@@ -188,7 +188,6 @@ Garde-fous (ce que je ne ferai jamais sans toi) : [K2 + ceux du métier]
 Structure
 - AGENTS.md                     le seul fichier lu automatiquement : toi, tes règles, ta mémoire, la carte
 - 0 Inbox/                      tu déposes en vrac, je range
-- Journal/                      une note par jour
 - Skills/                       tes outils (save, tri-inbox…)
 - 1 Terrains/[Business]/        clients, process par équipe, outils, docs : le dossier qui se partage un jour
 - 1 Terrains/Perso/  Admin/  [Santé/]
@@ -209,11 +208,11 @@ Suis `references/structure.md` dans cet ordre. Toujours les vraies réponses, ja
 
 1. **Arborescence** (§ 2) : dossiers de la racine, terrain business, terrains de vie, et `Apps/` dans le dossier parent du cerveau (à côté de lui, vide : c'est là que le skill `/app` mettra le code). Un module n'est créé que s'il reçoit un fichier.
 2. **Fichiers techniques** (§ 2) : `.claude/settings.json` (`autoMemoryEnabled: false`, fusionner si existant), `.env` (en-tête seul), `.gitignore`.
-3. **`AGENTS.md` racine** (§ 3) : moins de 200 lignes, le résumé de la personne, les 3 règles, la Mémoire (règles de travail, communication d'après F6 et F7, garde-fous K2), la structure avec les vrais noms de terrains, le routing.
-4. **Terrain business** (§ 4) : `AGENTS.md` du terrain, `_context.md`, `Clients/etat-pipeline.md` et `historique-clients.md` (+ un `Clients/<slug>/brief.md` par client cité), `Process/_index.md` et les process seedés de l'archétype remplis avec ce que la personne a décrit (« à préciser » pour les étapes non décrites), `Process/Marketing/_context.md`, `ton.md`, `regles.md`, `Outils/outils.md`, `Docs/_index.md`, `Docs/charte/charte-<marque>.md` (une par marque), `Docs/offre/`, `Docs/templates/` (modèles fournis). `Equipe/<prenom>/fiche.md` et `Process/RH/integrer-un-collaborateur.md` si quelqu'un travaille déjà avec la personne.
+3. **`AGENTS.md` racine** (§ 3) : sous 100 lignes (cible 70-90), reste petit indéfiniment. Le résumé de la personne, une arborescence courte, les 3 règles, les sections Règles et Technique (règles de travail et communication d'après F6/F7, garde-fous universels de K2 seulement : les garde-fous propres au métier vont dans le terrain business), et un Routing par terrain d'une ligne chacun. Aucun détail métier ici : il part dans `1 Terrains/<Business>/AGENTS.md` (§ 4.1, section Routing détaillé).
+4. **Terrain business** (§ 4) : `AGENTS.md` du terrain (dont la section Routing détaillé, seedée avec le routing générique § 4.1 et une ligne de plus par sujet métier remonté au Bloc D), `_context.md`, `Clients/etat-pipeline.md` et `historique-clients.md` (+ un `Clients/<slug>/brief.md` par client cité), `Process/_index.md` et les process seedés de l'archétype remplis avec ce que la personne a décrit (« à préciser » pour les étapes non décrites), `Process/Marketing/_context.md`, `ton.md`, `regles.md`, `Outils/outils.md`, `Docs/_index.md`, `Docs/charte/charte-<marque>.md` (une par marque), `Docs/offre/`, `Docs/templates/` (modèles fournis). `Equipe/<prenom>/fiche.md` et `Process/RH/integrer-un-collaborateur.md` si quelqu'un travaille déjà avec la personne.
 5. **Terrains de vie** (§ 5) : `Perso/_context.md` (identité, proches, valeurs, parcours, rythme, vision, finances, notes privées), `Admin/_context.md` (légal, RIB, logement, charges), `Santé/_context.md` si demandé. Chacun avec son `Docs/`.
 6. **Assets** : chaque fichier fourni est copié au bon endroit (charte → `Docs/charte/`, modèles → `Docs/templates/`, photos → `Docs/charte/`) ; un lien ou un document lourd reste où il est et la note pointe dessus. Jamais un copier-coller brut : l'essentiel, plus le pointeur.
-7. **Première note du journal** (§ 6).
+7. **Message de fin d'installation** (§ 6) : pas de fichier journal (abandonné), ce récap se dit à l'oral en Phase 4.
 8. **Skills du pack.** Le pack livré à la personne, c'est exactement : `onboarding`, `onboarding-migrate`, `app`, `save`, `tri-inbox`, `grill-me`, `partager`, `nouveau-skill`. Ils vivent dans `Skills/` à la racine du cerveau (dossier visible, comme le reste). **Rien dans le `.claude/` du cerveau** : ni skill, ni lien, ni script. Chaque outil lit les skills à une adresse fixe du dossier personnel de l'utilisateur, hors du cerveau (Claude Code : `~/.claude/skills` ; Codex : `~/.agents/skills`) : `link-skills.sh` fait de chacune UN raccourci vers `Skills/`, une fois pour toutes. Un skill ajouté dans `Skills/` est vu immédiatement, rien à relancer. La phrase d'installation du pack a déjà fait ça. Ici tu vérifies : `ls Skills/` montre les huit, `readlink ~/.claude/skills` renvoie le chemin de `Skills/`, et `.claude/` du cerveau est vide ou ne contient que `settings.json`. Si des skills ou des liens traînent dans `.claude/skills/` du cerveau (installation à l'ancienne) : déplacer les vrais dossiers vers `Skills/`, supprimer `.claude/skills/`, relancer `CLAUDE_PROJECT_DIR="$(pwd)" bash Skills/onboarding/setup/scripts/link-skills.sh`. Un skill du pack absent : ne pas le recréer, le dire en Phase 4. Aucun autre skill n'est promis à la personne. Les skills propres au business que la personne créera plus tard iront dans `1 Terrains/<Business>/Skills/` (partagés avec l'équipe par Drive) ; le même script les relie.
 9. **Contrôles** (§ 7) : les six, exécutés tels qu'écrits (avec `/usr/bin/grep` et les motifs quotés) et lus. Un échec se corrige avant de continuer.
 
@@ -231,10 +230,9 @@ Deux derniers réglages, tu me dis oui ou non :
 
 2. Le relevé du soir. Tous les soirs à 23h, si ton ordinateur est
    allumé, je relis les mails et messages reçus dans la journée (ceux
-   que tu m'as connectés), j'en fais un résumé dans ton journal, et je
-   range chaque info utile dans le bon dossier (une info sur un client
-   va dans le dossier de ce client). Je ne réponds à personne, je lis
-   et je range.
+   que tu m'as connectés) et je range chaque info utile dans le bon
+   dossier (une info sur un client va dans le dossier de ce client).
+   Je ne réponds à personne, je lis et je range.
 
 On installe ? (les deux / juste la sauvegarde / juste le relevé / rien)
 ```
@@ -294,7 +292,6 @@ Admin : le côté administratif (ton statut, ton numéro d'entreprise, la
 LES AUTRES DOSSIERS
 Inbox : tu y déposes en vrac ce que tu ne sais pas où ranger (un
    document, une capture, une note). Tu me dis « trie l'inbox », je range.
-Journal : une note par jour, ce qu'on a fait ensemble.
 Archives : ce qui est terminé. Un client qui a fini son programme va là.
 Skills : tes outils, j'y reviens juste en dessous, c'est important.
 
@@ -368,8 +365,8 @@ quand une messagerie sera connectée.]
 À savoir : [liste, en mots simples]
 
 Première chose à faire : demande-moi « qu'est-ce que je dois faire
-aujourd'hui ? ». Je lis ta liste de clients et de prospects et ton
-journal, et je te réponds.
+aujourd'hui ? ». Je lis ta liste de clients et de prospects et l'état
+du moment de ton activité, et je te réponds.
 ```
 
 Termine sur une question ouverte : « Tu veux qu'on teste tout de suite sur un vrai cas ? »

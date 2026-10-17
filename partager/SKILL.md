@@ -105,7 +105,7 @@ Ne pas conclure sans ces six points, faits avec la personne ou sur un second com
 3. Une modification faite chez le dirigeant arrive chez elle (noter le délai, en général moins de deux minutes).
 4. Une modification faite chez elle dans `Clients/` arrive chez le dirigeant ; une tentative dans `Process/Finance/` est refusée.
 5. Le même fichier modifié des deux côtés à trente secondes d'écart produit une copie « [Conflit] » : la montrer, dire où elle apparaît, rappeler la règle « un rédacteur par fichier ».
-6. Rien de la racine du cerveau (Perso, Admin, Journal) n'apparaît chez elle.
+6. Rien de la racine du cerveau (Perso, Admin) n'apparaît chez elle.
 
 Résultat écrit dans `Equipe/<prenom-nom>/brief.md` (date, délai mesuré, ce qui a coincé). Puis confirmer en une ligne : `✓ <Business> partagé avec <Prénom> (<équipe>) : accès posés, fiche créée, test passé le <date>`.
 

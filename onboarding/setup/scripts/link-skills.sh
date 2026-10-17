@@ -19,7 +19,7 @@ for DEST in "$HOME/.claude/skills" "$HOME/.agents/skills"; do
   else
     [ $mine -eq 1 ] && rm -f "$DEST"; mkdir -p "$DEST"
     for l in "$DEST"/*; do [ -L "$l" ] && case "$(cd "$l" 2>/dev/null && pwd -P)" in "$ROOT"/*|"") rm -f "$l";; esac; done
-    for d in "${DIRS[@]}"; do for s in "$d"/*/; do n="$(basename "$s")"; [ -e "$DEST/$n" ] && { echo "déjà présent, non remplacé : $n" >&2; continue; }; ln -s "${s%/}" "$DEST/$n"; done; done
+    for d in "${DIRS[@]}"; do for s in "$d"/*/; do n="$(basename "$s")"; [ -e "$DEST/$n" ] && { echo "déjà présent, non remplacé : $n" >&2; continue; }; ln -sn "${s%/}" "$DEST/$n" 2>/dev/null; done; done
     echo "$DEST : un raccourci par skill (${#DIRS[@]} dossiers Skills/)"
   fi
 done

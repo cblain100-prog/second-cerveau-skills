@@ -1,6 +1,6 @@
 ---
 name: tri-inbox
-description: Vide et trie le dossier 0 Inbox/. Lit d'abord la carte de routing du AGENTS.md du vault, inventorie tout ce qui traîne dans l'inbox (notes .md, images, PDF, exports, dossiers, liens), lit/extrait le contenu de chaque item, puis le range AUTOMATIQUEMENT dans le bon dossier selon cette carte : sans demander. N'écrit JAMAIS dans AGENTS.md ni dans Journal/. Skill général : il s'adapte à n'importe quel vault via son AGENTS.md. Utiliser quand l'utilisateur dit "/tri-inbox", "tri inbox", "trie l'inbox", "traite l'inbox", "vide l'inbox", "range l'inbox", "process inbox".
+description: Vide et trie le dossier 0 Inbox/. Lit d'abord la carte de routing du AGENTS.md du vault, inventorie tout ce qui traîne dans l'inbox (notes .md, images, PDF, exports, dossiers, liens), lit/extrait le contenu de chaque item, puis le range AUTOMATIQUEMENT dans le bon dossier selon cette carte : sans demander. N'écrit JAMAIS dans AGENTS.md. Skill général : il s'adapte à n'importe quel vault via son AGENTS.md. Utiliser quand l'utilisateur dit "/tri-inbox", "tri inbox", "trie l'inbox", "traite l'inbox", "vide l'inbox", "range l'inbox", "process inbox".
 ---
 
 # Tri-inbox : Vide et range le dossier `0 Inbox/` (piloté par AGENTS.md)
@@ -14,10 +14,9 @@ C'est le **jumeau symétrique de `/save`** : même doctrine (lire AGENTS.md, ran
 ## Règle dure : tri-inbox ne touche QUE les dossiers
 
 - JAMAIS dans `AGENTS.md` (sa section Mémoire est réservée à la Règle #1, la correction en temps réel), ni dans un `memory.md` si le vault en a encore un.
-- JAMAIS dans `Journal/` (pas un récap de session).
 - Tout va dans un dossier : terrain, ressource transverse : et l'original quitte `0 Inbox/`.
 
-Ces trois contraintes priment sur la carte de routing : même si un AGENTS.md disait le contraire, tri-inbox n'écrit ni dans `AGENTS.md` ni dans `Journal/`.
+Cette contrainte prime sur la carte de routing : même si un AGENTS.md disait le contraire, tri-inbox n'écrit jamais dans `AGENTS.md`.
 
 ## Étape 0 : Lire la carte de routing (AGENTS.md) : OBLIGATOIRE, EN PREMIER
 
@@ -91,7 +90,7 @@ Pour chaque item : applique d'abord la **carte de routing lue à l'Étape 0**. M
    → l'item RESTE dans 0 Inbox/. Signale-le dans le rapport (ne force pas un mauvais rangement).
 ```
 
-Routing automatique, zéro confirmation. Tu exécutes. Tu ne touches **ni `AGENTS.md` ni `Journal/`**.
+Routing automatique, zéro confirmation. Tu exécutes. Tu ne touches **pas `AGENTS.md`**.
 
 ## Étape 4 : Écrire / déplacer / relier
 
@@ -140,7 +139,7 @@ Pas d'explication détaillée.
 
 ## Ce que tu ne fais PAS
 
-- Écrire dans `AGENTS.md` ou `Journal/`.
+- Écrire dans `AGENTS.md`.
 - Créer des `.md` de suivi client si AGENTS.md déclare un CRM externe comme source de vérité.
 - Router à l'aveugle sans avoir lu le contenu de l'item.
 - Supprimer un original dont la valeur n'a pas été pleinement extraite : en cas de doute, ranger plutôt que supprimer.

@@ -1,6 +1,6 @@
 ---
 name: onboarding-migrate
-description: Installe un second cerveau Claude Code avec la méthode des Terrains (structure figée le 2026-09-18) dans un dossier qui contient DÉJÀ du contexte (AGENTS.md, memory.md, profil.md, notes, dossiers de projets ou de clients, ancien schéma profil/memory/2 Ressources/3 Archives). Explore l'existant en silence, en déduit ce qui est déjà su, ne pose que les questions qui manquent (avec le même deep-dive métier que /onboarding), puis range chaque information au bon endroit de la structure cible (AGENTS.md unique, terrain business avec Clients/ Process/<Équipe>/ Outils/ Docs/ en sous-dossiers, terrains de vie Perso/Admin/Santé) sans rien perdre : l'ancien contexte est archivé, jamais supprimé. Utiliser quand l'utilisateur dit "/onboarding-migrate", "migre mon contexte", "j'ai déjà un AGENTS.md", "reprends mon contexte existant", "mets mon cerveau à la nouvelle structure", "range ce que j'ai déjà dans la structure", ou quand /onboarding découvre un dossier déjà rempli.
+description: "Installe un second cerveau Claude Code avec la méthode des Terrains (structure figée le 2026-09-18) dans un dossier qui contient DÉJÀ du contexte (AGENTS.md, memory.md, profil.md, notes, dossiers de projets ou de clients, ancien schéma profil/memory/2 Ressources/3 Archives). Explore l'existant en silence, en déduit ce qui est déjà su, ne pose que les questions qui manquent (avec le même deep-dive métier que /onboarding), puis range chaque information au bon endroit de la structure cible (AGENTS.md unique, terrain business avec Clients/ Process/<Équipe>/ Outils/ Docs/ en sous-dossiers, terrains de vie Perso/Admin/Santé) sans rien perdre : l'ancien contexte est archivé, jamais supprimé. Utiliser quand l'utilisateur dit \"/onboarding-migrate\", \"migre mon contexte\", \"j'ai déjà un AGENTS.md\", \"reprends mon contexte existant\", \"mets mon cerveau à la nouvelle structure\", \"range ce que j'ai déjà dans la structure\", ou quand /onboarding découvre un dossier déjà rempli."
 ---
 
 # Onboarding Migrate : absorber un contexte existant, puis structurer en Terrains
@@ -143,7 +143,8 @@ Suis `../onboarding/references/structure.md` pour tout ce qui est créé. Ce qui
 | `1 Terrains/<Client X>/` (un terrain par client) | `1 Terrains/<Business>/Clients/<client-x>/` | le `_context.md` devient `brief.md` |
 | `1 Terrains/Perso/`, `Admin/`, `Santé/` v1 | même nom, `ressources/` → `Docs/` | `_context.md` complété |
 | `3 Archives/` | `2 Archives/` | déplacement en bloc |
-| `Journal/`, `0 Inbox/` | inchangés | |
+| `0 Inbox/` | inchangé | |
+| `Journal/` | `2 Archives/journal-quotidien-pre-migration-<date>/` | dossier abandonné (2026-09-21) : une note déjà datée en frontmatter rend le journal séparé redondant, tout va direct dans le terrain concerné |
 | `.claude/skills/<skill réel>` | `Skills/<skill>` (perso) ou `1 Terrains/<Business>/Skills/<skill>` (business) puis `link-skills.sh` | jamais supprimé, déplacé puis lié |
 
 ### 3.2 Step 0 : migration non destructive

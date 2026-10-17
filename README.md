@@ -1,12 +1,12 @@
 # Pack second cerveau : les 8 skills
 
-Ce dossier contient les huit skills qui installent et font vivre un second cerveau avec Claude Code, selon la méthode des Terrains.
+Ce dossier contient les huit skills qui installent et font vivre un second cerveau avec Claude Code, selon la méthode des Terrains ([[doctrine-structure-vault-pilote-agent]]). Testé grandeur nature dans [[test-onboarding-client-fictif-2026-09-19]].
 
 | Skill | Ce qu'il fait | Tu le lances quand |
 |---|---|---|
 | `onboarding` | Installe le cerveau de zéro : une interview adaptée à ton métier, puis la création de tout le dossier, puis l'explication. | Dossier vide, première fois. Tape `/onboarding`. |
 | `onboarding-migrate` | Pareil, mais reprend ce que tu as déjà (notes, un ancien AGENTS.md, des dossiers de clients) sans rien perdre. | Dossier déjà rempli. Tape `/onboarding-migrate`. |
-| `app` | Crée ou reprend une application : le code va dans le dossier Apps à côté du cerveau, la fiche reste dans le cerveau. | « crée-moi une app… », « bosse sur l'app… ». |
+| `create-app` | Cadre ton projet (qui l'utilise, quelles données), pose la bonne stack Supabase/Vercel/sécurité, crée ou reprend une application : le code va dans le dossier Apps à côté du cerveau, la fiche reste dans le cerveau. | « crée-moi une app… », « bosse sur l'app… ». |
 | `save` | Range ce qui mérite d'être gardé à la fin d'une session. | Avant de fermer. Tape `/save`. |
 | `tri-inbox` | Vide le dossier « 0 Inbox » : chaque fichier déposé part au bon endroit. | Quand l'inbox déborde. Tape `/tri-inbox`. |
 | `grill-me` | Claude te pose des questions, une par une, pour sortir ce que tu sais sur un sujet et l'écrire proprement. | « grille-moi sur … ». |
@@ -19,7 +19,7 @@ Ce dossier contient les huit skills qui installent et font vivre un second cerve
 2. Ouvre Claude Code dans ce dossier.
 3. Colle cette phrase (Claude fait tout : il télécharge, range les skills dans un dossier `Skills/` visible, et les relie) :
 
-> Installe les skills de https://github.com/cblain100-prog/second-cerveau-skills dans ce dossier : télécharge le dépôt, copie ses huit dossiers de skills (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me, partager, nouveau-skill) dans un dossier `Skills/` ici (visible, pas caché), puis lance une fois `bash Skills/onboarding/setup/scripts/link-skills.sh` pour que Claude Code et Codex sachent où ils sont, vérifie que les huit sont bien là, et dis-moi quoi faire ensuite.
+> Installe les skills de https://github.com/cblain100-prog/second-cerveau-skills dans ce dossier : télécharge le dépôt, copie ses huit dossiers de skills (onboarding, onboarding-migrate, create-app, save, tri-inbox, grill-me, partager, nouveau-skill) dans un dossier `Skills/` ici (visible, pas caché), puis lance une fois `bash Skills/onboarding/setup/scripts/link-skills.sh` pour que Claude Code et Codex sachent où ils sont, vérifie que les huit sont bien là, et dis-moi quoi faire ensuite.
 
 4. Claude installe, puis te dit de le relancer. Tu relances Claude Code dans le même dossier et tu tapes `/onboarding`.
 
