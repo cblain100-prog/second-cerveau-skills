@@ -1,15 +1,15 @@
 # Structure générée et gabarits des fichiers
 
-Fichier de référence des skills `onboarding` et `onboarding-migrate`, appelé en Phase 3 (génération). C'est LA source de vérité de ce que l'installateur crée chez la personne. La doctrine complète (pourquoi cette forme, ce qui a été écarté) est tenue par l'auteur du pack ; ce fichier en est la version exécutable.
+Fichier de référence des skills `create-context` et `context-migrate`, appelé en Phase 3 (génération). C'est LA source de vérité de ce que l'installateur crée chez la personne. La doctrine complète (pourquoi cette forme, ce qui a été écarté) est tenue par l'auteur du pack ; ce fichier en est la version exécutable.
 
 Règles de génération, valables pour tous les gabarits :
 
 - Toujours les vraies réponses de la personne. Jamais de `[Prénom]` ni de crochet vide dans un fichier final ; une info absente s'écrit « non renseigné ».
-- Jamais de tiret cadratin « — » ni de demi-cadratin « – » dans ce qui est écrit : virgule, deux-points, point ou parenthèses. Le trait d'union dans les mots composés reste permis.
-- Une section dont le bloc d'interview n'a pas été fait reste présente, avec une ligne : « Non renseigné au setup. À compléter, ou relancer `/onboarding` sur ce bloc. »
+- Jamais de tiret cadratin ni de demi-cadratin (les tirets longs) dans ce qui est écrit : virgule, deux-points, point ou parenthèses. Le trait d'union dans les mots composés reste permis.
+- Une section dont le bloc d'interview n'a pas été fait reste présente, avec une ligne : « Non renseigné au setup. À compléter, ou relancer `/create-context` sur ce bloc. »
 - Ne jamais écraser un fichier existant : compléter ou fusionner, et le dire en Phase 4.
 - Un module (`Clients/`, `Equipe/`, `Skills/`, `Apps/`) n'est créé que s'il reçoit au moins un fichier réel. Exceptions assumées, créées vides pour que la personne voie où déposer : `0 Inbox/`, `2 Archives/`, `Docs/` des terrains de vie, et dans le business `Docs/charte/`, `Docs/offre/`, `Docs/templates/`.
-- **Règle Apps : deux dossiers côte à côte, `Brain/` (le contexte) et `Apps/` (le code), qui se connaissent.** `~/Apps/<app>/` contient le code d'une app (Git et sauvegarde en ligne gérés par Claude, `.env` dedans). Dans le cerveau, là où la personne veut voir son app (`Apps/` du terrain, `Clients/<client>/`…), Claude écrit la fiche `<app>.md` (`code: ~/Apps/<app>/`, rôle, URL, lancement, décisions). Dans chaque app, un `AGENTS.md` de trois lignes renvoie au cerveau. Seule la fiche monte dans Drive : ni `node_modules`, ni `.env` chez l'équipe. Depuis le cerveau, « bosse sur l'app X » suffit : Claude lit la fiche et va dans le code. Un dossier de code trouvé dans le cerveau est déplacé vers `~/Apps/` et remplacé par sa fiche. Raccourci `<app>` vers le code à côté de la fiche : optionnel (Drive l'ignore), seulement si la personne veut voir le dossier dans le Finder du cerveau.
+- **Règle Apps : deux dossiers côte à côte, `Brain/` (le contexte) et `Apps/` (le code), qui se connaissent.** `~/Apps/<app>/` contient le code d'une app (Git et sauvegarde en ligne gérés par Claude, `.env` dedans). Dans le dossier de contexte, là où la personne veut voir son app (`Apps/` du terrain, `Clients/<client>/`…), Claude écrit la fiche `<app>.md` (`code: ~/Apps/<app>/`, rôle, URL, lancement, décisions). Dans chaque app, un `AGENTS.md` de trois lignes renvoie au dossier de contexte. Seule la fiche monte dans Drive : ni `node_modules`, ni `.env` chez l'équipe. Depuis le dossier de contexte, « bosse sur l'app X » suffit : Claude lit la fiche et va dans le code. Un dossier de code trouvé dans le dossier de contexte est déplacé vers `~/Apps/` et remplacé par sa fiche. Raccourci `<app>` vers le code à côté de la fiche : optionnel (Drive l'ignore), seulement si la personne veut voir le dossier dans le Finder, depuis son dossier de contexte.
 - Aucun fichier seul à la racine d'un terrain : à part `AGENTS.md` (terrain business seulement) et `_context.md`, tout vit dans un module. `Docs/` n'a que des sous-dossiers et un `_index.md`.
 
 ---
@@ -17,10 +17,10 @@ Règles de génération, valables pour tous les gabarits :
 ## 1. L'arborescence
 
 ```
-<dossier ouvert>/                     le second cerveau, le dossier ouvert lui-même (pas de sous-dossier Brain/)
+<dossier ouvert>/                     le dossier de contexte, le dossier ouvert lui-même (pas de sous-dossier Brain/)
 ├── AGENTS.md                          SEUL fichier lu automatiquement : qui est la personne, ses règles, sa mémoire, la carte, le routing
 ├── 0 Inbox/                           dépôt brut, trié par /tri-inbox
-├── Skills/                            les skills du pack (onboarding, onboarding-migrate, app, save, tri-inbox, grill-me, partager, nouveau-skill), VISIBLES ; jamais de vrai skill dans .claude/
+├── Skills/                            les skills du pack (create-context, context-migrate, app, save, tri-inbox, grill-me, partager, nouveau-skill), VISIBLES ; jamais de vrai skill dans .claude/
 ├── 1 Terrains/
 │   ├── <Business>/                    LE terrain business, celui qui se partage le jour où il y a une équipe
 │   │   ├── AGENTS.md                  mode d'emploi du terrain (racine des employés)
@@ -47,8 +47,8 @@ Règles de génération, valables pour tous les gabarits :
 │   ├── Admin/                         terrain de vie : _context.md (légal, banque, logement, charges, assurances) + Docs/ (pièces)
 │   └── Santé/                         optionnel : _context.md (sommeil, sport, dossier médical) + Docs/
 ├── 2 Archives/                        ce qui est mort, en bloc
-├── .claude/settings.json              le SEUL fichier caché du cerveau (mémoire auto désactivée ; hooks de sauvegarde en ligne si la personne a dit oui).
-│                                      Aucun skill là-dedans. Dans le dossier personnel de l'utilisateur, hors du cerveau, un raccourci posé une fois :
+├── .claude/settings.json              le SEUL fichier caché du dossier de contexte (mémoire auto désactivée ; hooks de sauvegarde en ligne si la personne a dit oui).
+│                                      Aucun skill là-dedans. Dans le dossier personnel de l'utilisateur, hors du dossier de contexte, un raccourci posé une fois :
 │                                      ~/.claude/skills → Skills/ (Claude Code) et ~/.agents/skills → Skills/ (Codex). Un skill ajouté dans Skills/ est vu tout de suite.
 ├── .env                               clés API locales, jamais partagé
 └── .gitignore
@@ -62,7 +62,7 @@ Ce qui n'existe plus par rapport à l'ancien schéma (2026-09-18) : `profil.md` 
 
 ```bash
 mkdir -p "0 Inbox" Skills "2 Archives" .claude
-mkdir -p "$(dirname "$(pwd)")/Apps"     # le dossier jumeau du cerveau, À CÔTÉ de lui (même dossier parent) : le code, jamais dans Drive (règle Apps, skill /create-app)
+mkdir -p "$(dirname "$(pwd)")/Apps"     # le dossier jumeau, À CÔTÉ du dossier de contexte (même dossier parent) : le code, jamais dans Drive (règle Apps, skill /create-app)
 B="1 Terrains/<Business>"
 mkdir -p "$B/Clients" "$B/Process/Marketing" "$B/Outils" "$B/Docs/charte" "$B/Docs/offre" "$B/Docs/templates"
 # une équipe par process seedé : Sales, Ops, Finance, Support, RH, seulement celles qui reçoivent un fichier
@@ -74,7 +74,7 @@ Nom du terrain business : l'orthographe donnée par la personne (accents, casse)
 
 Fichiers techniques (ne jamais écraser, compléter) :
 
-- `.claude/settings.json` : `{"autoMemoryEnabled": false}` (la mémoire du cerveau est dans `AGENTS.md`, on évite les doublons). Les hooks de sauvegarde en ligne sont posés par `setup/install.sh` (si la personne dit oui) et appellent les scripts là où ils sont, dans `Skills/onboarding/setup/scripts/`. C'est le seul contenu de `.claude/` : jamais de `.claude/skills/` ni de `.claude/scripts/` dans le cerveau. Les skills sont rendus visibles par UN raccourci dans le dossier personnel (`~/.claude/skills → Skills/`, idem `~/.agents/skills` pour Codex), posé une fois par `link-skills.sh`.
+- `.claude/settings.json` : `{"autoMemoryEnabled": false}` (la mémoire du contexte est dans `AGENTS.md`, on évite les doublons). Les hooks de sauvegarde en ligne sont posés par `setup/install.sh` (si la personne dit oui) et appellent les scripts là où ils sont, dans `Skills/create-context/setup/scripts/`. C'est le seul contenu de `.claude/` : jamais de `.claude/skills/` ni de `.claude/scripts/` dans le dossier de contexte. Les skills sont rendus visibles par UN raccourci dans le dossier personnel (`~/.claude/skills → Skills/`, idem `~/.agents/skills` pour Codex), posé une fois par `link-skills.sh`.
 - `.env` : en-tête commenté seulement, aucune vraie clé.
 - `.gitignore` :
 
@@ -105,7 +105,7 @@ __pycache__/
 **Ce fichier reste petit indéfiniment.** Cible 70 à 100 lignes, jamais plus. Il contient uniquement : une présentation courte, une arborescence courte (les dossiers racine, une ligne par terrain, jamais le détail des sous-dossiers), les 3 règles absolues, une poignée de règles universelles compactes (celles qui sont vraies dans TOUTE conversation, quel que soit le métier), et un routing d'une ligne par terrain vers le point d'entrée de CE terrain. **Tout ce qui grandit avec l'usage (routing métier détaillé, doctrine du domaine, corrections spécifiques à un sujet) vit dans le terrain business (§ 4.1, section Routing détaillé), jamais ici.** C'est ce terrain qui absorbe la croissance ; la racine ne bouge presque plus après le setup.
 
 ```markdown
-# <Prénom> : second cerveau
+# <Prénom> : contexte
 
 Tu l'ouvres en lançant `claude` depuis ce dossier. Ce fichier est le seul lu automatiquement : il dit qui est <Prénom>, ses règles, et où vit chaque chose. Tout le reste se lit à la demande, dans les terrains.
 
@@ -156,7 +156,7 @@ Problème évident et bas risque croisé en route (typo, chemin cassé, incohér
 - Plan d'abord pour toute tâche à 3+ étapes ou décision d'architecture ; si ça déraille, stop et re-planifie.
 - Ne jamais marquer une tâche terminée sans preuve du résultat, pas juste l'exécution de la commande.
 - Bugs : cause racine, pas de rustine.
-- Jamais de tiret cadratin « — » ni de demi-cadratin « – », ni de tiret en incise « mot - mot » : virgule, deux-points, point ou parenthèses à la place.
+- Jamais de tiret cadratin ni de demi-cadratin (les tirets longs), ni de tiret en incise « mot - mot » : virgule, deux-points, point ou parenthèses à la place.
 - Expliquer tout acronyme ou terme technique dès la première mention.
 - Secrets : jamais dans le chat, jamais hardcodés, `.env` gitignored.
 - Fin de tâche avec un livrable qui a une URL : toujours redonner le lien dans le récap.
@@ -208,7 +208,7 @@ Terrain business de <Prénom Nom> (<marque>). C'est le dossier qui se partage : 
 2. `Clients/etat-pipeline.md` : où on en est (clients actifs, leads chauds, prochaines étapes).
 3. `Outils/outils.md` : où vit quoi dans les outils. Jamais de valeur de clé dedans.
 4. `Process/_index.md` : la table des façons de faire.
-5. `AGENTS.md` lui-même, section Routing détaillé plus bas : le routing métier fin (process, ton, charte, offre, facturation…) vit ici, jamais dans le `AGENTS.md` racine du cerveau.
+5. `AGENTS.md` lui-même, section Routing détaillé plus bas : le routing métier fin (process, ton, charte, offre, facturation…) vit ici, jamais dans le `AGENTS.md` racine du dossier de contexte.
 
 ## Carte du terrain
 <arbre du terrain tel que généré, avec une ligne de description par dossier>
@@ -234,15 +234,15 @@ Cette section grandit avec l'usage : c'est elle qui absorbe le routing détaill�
 
 ## Règles du terrain
 - Aucun fichier seul à la racine : à part `AGENTS.md` et `_context.md`, tout vit dans un module. `Docs/` n'a que des sous-dossiers par type, carte dans `Docs/_index.md`.
-- Info client : `Clients/<slug>/` est la source de vérité. Une entité = un dossier, à plat (clients, prospects, partenaires). `brief.md` (qui, contrat, interlocuteurs, décisions, où on en est) + notes datées `YYYY-MM-DD-<equipe>-sujet.md`. Jamais les mails bruts. Client terminé → `2 Archives/clients/` à la racine du cerveau.
+- Info client : `Clients/<slug>/` est la source de vérité. Une entité = un dossier, à plat (clients, prospects, partenaires). `brief.md` (qui, contrat, interlocuteurs, décisions, où on en est) + notes datées `YYYY-MM-DD-<equipe>-sujet.md`. Jamais les mails bruts. Client terminé → `2 Archives/clients/` à la racine du dossier de contexte.
 - Un process = une suite d'étapes qu'on refait, nommé par le verbe (`facturer.md`), gabarit : quand, qui, étapes, outils, pièges, skill associé. Une décision va dans `_context.md`, un modèle dans `Docs/templates/`, le mode d'emploi d'un outil dans `Outils/outils.md`.
 - Process ≠ skill : le process est la façon de faire en mots ; le skill (`Skills/<nom>/SKILL.md`) est sa version exécutable. Tout skill pointe vers un process.
 - Le contenu (posts, vidéos, newsletter) n'est pas un module : ses process et sa voix sont dans `Process/Marketing/`, sa matière dans `Docs/marketing/`.
 - Pas de `Journal/` ni d'inbox dans ce terrain : un membre d'équipe écrit directement dans `Clients/<slug>/` ou dans son `Process/<Équipe>/`.
 - [SI entrepreneur] Facturation : émetteur <nom légal>, jamais le nom de la marque seule. Règles → `Process/Finance/facturer.md`.
-- Secrets : jamais de valeur de clé dans ce dossier. `.env` local à la racine du cerveau, `Outils/outils.md` documente seulement les noms.
-- Code : jamais ici. Le code d'une app vit dans `~/Apps/<app>/`, le dossier jumeau du cerveau ; ici on trouve sa fiche `<app>.md` (`code:`, rôle, URL, lancement, décisions). Claude fait ça tout seul à chaque app créée ou reprise.
-- Ton et forme, valables pour tout ce qui sort de ce dossier : <tutoiement ou vouvoiement>, <langue>, <direct ou bienveillant>, <bullets ou paragraphes>, emoji <on ou off>. Jamais de tiret cadratin « — » ni demi-cadratin « – » ni de tiret en incise : virgule, deux-points, point ou parenthèses. Dans un message client (mail, WhatsApp) : jamais de tirets pour lister ; à la place une flèche `→` ou un retour à la ligne.
+- Secrets : jamais de valeur de clé dans ce dossier. `.env` local à la racine du dossier de contexte, `Outils/outils.md` documente seulement les noms.
+- Code : jamais ici. Le code d'une app vit dans `~/Apps/<app>/`, le dossier jumeau, à côté du dossier de contexte ; ici on trouve sa fiche `<app>.md` (`code:`, rôle, URL, lancement, décisions). Claude fait ça tout seul à chaque app créée ou reprise.
+- Ton et forme, valables pour tout ce qui sort de ce dossier : <tutoiement ou vouvoiement>, <langue>, <direct ou bienveillant>, <bullets ou paragraphes>, emoji <on ou off>. Jamais de tiret cadratin ni demi-cadratin (les tirets longs) ni de tiret en incise : virgule, deux-points, point ou parenthèses. Dans un message client (mail, WhatsApp) : jamais de tirets pour lister ; à la place une flèche `→` ou un retour à la ligne.
 - Garde-fous : <les garde-fous K2 qui concernent le business : jamais envoyer à un client sans relecture, jamais publier sans validation, etc.>
 
 ## Le jour où il y a une équipe
@@ -372,7 +372,7 @@ Les process à seeder par archétype sont listés dans `interview.md` (biblioth�
 ```markdown
 # Outils : où vit quoi
 
-Un outil = une ligne : à quoi il sert, où on le trouve, comment il est organisé dedans. Les clés d'API vivent dans `.env` à la racine du cerveau ; ici on ne note que le NOM de la variable.
+Un outil = une ligne : à quoi il sert, où on le trouve, comment il est organisé dedans. Les clés d'API vivent dans `.env` à la racine du dossier de contexte ; ici on ne note que le NOM de la variable.
 
 | Outil | Rôle | Accès | Organisation / notes |
 |---|---|---|---|
@@ -380,7 +380,7 @@ Un outil = une ligne : à quoi il sert, où on le trouve, comment il est organis
 | <facturation> | factures, devis | <URL> | numérotation <AAAA-MM-NNN>, modèle dans `Docs/templates/` |
 | <banque> | RIB, encaissements | RIB → <là où la personne a dit qu'il est rangé (E7)> | |
 | <messagerie> | mails | | |
-| <Drive / stockage> | fichiers lourds (vidéos, exports) | <chemin> | ce qui ne va pas dans le cerveau |
+| <Drive / stockage> | fichiers lourds (vidéos, exports) | <chemin> | ce qui ne va pas dans le dossier de contexte |
 | <outils métier> | | | |
 
 ## Variables d'environnement (noms seulement)
@@ -438,12 +438,12 @@ Les fichiers de charte fournis (logo, photos) se copient dans `Docs/charte/` ave
 
 ### 4.9 `Apps/<app>.md` dans le terrain (la fiche d'une app)
 
-Une par app, là où la personne veut voir son app (`Apps/` du terrain, `Clients/<client>/`…). Le code, lui, est dans `Apps/<app>/` à côté du cerveau.
+Une par app, là où la personne veut voir son app (`Apps/` du terrain, `Clients/<client>/`…). Le code, lui, est dans `Apps/<app>/` à côté du dossier de contexte.
 
 ```markdown
 ---
 date: <date>
-code: <chemin réel>/Apps/<app>/        (le dossier jumeau du cerveau, à côté de lui ; jamais dans Drive)
+code: <chemin réel>/Apps/<app>/        (le dossier jumeau, à côté du dossier de contexte ; jamais dans Drive)
 url: <où l'app tourne : Vercel, VPS, localhost:port ; ou « pas encore déployée »>
 ---
 # <Nom de l'app>
@@ -461,9 +461,9 @@ url: <où l'app tourne : Vercel, VPS, localhost:port ; ou « pas encore déploy�
 <en construction / en prod / en pause>, prochaine étape : <…>
 ```
 
-Le `AGENTS.md` du dossier de code (`Apps/<app>/AGENTS.md`, écrit par Claude quand il crée l'app) tient en trois lignes : ce que fait l'app, « le contexte business est dans `<chemin réel du cerveau>/1 Terrains/<Business>/` », et « Git et sauvegarde en ligne gérés ici, jamais de clé dans le cerveau ». Toujours le chemin réel, jamais `~/Brain/` : le dossier de la personne ne s'appelle pas forcément Brain.
+Le `AGENTS.md` du dossier de code (`Apps/<app>/AGENTS.md`, écrit par Claude quand il crée l'app) tient en trois lignes : ce que fait l'app, « le contexte business est dans `<chemin réel du dossier de contexte>/1 Terrains/<Business>/` », et « Git et sauvegarde en ligne gérés ici, jamais de clé dans le dossier de contexte ». Toujours le chemin réel, jamais `~/Brain/` : le dossier de la personne ne s'appelle pas forcément Brain.
 
-### 4.10 Gabarits complémentaires (tous avec frontmatter `date`, `source: onboarding`)
+### 4.10 Gabarits complémentaires (tous avec frontmatter `date`, `source: create-context`)
 
 **Un process de plus pour chaque livrable ou tâche cités hors liste.** La liste de l'archétype est un plancher : si la personne cite un livrable récurrent ou une tâche à déléguer qui n'y est pas (une newsletter, des relances d'impayés), c'est un process de plus, dans l'équipe qui le porte, au gabarit § 4.4.
 
@@ -589,7 +589,7 @@ Sommeil, sport (quoi, fréquence, coach), alimentation, suivi médical si donné
 
 Pas de fichier journal (abandonné le 2026-09-21 : une note déjà datée en frontmatter rend un journal séparé redondant). Ce récap se DIT à la personne, dans le chat, à la fin de la Phase 4 :
 
-- Installé dans `<pwd>` via `/onboarding` [ou `/onboarding-migrate`].
+- Installé dans `<pwd>` via `/create-context` [ou `/context-migrate`].
 - Terrain business : <Business> (<archétype>), process seedés : <liste>.
 - Terrains de vie : Perso, Admin[, Santé].
 - Charte : `1 Terrains/<Business>/Docs/charte/charte-<marque>.md` (<complète / à créer>).

@@ -111,7 +111,7 @@ Règles d'écriture : jamais de tiret cadratin ; les chemins sont ceux du cervea
 ## 5. Le rendre disponible
 
 - Cas simple (un seul dossier `Skills/`, raccourci de dossier entier) : le skill est vu immédiatement.
-- Plusieurs dossiers `Skills/` (racine + terrain) : `CLAUDE_PROJECT_DIR="$(pwd)" bash Skills/onboarding/setup/scripts/link-skills.sh` (ou depuis le terrain s'il y est).
+- Plusieurs dossiers `Skills/` (racine + terrain) : `CLAUDE_PROJECT_DIR="$(pwd)" bash Skills/create-context/setup/scripts/link-skills.sh` (ou depuis le terrain s'il y est ; sur une installation d'avant le 2026-10-17, le dossier s'appelle encore `Skills/onboarding/`).
 - Vérifier : `readlink ~/.claude/skills` ou `ls ~/.claude/skills/<nom>`. Dire à la personne de relancer Claude Code si le skill n'apparaît pas dans `/skills`.
 
 ## 6. Le test, sur le cas réel de l'étape 2.8

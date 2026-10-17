@@ -2,7 +2,7 @@
 # SessionEnd hook : pousse ce qui vient d'etre ecrit des que la session se ferme.
 # Sert aussi de post-traitement a la routine du soir (appele par le plist).
 
-VAULT_DIR="${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+VAULT_DIR="${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)}"
 VAULT_NAME="$(basename "$VAULT_DIR")"
 LOG_FILE="$HOME/Library/Logs/${VAULT_NAME}-session-push.log"
 LOCK="$HOME/Library/Caches/${VAULT_NAME}-git.lock.d"
@@ -53,6 +53,6 @@ if git push origin "$BRANCH" >> "$LOG_FILE" 2>&1; then
   echo "[$TS] push OK" >> "$LOG_FILE"
 else
   echo "[$TS] PUSH KO, voir log" >> "$LOG_FILE"
-  osascript -e 'display notification "Sauvegarde echouee, sync a verifier" with title "Second cerveau" sound name "Basso"' 2>/dev/null || true
+  osascript -e 'display notification "Sauvegarde echouee, sync a verifier" with title "Dossier de contexte" sound name "Basso"' 2>/dev/null || true
 fi
 exit 0

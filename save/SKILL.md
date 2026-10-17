@@ -9,7 +9,7 @@ Passe en revue la conversation, identifie ce qui mérite d'être gardé, et rang
 
 Ce skill est **général** : il ne connaît pas tes terrains à l'avance. Il les découvre en lisant `AGENTS.md` à chaque exécution. Conséquence : quand ta structure évolue, tu n'as **rien** à changer ici : tu mets juste à jour `AGENTS.md`, et le save suit.
 
-> Ce skill est l'un des deux mécanismes de mémoire du second cerveau. L'AUTRE : la capture des corrections en temps réel : alimente la section « Mémoire » de `AGENTS.md` automatiquement pendant la conversation (Règle #1). Les deux sont **séparés** : /save ne touche jamais `memory.md`.
+> Ce skill est l'un des deux mécanismes de mémoire du contexte. L'AUTRE : la capture des corrections en temps réel : alimente la section « Mémoire » de `AGENTS.md` automatiquement pendant la conversation (Règle #1). Les deux sont **séparés** : /save ne touche jamais `memory.md`.
 
 ## Règle dure : /save ne touche QUE les dossiers
 
@@ -84,7 +84,7 @@ Le routing est automatique. Tu ne demandes PAS confirmation. Tu exécutes. Et tu
 
 ## Étape 3.5 : Relier (wikilinks)
 
-Un second cerveau vaut par ses **connexions**, pas son rangement. Après avoir écrit, relie ce qui a une **valeur connective** (note nommée, concept, méthode, idée, client). On NE relie PAS les logs/états bruts dans un `notes.md`.
+Un contexte vaut par ses **connexions**, pas son rangement. Après avoir écrit, relie ce qui a une **valeur connective** (note nommée, concept, méthode, idée, client). On NE relie PAS les logs/états bruts dans un `notes.md`.
 
 Pour chaque élément à valeur connective :
 

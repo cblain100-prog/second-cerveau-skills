@@ -1,5 +1,5 @@
 #!/bin/bash
-# Rend les skills visibles pour Claude Code et Codex, une fois pour toutes, sans rien mettre dans le cerveau.
+# Rend les skills visibles pour Claude Code et Codex, une fois pour toutes, sans rien mettre dans le dossier de contexte.
 #   ~/.claude/skills  (Claude Code)  et  ~/.agents/skills  (Codex)  →  raccourci vers le dossier Skills/ visible.
 # Cas simple (un seul Skills/, à la racine du dossier ouvert) : UN raccourci sur le dossier entier. Un skill ajouté
 # ou supprimé dans Skills/ est vu immédiatement, plus rien à relancer.

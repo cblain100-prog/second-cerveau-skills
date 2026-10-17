@@ -1,20 +1,20 @@
 ---
-name: onboarding-migrate
-description: "Installe un second cerveau Claude Code avec la méthode des Terrains (structure figée le 2026-09-18) dans un dossier qui contient DÉJÀ du contexte (AGENTS.md, memory.md, profil.md, notes, dossiers de projets ou de clients, ancien schéma profil/memory/2 Ressources/3 Archives). Explore l'existant en silence, en déduit ce qui est déjà su, ne pose que les questions qui manquent (avec le même deep-dive métier que /onboarding), puis range chaque information au bon endroit de la structure cible (AGENTS.md unique, terrain business avec Clients/ Process/<Équipe>/ Outils/ Docs/ en sous-dossiers, terrains de vie Perso/Admin/Santé) sans rien perdre : l'ancien contexte est archivé, jamais supprimé. Utiliser quand l'utilisateur dit \"/onboarding-migrate\", \"migre mon contexte\", \"j'ai déjà un AGENTS.md\", \"reprends mon contexte existant\", \"mets mon cerveau à la nouvelle structure\", \"range ce que j'ai déjà dans la structure\", ou quand /onboarding découvre un dossier déjà rempli."
+name: context-migrate
+description: "Installe ton contexte Claude Code avec la méthode des Terrains (structure figée le 2026-09-18) dans un dossier qui en contient DÉJÀ une partie (AGENTS.md, memory.md, profil.md, notes, dossiers de projets ou de clients, ancien schéma profil/memory/2 Ressources/3 Archives). Explore l'existant en silence, en déduit ce qui est déjà su, ne pose que les questions qui manquent (avec le même deep-dive métier que /create-context), puis range chaque information au bon endroit de la structure cible (AGENTS.md unique, terrain business avec Clients/ Process/<Équipe>/ Outils/ Docs/ en sous-dossiers, terrains de vie Perso/Admin/Santé) sans rien perdre : l'ancien contexte est archivé, jamais supprimé. Utiliser quand l'utilisateur dit \"/context-migrate\", \"migre mon contexte\", \"j'ai déjà un AGENTS.md\", \"reprends mon contexte existant\", \"mets mon contexte à la nouvelle structure\", \"range ce que j'ai déjà dans la structure\", ou quand /create-context découvre un dossier déjà rempli (ancien nom : /onboarding-migrate)."
 ---
 
-# Onboarding Migrate : absorber un contexte existant, puis structurer en Terrains
+# Context migrate : absorber un contexte existant, puis structurer en Terrains
 
-Ce skill fait la même installation que `/onboarding`, avec une différence : **on ne part pas d'une feuille blanche**. La personne a déjà un contexte Claude (un `AGENTS.md` maison, un `memory.md`, des notes, des dossiers de clients ou de projets, ou un cerveau à l'ancien schéma `profil.md` / `memory.md` / `2 Ressources` / `3 Archives`). Le travail consiste à **lire tout ça, en déduire ce qui est déjà su, ne demander que ce qui manque, puis ranger chaque information à sa place dans la structure cible**, sans rien perdre.
+Ce skill fait la même installation que `/create-context`, avec une différence : **on ne part pas d'une feuille blanche**. La personne a déjà un contexte Claude (un `AGENTS.md` maison, un `memory.md`, des notes, des dossiers de clients ou de projets, ou un dossier de contexte à l'ancien schéma `profil.md` / `memory.md` / `2 Ressources` / `3 Archives`). Le travail consiste à **lire tout ça, en déduire ce qui est déjà su, ne demander que ce qui manque, puis ranger chaque information à sa place dans la structure cible**, sans rien perdre.
 
-Il s'appuie sur les fichiers de référence du skill `onboarding`, installé dans le même pack :
+Il s'appuie sur les fichiers de référence du skill `create-context`, installé dans le même pack :
 
-- `../onboarding/references/interview.md` : les blocs A à K et V, les archétypes métier, le cadre universel.
-- `../onboarding/references/structure.md` : l'arborescence cible, le gabarit de chaque fichier, les contrôles de fin.
+- `../create-context/references/interview.md` : les blocs A à K et V, les archétypes métier, le cadre universel.
+- `../create-context/references/structure.md` : l'arborescence cible, le gabarit de chaque fichier, les contrôles de fin.
 
-S'ils sont absents (`ls .claude/skills/onboarding/references/`), arrête et dis-le : ce skill ne fonctionne pas sans eux.
+S'ils sont absents (`ls Skills/create-context/references/`, ou `ls ~/.claude/skills/create-context/references/`), arrête et dis-le : ce skill ne fonctionne pas sans eux.
 
-Ton, règles d'interview, plomberie et conclusion : identiques à `/onboarding` (lis son `SKILL.md` une fois pour les avoir en tête). En particulier la règle **parler simple** : mots de tous les jours, un terme technique expliqué entre parenthèses la première fois, un exemple concret avant l'idée, phrases courtes, aucune commande ni chemin montré sans l'avoir expliqué. Elle vaut encore plus ici : la personne va voir ses anciens fichiers bouger, il faut lui dire ce qui se passe avec ses mots (« je range », « je déplace », « j'archive »), pas les nôtres (« je migre », « je refactore »). Ce fichier ne décrit que ce qui diffère.
+Ton, règles d'interview, plomberie et conclusion : identiques à `/create-context` (lis son `SKILL.md` une fois pour les avoir en tête). En particulier la règle **parler simple** : mots de tous les jours, un terme technique expliqué entre parenthèses la première fois, un exemple concret avant l'idée, phrases courtes, aucune commande ni chemin montré sans l'avoir expliqué. Elle vaut encore plus ici : la personne va voir ses anciens fichiers bouger, il faut lui dire ce qui se passe avec ses mots (« je range », « je déplace », « j'archive »), pas les nôtres (« je migre », « je refactore »). Ce fichier ne décrit que ce qui diffère.
 
 ---
 
@@ -38,13 +38,13 @@ Ton, règles d'interview, plomberie et conclusion : identiques à `/onboarding` 
 
 **Carte de couverture** : pour chaque bloc A à K et V, note ce que tu as pu déduire avec confiance, de quelle source (chemin), et l'état : **couvert**, **partiel**, **absent**. Cette carte ne se montre pas, elle pilote la Phase 0.5 et la Phase 1. Garde toujours les chemins sources : ils servent à citer d'où vient chaque info reprise et à savoir quoi archiver.
 
-Si l'exploration ne trouve **presque rien** : dis-le dès le premier message (« ton dossier est quasiment vide, il n'y a pas grand-chose à migrer ; je peux faire l'installation, mais ce sera un onboarding de zéro ») et continue ici avec tous les blocs « absent », ou propose `/onboarding`.
+Si l'exploration ne trouve **presque rien** : dis-le dès le premier message (« ton dossier est quasiment vide, il n'y a pas grand-chose à migrer ; je peux tout installer, mais on partira de zéro ») et continue ici avec tous les blocs « absent », ou propose `/create-context`.
 
 ---
 
 ## Phase 0 : dossier et accord
 
-Même message que `/onboarding`, avec ce paragraphe à la place de « SI contenu » :
+Même message que `/create-context`, avec ce paragraphe à la place de « SI contenu » :
 
 ```
 Je viens de lire ce que tu as déjà : [liste courte des fichiers et
@@ -62,7 +62,7 @@ au cas où.
 
 ## Phase 0.5 : le menu, avec ce qui est déjà couvert
 
-Même menu que `/onboarding`, mais chaque bloc porte son état :
+Même menu que `/create-context`, mais chaque bloc porte son état :
 
 ```
 A. Identité civile                [couvert d'après AGENTS.md]
@@ -79,7 +79,7 @@ Règle : un bloc **couvert** n'est pas reposé, seulement confirmé en une ligne
 
 ## Phase 1 : interview allégée
 
-Comme `/onboarding` (`../onboarding/references/interview.md`), avec la règle **DÉJÀ-COUVERT** :
+Comme `/create-context` (`../create-context/references/interview.md`), avec la règle **DÉJÀ-COUVERT** :
 
 - Avant chaque question, vérifie la carte de couverture. Info déjà connue → ne pas demander, reformuler en une ligne pour confirmation groupée en fin de bloc : « D'après ton memory.md, tu tutoies, tu écris en français, tu détestes les emojis. Toujours vrai ? »
 - Info partielle → ne demander que le manquant.
@@ -92,7 +92,7 @@ Comme `/onboarding` (`../onboarding/references/interview.md`), avec la règle **
 
 ## Phase 2 : récap et confirmation
 
-Comme `/onboarding`, plus deux sections :
+Comme `/create-context`, plus deux sections :
 
 ```
 Repris de ton contexte existant (source entre parenthèses) :
@@ -118,7 +118,7 @@ Ce que je vais déplacer (rien n'est supprimé) :
 
 ## Phase 3 : génération avec migration
 
-Suis `../onboarding/references/structure.md` pour tout ce qui est créé. Ce qui diffère : le **Step 0** ci-dessous, exécuté après la création des dossiers (§ 2 de structure.md) et avant l'écriture des fichiers (§ 3 à 6), et le principe **déplacer, jamais supprimer**.
+Suis `../create-context/references/structure.md` pour tout ce qui est créé. Ce qui diffère : le **Step 0** ci-dessous, exécuté après la création des dossiers (§ 2 de structure.md) et avant l'écriture des fichiers (§ 3 à 6), et le principe **déplacer, jamais supprimer**.
 
 ### 3.1 Table de correspondance (ancien schéma v1 → structure cible)
 
@@ -153,12 +153,12 @@ Suis `../onboarding/references/structure.md` pour tout ce qui est créé. Ce qui
 2. **Fichiers d'identité, mémoire, manuel** (`AGENTS.md`, `memory.md`, `profil.md`, `branding.md`, `about.md`…) : leur contenu est repris aux Steps 3 à 5 de structure.md selon la table ; une fois les nouveaux fichiers écrits, **déplace** chaque ancien vers l'archive en gardant son nom. Ce que tu n'as pas repris (détail mineur, ambigu, hors sujet) : liste-le en Phase 4, « détails non repris, encore dans l'archive ».
 3. **Dossiers de contenu** : applique la table. Un dossier qui correspond clairement à une destination → déplacé (`git mv` si dépôt git, sinon `mv`), en gardant les noms de fichiers. Un dossier ambigu → demander : « ton dossier `X`, je le range où : dans `Clients/`, dans `Process/`, dans `Docs/<type>/`, ou je le laisse tel quel ? ». « laisse tel quel » → ne rien toucher, noter en Phase 4 sous « dossiers non classés ».
 4. **Références** : après les déplacements, `grep -rn "<ancien chemin>"` sur tous les `.md`, `.json`, `.sh` du dossier (hors `.git`, `node_modules`, archive) et réécris chaque référence vers le nouveau chemin. Les wikilinks `[[nom]]` continuent de résoudre par nom de fichier, les chemins en dur non.
-5. **Ne déplace jamais** `.git`, `.claude`, `node_modules`, `.env` du cerveau lui-même. Un dossier de code (un dossier avec `package.json`, `requirements.txt`…) trouvé n'importe où dans le cerveau reçoit la règle Apps (c'est le § 4 du skill `/app`, à suivre tel quel) : le dossier est **déplacé vers `Apps/<app>/` à côté du cerveau** (même dossier parent ; `mkdir -p` puis `mv`, hors du cerveau) et remplacé à sa place par la fiche `<app>.md` (`code: ~/Apps/<app>/`, rôle, URL de déploiement si trouvée, lancement, décisions) écrite d'après ce que le dossier contient (README, package.json). Un `AGENTS.md` de trois lignes est posé dans le code s'il n'en a pas. Si le code n'a pas de `.git`, `git init` dedans et le dire : la sauvegarde en ligne se met en place avec la plomberie. Dire à la personne, une fois : « ton code vit maintenant dans le dossier Apps, juste à côté de ton cerveau ; pour y travailler, dis-moi “bosse sur l'app X” ».
-6. **Skills** : les skills vivent dans `Skills/` (racine) ou `1 Terrains/<Business>/Skills/` (propres au business : facturation, propositions…). Rien dans le `.claude/` du cerveau à part `settings.json` : déplace les vrais dossiers de `.claude/skills/` vers le bon `Skills/`, supprime `.claude/skills/` et `.claude/scripts/`, puis `CLAUDE_PROJECT_DIR="$(pwd)" bash Skills/onboarding/setup/scripts/link-skills.sh` (un raccourci `~/.claude/skills → Skills/`, hors du cerveau, posé une fois).
+5. **Ne déplace jamais** `.git`, `.claude`, `node_modules`, `.env` du dossier de contexte lui-même. Un dossier de code (un dossier avec `package.json`, `requirements.txt`…) trouvé n'importe où dans le dossier de contexte reçoit la règle Apps (c'est le § 4 du skill `/create-app`, à suivre tel quel) : le dossier est **déplacé vers `Apps/<app>/` à côté du dossier de contexte** (même dossier parent ; `mkdir -p` puis `mv`, hors du dossier de contexte) et remplacé à sa place par la fiche `<app>.md` (`code: ~/Apps/<app>/`, rôle, URL de déploiement si trouvée, lancement, décisions) écrite d'après ce que le dossier contient (README, package.json). Un `AGENTS.md` de trois lignes est posé dans le code s'il n'en a pas. Si le code n'a pas de `.git`, `git init` dedans et le dire : la sauvegarde en ligne se met en place avec la plomberie. Dire à la personne, une fois : « ton code vit maintenant dans le dossier Apps, juste à côté de ton dossier de contexte ; pour y travailler, dis-moi “bosse sur l'app X” ».
+6. **Skills** : les skills vivent dans `Skills/` (racine) ou `1 Terrains/<Business>/Skills/` (propres au business : facturation, propositions…). Rien dans le `.claude/` du dossier de contexte à part `settings.json` : déplace les vrais dossiers de `.claude/skills/` vers le bon `Skills/`, supprime `.claude/skills/` et `.claude/scripts/`, puis `CLAUDE_PROJECT_DIR="$(pwd)" bash Skills/create-context/setup/scripts/link-skills.sh` (un raccourci `~/.claude/skills → Skills/`, hors du dossier de contexte, posé une fois).
 
 ### 3.3 Le reste
 
-Steps 3 à 9 de `/onboarding` (structure.md § 3 à § 7), en écrivant les nouveaux fichiers **à partir de l'existant plus l'interview**, sans placeholder. Les contrôles de fin (§ 7) sont obligatoires, plus un septième :
+Steps 3 à 9 de `/create-context` (structure.md § 3 à § 7), en écrivant les nouveaux fichiers **à partir de l'existant plus l'interview**, sans placeholder. Les contrôles de fin (§ 7) sont obligatoires, plus un septième :
 
 ```bash
 # 7. plus aucune trace de l'ancien schéma hors archive
@@ -173,7 +173,7 @@ Tout doit être vide.
 
 ## Phase 4 : conclusion
 
-Même explication que `/onboarding`, avec en plus :
+Même explication que `/create-context`, avec en plus :
 
 ```
 CE QUI VIENT DE TON ANCIEN CONTEXTE
@@ -182,7 +182,7 @@ CE QUI VIENT DE TON ANCIEN CONTEXTE
   [liste des fichiers]
 - Détails non repris (encore dans l'archive) : [liste ou « aucun »]
 - Dossiers non classés, à ranger toi-même : [liste ou « aucun »]
-- Code sorti du cerveau vers Apps/ (à côté), fiche laissée à sa place : [liste ou « aucun »]
+- Code sorti de ton dossier de contexte vers Apps/ (à côté), fiche laissée à sa place : [liste ou « aucun »]
 ```
 
 ---

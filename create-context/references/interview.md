@@ -1,6 +1,6 @@
 # Interview : les blocs de questions, les archétypes métier, le cadre universel
 
-Fichier de référence des skills `onboarding` (de zéro) et `onboarding-migrate` (avec contexte existant). Les deux skills l'appellent en Phase 1. Il contient : les blocs A à K et V, la bibliothèque d'archétypes métier avec les process à seeder, et le cadre universel pour tout métier hors bibliothèque. Les templates des fichiers générés sont dans `structure.md`.
+Fichier de référence des skills `create-context` (de zéro) et `context-migrate` (avec contexte existant). Les deux skills l'appellent en Phase 1. Il contient : les blocs A à K et V, la bibliothèque d'archétypes métier avec les process à seeder, et le cadre universel pour tout métier hors bibliothèque. Les templates des fichiers générés sont dans `structure.md`.
 
 Rappels transverses (le SKILL.md les pose, ils sont répétés ici pour l'agent qui ne lirait que ce fichier) : un bloc à la fois ; creuser une fois quand une réponse est en surface, davantage sur le métier ; asset-first (un fichier réel vaut mille questions) ; « saute » est toujours accepté et se note « non renseigné ».
 
@@ -35,7 +35,7 @@ Rappels transverses (le SKILL.md les pose, ils sont répétés ici pour l'agent 
 
 ### Bloc D : Activité, métier & ce que tu veux déléguer (FORTEMENT RECOMMANDÉ)
 
-C'est le bloc le plus important pour l'utilité du cerveau. Il a 3 temps : (1) le panorama de l'activité, (2) **le deep-dive métier** (questions adaptées au secteur), (3) ce qu'on veut déléguer à l'IA.
+C'est le bloc le plus important pour l'utilité du contexte. Il a 3 temps : (1) le panorama de l'activité, (2) **le deep-dive métier** (questions adaptées au secteur), (3) ce qu'on veut déléguer à l'IA.
 
 #### D.1 : Panorama de l'activité
 
@@ -67,7 +67,7 @@ Quoi qu'il arrive, couvre ces dimensions transverses (l'archétype te donne les 
 - **Contraintes** : réglementation, déontologie, risques propres au métier.
 - **Livrables récurrents** : qu'est-ce que tu PRODUIS de façon répétée ? (devis, fiches produit, comptes-rendus, posts, rapports, propositions...).
 
-Puis, **toujours** (c'est ce qui donne sa personnalité au cerveau) :
+Puis, **toujours** (c'est ce qui donne sa personnalité au contexte) :
 - D5. **Ton angle unique** : qu'est-ce que tu fais différemment des autres dans ton métier ? Tes convictions fortes, tes partis pris, ce sur quoi tu ne transigeras jamais ? (1-3 lignes)
 - D6. **Ton vocabulaire** : les mots, expressions, tournures que tu emploies tout le temps dans ton taf (pour que je parle comme toi, pas comme un robot générique).
 

@@ -1,6 +1,6 @@
 ---
 name: partager
-description: Partage le terrain business du second cerveau avec une personne de l'équipe (assistant, freelance, associé, salarié) via Google Drive, de bout en bout et sans rien casser. Vérifie d'abord que le terrain est partageable (pas de code, pas de clé, pas de fichier lourd, rien de caché), s'assure que le cerveau est dans Mon Drive en miroir, pose les droits dans le bon ordre (Lecteur sur le terrain, Éditeur sur Clients et Docs, Éditeur sur son équipe, Finance coupé), écrit le message à envoyer à la personne, crée sa fiche dans Equipe/, et fait passer le test de bout en bout avant de dire « partagé ». Utiliser quand l'utilisateur dit "/partager", "partage mon terrain", "partage mon business avec X", "donne accès à X", "X rejoint l'équipe", "comment je partage mon second cerveau", "mettre mon cerveau sur Google Drive".
+description: Partage le terrain business du contexte avec une personne de l'équipe (assistant, freelance, associé, salarié) via Google Drive, de bout en bout et sans rien casser. Vérifie d'abord que le terrain est partageable (pas de code, pas de clé, pas de fichier lourd, rien de caché), s'assure que le cerveau est dans Mon Drive en miroir, pose les droits dans le bon ordre (Lecteur sur le terrain, Éditeur sur Clients et Docs, Éditeur sur son équipe, Finance coupé), écrit le message à envoyer à la personne, crée sa fiche dans Equipe/, et fait passer le test de bout en bout avant de dire « partagé ». Utiliser quand l'utilisateur dit "/partager", "partage mon terrain", "partage mon business avec X", "donne accès à X", "X rejoint l'équipe", "comment je partage mon contexte", "mettre mon cerveau sur Google Drive".
 ---
 
 # Partager : donner son terrain business à quelqu'un de l'équipe
@@ -48,7 +48,7 @@ Deux montages possibles, à choisir avant tout :
 Trois situations pour le montage 1 :
 
 - **Drive pas installé** : dire d'installer « Google Drive pour ordinateur » (google.com/drive/download), de se connecter avec le compte Google du business, et dans ses préférences de choisir « Mettre en miroir les fichiers » (tout est sur le disque, pas seulement dans le cloud). Puis reprendre ici.
-- **Drive installé, cerveau ailleurs** (le cas normal la première fois) : déplacer le cerveau entier dans `Mon Drive/`. Avant : fermer Claude Code et Obsidian. Le déplacement : `mv "<cerveau>" ~/Library/CloudStorage/GoogleDrive-<mail>/Mon\ Drive/<cerveau>` (sur Mac ; sur Windows, glisser le dossier dans `G:\Mon Drive`). Après : rouvrir Claude Code depuis le nouveau chemin, relancer une fois `Skills/onboarding/setup/scripts/link-skills.sh` (le raccourci des skills pointe sur l'ancien chemin), et si le cerveau a une sauvegarde en ligne par Git, sortir le dépôt du dossier Drive avec `git init --separate-git-dir ~/.<cerveau>-git` (Git et Drive ne cohabitent pas sur le même dossier). Vérifier que `AGENTS.md` s'ouvre wifi coupé.
+- **Drive installé, dossier de contexte ailleurs** (le cas normal la première fois) : déplacer le dossier de contexte entier dans `Mon Drive/`. Avant : fermer Claude Code et Obsidian. Le déplacement : `mv "<cerveau>" ~/Library/CloudStorage/GoogleDrive-<mail>/Mon\ Drive/<cerveau>` (sur Mac ; sur Windows, glisser le dossier dans `G:\Mon Drive`). Après : rouvrir Claude Code depuis le nouveau chemin, relancer une fois `Skills/create-context/setup/scripts/link-skills.sh` (`Skills/onboarding/...` sur une installation d'avant le 2026-10-17) (le raccourci des skills pointe sur l'ancien chemin), et si le cerveau a une sauvegarde en ligne par Git, sortir le dépôt du dossier Drive avec `git init --separate-git-dir ~/.<cerveau>-git` (Git et Drive ne cohabitent pas sur le même dossier). Vérifier que `AGENTS.md` s'ouvre wifi coupé.
 - **Cerveau déjà dans Drive** : vérifier le mode miroir (préférences Drive → compte → « Mettre en miroir »). En flux, Obsidian et Claude voient des fichiers vides ou lents.
 
 Un Drive partagé Workspace (l'objet « Drives partagés ») ne se met pas en miroir : flux + « Disponible hors connexion » sur le dossier, poste par poste. Le dire si c'est le cas, et préférer Mon Drive quand on a le choix.
@@ -82,13 +82,13 @@ Créer `1 Terrains/<Business>/Equipe/<prenom-nom>/brief.md` : rôle, équipe, de
 ```
 Salut <Prénom>,
 
-Tu as maintenant accès au dossier « <Business> » : c'est notre cerveau d'équipe, tout ce qu'on sait sur la boîte, les clients et nos façons de faire. Voilà comment l'installer, une fois, dix minutes.
+Tu as maintenant accès au dossier « <Business> » : c'est notre contexte d'équipe, tout ce qu'on sait sur la boîte, les clients et nos façons de faire. Voilà comment l'installer, une fois, dix minutes.
 
 1. Installe « Google Drive pour ordinateur » (google.com/drive/download) et connecte-toi avec ton compte <email>.
 2. Dans Drive sur le web, ouvre « Partagés avec moi », clic droit sur « <Business> », puis Organiser → Ajouter un raccourci → Mon Drive.
 3. Dans les préférences de Drive pour ordinateur, choisis « Mettre en miroir les fichiers ».
 4. Attends que tout soit téléchargé, puis coupe le wifi et ouvre le fichier AGENTS.md du dossier : s'il s'ouvre, c'est bon.
-5. Installe Claude Code si ce n'est pas fait, ouvre-le dans le dossier « <Business> », et dis-lui : « lance Skills/onboarding/setup/scripts/link-skills.sh ». C'est ce qui lui donne nos outils.
+5. Installe Claude Code si ce n'est pas fait, ouvre-le dans le dossier « <Business> », et dis-lui : « lance le script link-skills.sh qui est dans le dossier Skills ». C'est ce qui lui donne nos outils.
 6. Demande-lui « qu'est-ce que je dois faire aujourd'hui ? » pour voir que tout marche.
 
 Trois règles chez nous : tu écris seulement dans ton dossier Process/<équipe> et dans les dossiers clients ; on ajoute, on n'efface pas (une suppression est définitive pour tout le monde) ; si tu vois un fichier avec « [Conflit] » dans le nom, tu me le dis.

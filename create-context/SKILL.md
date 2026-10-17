@@ -1,27 +1,27 @@
 ---
-name: onboarding
-description: Installe un second cerveau Claude Code de zéro avec la méthode des Terrains (structure figée le 2026-09-18). Interview adaptée au métier (identité, activité, deep-dive métier par archétype, business, charte, terrains, rythme, garde-fous), récupère les assets existants (écrits, charte, modèles de factures) pour en extraire le ton et les règles, puis génère DIRECTEMENT dans le dossier ouvert un AGENTS.md unique (seul fichier auto-chargé), un terrain business complet (AGENTS.md, _context.md, Clients/, Process/<Équipe>/ avec les process du métier, Outils/, Docs/ en sous-dossiers) et les terrains de vie (Perso, Admin, Santé), explique le système à la fin, propose la sauvegarde en ligne et le récap du soir. Pas de sous-dossier Brain/, pas de profil.md ni memory.md. Pour un dossier qui contient déjà un contexte Claude (AGENTS.md, memory.md, notes), utiliser /onboarding-migrate. Utiliser quand l'utilisateur dit "/onboarding", "onboarding", "crée mon contexte", "setup mon brain", "installer mon second cerveau", "créer mon second cerveau", ou ouvre Claude Code pour la première fois dans un dossier vide.
+name: create-context
+description: "Installe ton contexte Claude Code de zéro avec la méthode des Terrains (structure figée le 2026-09-18). Interview adaptée au métier (identité, activité, deep-dive métier par archétype, business, charte, terrains, rythme, garde-fous), récupère les assets existants (écrits, charte, modèles de factures) pour en extraire le ton et les règles, puis génère DIRECTEMENT dans le dossier ouvert un AGENTS.md unique (seul fichier auto-chargé), un terrain business complet (AGENTS.md, _context.md, Clients/, Process/<Équipe>/ avec les process du métier, Outils/, Docs/ en sous-dossiers) et les terrains de vie (Perso, Admin, Santé), explique le système à la fin, propose la sauvegarde en ligne et le récap du soir. Pas de sous-dossier Brain/, pas de profil.md ni memory.md. Pour un dossier qui contient déjà un contexte Claude (AGENTS.md, memory.md, notes), utiliser /context-migrate. Utiliser quand l'utilisateur dit \"/create-context\", \"create context\", \"crée mon contexte\", \"installe mon contexte\", \"setup mon brain\", ou ouvre Claude Code pour la première fois dans un dossier vide (ancien nom : /onboarding)."
 ---
 
-# Onboarding : installer un second cerveau de zéro (méthode des Terrains)
+# Create context : installer ton contexte de zéro (méthode des Terrains)
 
-Ce skill installe la fondation d'un second cerveau Claude Code dans un dossier vide ou presque. Il interviewe en profondeur, **en s'adaptant au métier de la personne**, récupère ce qu'elle a déjà produit, génère la structure, puis explique comment tout fonctionne. En dernier lieu il propose la plomberie qui fait vivre le cerveau tout seul (sauvegarde en ligne, relevé du soir). Proposé, jamais imposé.
+Ce skill installe la fondation d'un contexte Claude Code dans un dossier vide ou presque. Il interviewe en profondeur, **en s'adaptant au métier de la personne**, récupère ce qu'elle a déjà produit, génère la structure, puis explique comment tout fonctionne. En dernier lieu il propose la plomberie qui fait vivre le dossier de contexte tout seul (sauvegarde en ligne, relevé du soir). Proposé, jamais imposé.
 
 Deux fichiers de référence, dans `references/`, sont la source de vérité de ce skill :
 
 - `references/interview.md` : les blocs de questions A à K et V, la bibliothèque d'archétypes métier (avec les process à seeder), le cadre universel pour tout métier hors bibliothèque.
 - `references/structure.md` : l'arborescence exacte à générer et le gabarit de chaque fichier, plus les contrôles de fin.
 
-Le skill jumeau `/onboarding-migrate` sert quand le dossier contient déjà un contexte (AGENTS.md, memory.md, notes, dossiers de projets) : il absorbe l'existant avant d'interviewer. Si en Phase 0 tu découvres un vrai contexte existant, propose de basculer dessus.
+Le skill jumeau `/context-migrate` sert quand le dossier contient déjà un contexte (AGENTS.md, memory.md, notes, dossiers de projets) : il absorbe l'existant avant d'interviewer. Si en Phase 0 tu découvres un vrai contexte existant, propose de basculer dessus.
 
 ## Ce que le skill installe (à savoir avant de commencer)
 
 - **Un seul fichier lu automatiquement** : `AGENTS.md` à la racine (format neutre, lu par Claude Code depuis la 2.1.277 et par Codex ; jamais de `CLAUDE.md` à côté, sinon Claude Code ignore `AGENTS.md`). Il contient qui est la personne, ses règles, sa mémoire (les corrections qu'elle fait en cours de route), la carte du dossier et le routing. Pas de `profil.md`, pas de `memory.md` : deux fichiers de plus à expliquer, pour rien.
 - **Des terrains.** Un terrain, c'est un domaine où la personne opère. Le terrain **business** (nom de la boîte ou de la marque) contient `Clients/`, `Process/` découpé par équipe, `Outils/`, `Docs/` en sous-dossiers, et son propre `AGENTS.md` : c'est le dossier qui se partage le jour où quelqu'un rejoint l'équipe. Les terrains de **vie** (Perso, Admin, Santé) n'ont qu'un `_context.md` et un `Docs/`.
 - **Le contenu n'est pas un terrain** : publier est un process du marketing. La voix et les règles vivent dans `Process/Marketing/`, la matière dans `Docs/marketing/`.
-- **Le code n'est pas dans le cerveau** : deux dossiers côte à côte, le cerveau (le contexte) et `Apps/` dans le même dossier parent (le code). Le lien est fait par Claude via le skill `/app` (fiche dans le cerveau, `AGENTS.md` dans l'app). La personne retient « Brain c'est ce que je sais, Apps c'est ce que je construis, je parle toujours depuis Brain ».
-- **Deux réflexes de mémoire** : les corrections en direct vont dans la source de vérité du sujet (Règle #1, dans `AGENTS.md`) ; `/save` en fin de session range le reste. `/save` est livré avec le pack de skills, l'onboarding ne l'installe pas, il l'explique.
-- **Le dossier ouvert (`pwd`) devient le cerveau.** Jamais de sous-dossier `Brain/`.
+- **Le code n'est pas dans le dossier de contexte** : deux dossiers côte à côte, le dossier de contexte et `Apps/` dans le même dossier parent (le code). Le lien est fait par Claude via le skill `/create-app` (fiche dans le dossier de contexte, `AGENTS.md` dans l'app). La personne retient « Brain c'est ce que je sais, Apps c'est ce que je construis, je parle toujours depuis Brain ».
+- **Deux réflexes de mémoire** : les corrections en direct vont dans la source de vérité du sujet (Règle #1, dans `AGENTS.md`) ; `/save` en fin de session range le reste. `/save` est livré avec le pack de skills, ce skill ne l'installe pas, il l'explique.
+- **Le dossier ouvert (`pwd`) devient le dossier de contexte.** Jamais de sous-dossier `Brain/`.
 
 **Quand expliquer** : un cadrage léger au début (Phase 0), l'explication complète à la fin (Phase 4), une fois les fichiers sous les yeux.
 
@@ -29,16 +29,16 @@ Le skill jumeau `/onboarding-migrate` sert quand le dossier contient déjà un c
 
 - Français par défaut (bascule selon le Bloc F), tutoiement, direct et bienveillant, bullets, zéro emoji, zéro fluff.
 - **Parler simple, c'est une règle, pas un style.** La personne n'est pas technique. Concrètement :
-  - des mots de tous les jours : « ton dossier », « ton cerveau », « un fichier texte », « sauvegardé en ligne ». Jamais « vault », « repo », « commit », « push », « hook », « symlink », « markdown », « prompt », « workspace », « auto-loaded », « CLI », « terminal » sans l'expliquer ;
+  - des mots de tous les jours : « ton dossier », « ton contexte », « un fichier texte », « sauvegardé en ligne ». Jamais « vault », « repo », « commit », « push », « hook », « symlink », « markdown », « prompt », « workspace », « auto-loaded », « CLI », « terminal » sans l'expliquer ;
   - un mot technique inévitable se dit une fois, avec sa traduction entre parenthèses, puis on garde la traduction : « GitHub (l'endroit où ton code est sauvegardé en ligne) » ;
-  - un exemple concret avant toute idée abstraite : « quand tu me dis “crée-moi une app de devis”… » avant « le code vit à côté du cerveau » ;
+  - un exemple concret avant toute idée abstraite : « quand tu me dis “crée-moi une app de devis”… » avant « le code vit à côté de ton dossier de contexte » ;
   - des phrases courtes, une idée par phrase, jamais trois termes nouveaux dans la même phrase ;
   - ne jamais montrer une commande ou un chemin technique à la personne sauf si elle le demande ; si on en montre un, dire d'abord à quoi il sert ;
   - se relire avant d'envoyer : si un ami non technicien ne comprendrait pas la phrase, la réécrire.
   Cette règle est aussi écrite dans le `AGENTS.md` généré (§ Communication), pour que Claude continue à parler comme ça après l'installation.
 - **Un bloc à la fois.** Attends les réponses avant le suivant.
 - Sur le métier : un confrère curieux, pas un formulaire. Rebondis, emploie son vocabulaire.
-- Jamais de tiret cadratin « — » ni de demi-cadratin « – » dans ce que tu écris (messages et fichiers) : virgule, deux-points, point, parenthèses.
+- Jamais de tiret cadratin ni de demi-cadratin (les tirets longs) dans ce que tu écris (messages et fichiers) : virgule, deux-points, point, parenthèses.
 
 À la fin du setup, le ton de l'agent sera celui choisi par la personne (Bloc F). Pendant le setup, c'est celui-ci.
 
@@ -48,30 +48,30 @@ Le skill jumeau `/onboarding-migrate` sert quand le dossier contient déjà un c
 
 Avant toute question, en parallèle : `pwd`, `ls -la`, test d'écriture (`touch .test-write && rm .test-write`).
 
-Si le dossier contient déjà un `AGENTS.md`, un `memory.md`, un `profil.md`, ou des dossiers de notes et de projets avec de la substance : **ce n'est pas un onboarding de zéro**. Dis-le : « Ton dossier contient déjà du contexte (liste). Le bon outil c'est `/onboarding-migrate`, qui reprend ce qui existe au lieu de te faire tout redire. Je bascule dessus ? » Si oui, arrête ici et lance-le. Si la personne insiste pour repartir de zéro, continue, sans jamais écraser un fichier existant.
+Si le dossier contient déjà un `AGENTS.md`, un `memory.md`, un `profil.md`, ou des dossiers de notes et de projets avec de la substance : **ce n'est pas une installation de zéro**. Dis-le : « Ton dossier contient déjà du contexte (liste). Le bon outil c'est `/context-migrate`, qui reprend ce qui existe au lieu de te faire tout redire. Je bascule dessus ? » Si oui, arrête ici et lance-le. Si la personne insiste pour repartir de zéro, continue, sans jamais écraser un fichier existant.
 
 Puis affiche ce message (adapte les chemins) :
 
 ```
-Salut. Je suis là pour installer ton second cerveau.
+Salut. Je suis là pour installer ton contexte.
 
 Le dossier de travail : tu m'as ouvert dans [pwd].
-Ce dossier va devenir ton second cerveau. C'est lui qui contiendra tout
-ton contexte (qui tu es, ton métier, tes clients, tes façons de faire,
-tes règles) et qui te suivra dans toutes nos discussions.
+Ce dossier va devenir ton contexte. C'est lui qui contiendra tout ce
+que je dois savoir (qui tu es, ton métier, tes clients, tes façons de
+faire, tes règles) et qui te suivra dans toutes nos discussions.
 
 [SI contenu : « Il y a déjà des fichiers dedans : [liste]. Je n'écrase
 rien. On continue ici, ou tu préfères un dossier vide ? »]
 [SI vide : « Le dossier est vide, parfait. »]
 
-Une chose à comprendre dès maintenant : ce cerveau n'est pas figé après
+Une chose à comprendre dès maintenant : ce contexte n'est pas figé après
 l'installation. Chaque fois que tu me corriges, que tu me donnes une info
 sur toi ou ton activité, je l'écris dans tes fichiers. Plus on parle,
 plus il te ressemble. Aujourd'hui on pose la fondation.
 
 En deux mots, comment ça marche (je te réexplique tout à la fin, avec
 les fichiers sous les yeux) :
-- ton cerveau = des fichiers texte, rangés par « terrains » (ton
+- ton contexte = des fichiers texte, rangés par « terrains » (ton
   business d'un côté, ta vie de l'autre) ;
 - quand tu me corriges, je le note tout seul, au bon endroit ;
 - tes façons de faire deviennent des « skills » : des outils que tu
@@ -86,7 +86,7 @@ Tu es prêt ? (oui / change de dossier / pas maintenant)
 
 - « oui » → Phase 0.5.
 - « change de dossier » → demande le chemin absolu, refais Phase 0 dessus (propose `mkdir -p` s'il n'existe pas).
-- « pas maintenant » → « OK, relance /onboarding quand tu es dispo. »
+- « pas maintenant » → « OK, relance /create-context quand tu es dispo. »
 
 ---
 
@@ -95,7 +95,7 @@ Tu es prêt ? (oui / change de dossier / pas maintenant)
 La personne choisit ce qu'elle veut transmettre. Le minimum, c'est les fondations.
 
 ```
-Voilà ce qu'un second cerveau peut contenir. Plus tu remplis, plus ton
+Voilà ce que ton contexte peut contenir. Plus tu remplis, plus ton
 IA te ressemble. Tu choisis.
 
 FONDATIONS (obligatoires)
@@ -115,7 +115,7 @@ D. Ton métier en profondeur + ce que tu veux déléguer : tes casquettes,
    TON métier (acteurs, outils, chiffres, cycle, façon de faire), et
    les tâches répétitives qui te bouffent du temps.
    C'est le bloc qui rend ton IA utile : c'est ton métier qui remplit
-   80 % du cerveau. Si tu n'ajoutes qu'un bloc, c'est celui-là.
+   80 % de ton contexte. Si tu n'ajoutes qu'un bloc, c'est celui-là.
 
 EXTENSIONS (à la carte)
 
@@ -136,7 +136,7 @@ Tu veux faire quoi :
 ```
 
 - A, F, G, V toujours dedans, et la question B1 (valeur racine) est posée avec le bloc A même si B n'est pas choisi : la première ligne du AGENTS.md en a besoin. « tout » → A à K + V. Liste → fondations + lettres, dédupliquées.
-- Fondations seules mais activité pro évidente : proposer UNE fois d'ajouter D (« 15 minutes de plus, c'est ce qui rend ton cerveau utile »).
+- Fondations seules mais activité pro évidente : proposer UNE fois d'ajouter D (« 15 minutes de plus, c'est ce qui rend ton contexte utile »).
 - E sélectionné sans activité à son compte : confirmer, retirer E si besoin, garder D.
 - Confirmer : « OK, on fait : [blocs]. C'est parti. »
 
@@ -193,7 +193,7 @@ Structure
 - 1 Terrains/Perso/  Admin/  [Santé/]
 - 2 Archives/
 - et, À CÔTÉ de ce dossier, un dossier Apps/ (vide) : c'est là que vivra le code
-  de tes futurs outils, jamais dans le cerveau
+  de tes futurs outils, jamais dans ce dossier de contexte
 
 Je lance ? (oui / modifie X)
 ```
@@ -206,14 +206,14 @@ Je lance ? (oui / modifie X)
 
 Suis `references/structure.md` dans cet ordre. Toujours les vraies réponses, jamais de placeholder, jamais d'écrasement d'un fichier existant.
 
-1. **Arborescence** (§ 2) : dossiers de la racine, terrain business, terrains de vie, et `Apps/` dans le dossier parent du cerveau (à côté de lui, vide : c'est là que le skill `/app` mettra le code). Un module n'est créé que s'il reçoit un fichier.
+1. **Arborescence** (§ 2) : dossiers de la racine, terrain business, terrains de vie, et `Apps/` dans le dossier parent (à côté du dossier de contexte, vide : c'est là que le skill `/create-app` mettra le code). Un module n'est créé que s'il reçoit un fichier.
 2. **Fichiers techniques** (§ 2) : `.claude/settings.json` (`autoMemoryEnabled: false`, fusionner si existant), `.env` (en-tête seul), `.gitignore`.
 3. **`AGENTS.md` racine** (§ 3) : sous 100 lignes (cible 70-90), reste petit indéfiniment. Le résumé de la personne, une arborescence courte, les 3 règles, les sections Règles et Technique (règles de travail et communication d'après F6/F7, garde-fous universels de K2 seulement : les garde-fous propres au métier vont dans le terrain business), et un Routing par terrain d'une ligne chacun. Aucun détail métier ici : il part dans `1 Terrains/<Business>/AGENTS.md` (§ 4.1, section Routing détaillé).
 4. **Terrain business** (§ 4) : `AGENTS.md` du terrain (dont la section Routing détaillé, seedée avec le routing générique § 4.1 et une ligne de plus par sujet métier remonté au Bloc D), `_context.md`, `Clients/etat-pipeline.md` et `historique-clients.md` (+ un `Clients/<slug>/brief.md` par client cité), `Process/_index.md` et les process seedés de l'archétype remplis avec ce que la personne a décrit (« à préciser » pour les étapes non décrites), `Process/Marketing/_context.md`, `ton.md`, `regles.md`, `Outils/outils.md`, `Docs/_index.md`, `Docs/charte/charte-<marque>.md` (une par marque), `Docs/offre/`, `Docs/templates/` (modèles fournis). `Equipe/<prenom>/fiche.md` et `Process/RH/integrer-un-collaborateur.md` si quelqu'un travaille déjà avec la personne.
 5. **Terrains de vie** (§ 5) : `Perso/_context.md` (identité, proches, valeurs, parcours, rythme, vision, finances, notes privées), `Admin/_context.md` (légal, RIB, logement, charges), `Santé/_context.md` si demandé. Chacun avec son `Docs/`.
 6. **Assets** : chaque fichier fourni est copié au bon endroit (charte → `Docs/charte/`, modèles → `Docs/templates/`, photos → `Docs/charte/`) ; un lien ou un document lourd reste où il est et la note pointe dessus. Jamais un copier-coller brut : l'essentiel, plus le pointeur.
 7. **Message de fin d'installation** (§ 6) : pas de fichier journal (abandonné), ce récap se dit à l'oral en Phase 4.
-8. **Skills du pack.** Le pack livré à la personne, c'est exactement : `onboarding`, `onboarding-migrate`, `app`, `save`, `tri-inbox`, `grill-me`, `partager`, `nouveau-skill`. Ils vivent dans `Skills/` à la racine du cerveau (dossier visible, comme le reste). **Rien dans le `.claude/` du cerveau** : ni skill, ni lien, ni script. Chaque outil lit les skills à une adresse fixe du dossier personnel de l'utilisateur, hors du cerveau (Claude Code : `~/.claude/skills` ; Codex : `~/.agents/skills`) : `link-skills.sh` fait de chacune UN raccourci vers `Skills/`, une fois pour toutes. Un skill ajouté dans `Skills/` est vu immédiatement, rien à relancer. La phrase d'installation du pack a déjà fait ça. Ici tu vérifies : `ls Skills/` montre les huit, `readlink ~/.claude/skills` renvoie le chemin de `Skills/`, et `.claude/` du cerveau est vide ou ne contient que `settings.json`. Si des skills ou des liens traînent dans `.claude/skills/` du cerveau (installation à l'ancienne) : déplacer les vrais dossiers vers `Skills/`, supprimer `.claude/skills/`, relancer `CLAUDE_PROJECT_DIR="$(pwd)" bash Skills/onboarding/setup/scripts/link-skills.sh`. Un skill du pack absent : ne pas le recréer, le dire en Phase 4. Aucun autre skill n'est promis à la personne. Les skills propres au business que la personne créera plus tard iront dans `1 Terrains/<Business>/Skills/` (partagés avec l'équipe par Drive) ; le même script les relie.
+8. **Skills du pack.** Le pack livré à la personne, c'est exactement : `create-context`, `context-migrate`, `create-app`, `save`, `tri-inbox`, `grill-me`, `partager`, `nouveau-skill`. Ils vivent dans `Skills/` à la racine du dossier de contexte (dossier visible, comme le reste). **Rien dans le `.claude/` du dossier de contexte** : ni skill, ni lien, ni script. Chaque outil lit les skills à une adresse fixe du dossier personnel de l'utilisateur, hors du dossier de contexte (Claude Code : `~/.claude/skills` ; Codex : `~/.agents/skills`) : `link-skills.sh` fait de chacune UN raccourci vers `Skills/`, une fois pour toutes. Un skill ajouté dans `Skills/` est vu immédiatement, rien à relancer. La phrase d'installation du pack a déjà fait ça. Ici tu vérifies : `ls Skills/` montre les huit, `readlink ~/.claude/skills` renvoie le chemin de `Skills/`, et `.claude/` du dossier de contexte est vide ou ne contient que `settings.json`. Si des skills ou des liens traînent dans `.claude/skills/` du dossier de contexte (installation à l'ancienne) : déplacer les vrais dossiers vers `Skills/`, supprimer `.claude/skills/`, relancer `CLAUDE_PROJECT_DIR="$(pwd)" bash Skills/create-context/setup/scripts/link-skills.sh`. Un skill du pack absent : ne pas le recréer, le dire en Phase 4. Aucun autre skill n'est promis à la personne. Les skills propres au business que la personne créera plus tard iront dans `1 Terrains/<Business>/Skills/` (partagés avec l'équipe par Drive) ; le même script les relie.
 9. **Contrôles** (§ 7) : les six, exécutés tels qu'écrits (avec `/usr/bin/grep` et les motifs quotés) et lus. Un échec se corrige avant de continuer.
 
 ### Plomberie : sauvegarde en ligne et relevé du soir (proposés, jamais imposés)
@@ -221,12 +221,12 @@ Suis `references/structure.md` dans cet ordre. Toujours les vraies réponses, ja
 ```
 Deux derniers réglages, tu me dis oui ou non :
 
-1. La sauvegarde en ligne. Ton cerveau est un dossier sur ton ordinateur.
+1. La sauvegarde en ligne. Ton contexte est un dossier sur ton ordinateur.
    Si l'ordinateur meurt, il meurt avec. Je peux le sauvegarder
    automatiquement dans un espace privé en ligne (GitHub) : à chaque
    fin de session ça part tout seul, à chaque ouverture ça revient.
    Privé, personne d'autre n'y a accès. Ça permet aussi de retrouver
-   ton cerveau depuis un deuxième ordinateur.
+   ton contexte depuis un deuxième ordinateur.
 
 2. Le relevé du soir. Tous les soirs à 23h, si ton ordinateur est
    allumé, je relis les mails et messages reçus dans la journée (ceux
@@ -237,7 +237,7 @@ Deux derniers réglages, tu me dis oui ou non :
 On installe ? (les deux / juste la sauvegarde / juste le relevé / rien)
 ```
 
-Puis : `bash Skills/onboarding/setup/install.sh "$(pwd)" 23`. Idempotent. Il fait : dépôt git local + `.gitignore`, hooks SessionStart (récupérer) et SessionEnd (sauvegarder) dans `.claude/settings.json` qui appellent les scripts restés dans `Skills/onboarding/setup/scripts/`, le raccourci des skills (une fois), tâche du soir (launchd), dépôt **privé** GitHub si `gh` est connecté. Il ne copie rien dans `.claude/`.
+Puis : `bash Skills/create-context/setup/install.sh "$(pwd)" 23`. Idempotent. Il fait : dépôt git local + `.gitignore`, hooks SessionStart (récupérer) et SessionEnd (sauvegarder) dans `.claude/settings.json` qui appellent les scripts restés dans `Skills/create-context/setup/scripts/`, le raccourci des skills (une fois), tâche du soir (launchd), dépôt **privé** GitHub si `gh` est connecté. Il ne copie rien dans `.claude/`.
 
 Règles : non à la sauvegarde → lancer quand même (git local et hooks protègent des bêtises), aucun dépôt distant. Non au relevé → retirer la tâche (`launchctl unload ~/Library/LaunchAgents/com.claude.schedule.daily-recap-<slug>.plist` puis supprimer le fichier). `gh` non connecté → l'installateur affiche les commandes, ne pas les taper à sa place (compte et navigateur de la personne). Dépôt toujours privé, sans exception. Relevé sans messagerie connectée → installé, mais dire qu'il ne servira qu'une fois un compte branché. Hors Mac → pas de tâche planifiée, le reste marche.
 
@@ -248,7 +248,7 @@ Règles : non à la sauvegarde → lancer quand même (git local et hooks protè
 La personne vient de voir des fichiers apparaître. Explique tout, simplement, en français, sans jargon. Adapte les valeurs.
 
 ```
-TON SECOND CERVEAU EST PRÊT
+TON CONTEXTE EST PRÊT
 
 Je t'explique ce que j'ai installé et comment on travaille ensemble.
 Tu n'as rien à retenir par cœur : tout est écrit dans le dossier.
@@ -296,15 +296,15 @@ Archives : ce qui est terminé. Un client qui a fini son programme va là.
 Skills : tes outils, j'y reviens juste en dessous, c'est important.
 
 ET LE DOSSIER « APPS », À CÔTÉ
-Juste à côté de ton cerveau, j'ai créé un dossier « Apps », vide pour
-l'instant. Ton cerveau, c'est ce que tu sais. Apps, c'est ce que tu
-construis : quand on fera un outil ensemble (un site, une application,
-une automatisation), son code ira là. Dans ton cerveau, je garderai une
-fiche qui dit à quoi il sert et où il tourne.
-Tu me parles toujours depuis ton cerveau : « crée-moi une application
+Juste à côté de ton dossier de contexte, j'ai créé un dossier « Apps »,
+vide pour l'instant. Ton contexte, c'est ce que tu sais. Apps, c'est ce
+que tu construis : quand on fera un outil ensemble (un site, une
+application, une automatisation), son code ira là. Dans ton contexte, je
+garderai une fiche qui dit à quoi il sert et où il tourne.
+Tu me parles toujours depuis ton contexte : « crée-moi une application
 de devis », je la construis dans Apps ; « bosse sur l'application de
 devis », je la retrouve tout seul. Tu n'ouvres jamais Apps toi-même.
-Pourquoi séparer : ton cerveau part dans Google Drive et son business
+Pourquoi séparer : ton contexte part dans Google Drive et son business
 se partage ; le code est lourd et contient des accès privés, il n'a
 rien à faire là.
 
@@ -323,12 +323,12 @@ j'applique quand tu me la demandes. Exemple : « facturer » peut devenir
 un skill qui sait ta numérotation, tes mentions légales, où est ton RIB.
 Tu tapes /facturer et je le fais comme toi, à chaque fois.
 
-Où ils sont : dans le dossier « Skills » de ton cerveau, un dossier par
+Où ils sont : dans le dossier « Skills » de ton contexte, un dossier par
 skill, visible comme le reste. Tu en as huit pour commencer :
-   /onboarding, /onboarding-migrate : ce qu'on vient de faire.
+   /create-context, /context-migrate : ce qu'on vient de faire.
    /save : à la fin d'une session, je range ce qu'on s'est dit.
    /tri-inbox : je vide le dossier Inbox.
-   /app : je crée ou je reprends une application.
+   /create-app : je crée ou je reprends une application.
    /grill-me : je te pose des questions pour sortir ce que tu sais sur
    un sujet et l'écrire proprement.
    /partager : je donne ton dossier business à quelqu'un de ton équipe,
@@ -355,7 +355,7 @@ Tu ne le verras jamais, il ne bougera plus, et tes skills restent chez
 toi, pas dans un outil.
 
 [SI plomberie installée :]
-Ta sauvegarde en ligne est active : à chaque fin de session, ton cerveau
+Ta sauvegarde en ligne est active : à chaque fin de session, ton contexte
 est copié dans un espace privé sur internet, visible par toi seul. [Le
 relevé du soir tourne à 23h : je relis tes mails et messages de la
 journée et je range ce qui est utile / Le relevé du soir démarrera
@@ -377,11 +377,11 @@ Avant d'envoyer ce message, le relire avec le filtre de la section Ton : aucun m
 
 ## Edge cases
 
-- **Contenu existant substantiel** → basculer sur `/onboarding-migrate` (Phase 0). Si refus, ne jamais écraser, lister les fichiers gardés intacts en Phase 4.
+- **Contenu existant substantiel** → basculer sur `/context-migrate` (Phase 0). Si refus, ne jamais écraser, lister les fichiers gardés intacts en Phase 4.
 - **Un seul terrain business, ou plusieurs** : les deux valides. Plusieurs boîtes → un terrain chacune, le principal reçoit le deep-dive complet.
 - **Pas entrepreneur** : sauter E ; garder D (un salarié a un métier). Le terrain business s'appelle du nom du projet ou du poste (« Side Projet X », « Poste chez Acme ») et garde la même forme, avec moins de process.
 - **Pas de contenu du tout** : `Process/Marketing/` contient quand même `_context.md` (canaux d'acquisition réels), `ton.md` (la voix pour les mails et documents) et `regles.md`.
-- **Interruption** : sauvegarder les réponses dans `~/.claude/onboarding-draft.json` ; « relance /onboarding, je reprends où on s'est arrêtés ».
+- **Interruption** : sauvegarder les réponses dans `~/.claude/create-context-draft.json` ; « relance /create-context, je reprends où on s'est arrêtés ».
 - **Asset illisible** : « fourni mais non lu : [source] », continuer.
 - **CRM « pas encore »** : « à mettre en place » dans `Outils/outils.md`, pas de pointeur fictif.
 - **Vouvoiement / anglais** : tous les fichiers générés suivent le choix.
@@ -396,5 +396,5 @@ Avant d'envoyer ce message, le relire avec le filtre de la section Ton : aucun m
 - La date vient du contexte système.
 - Le deep-dive métier est le différenciateur : ne pas le bâcler. Les process seedés sont remplis avec ce qui a été dit, pas avec un gabarit vide ni une invention.
 - Ne jamais utiliser les terrains ou les clients d'une personne réelle comme exemple. Exemples génériques mais précis (« Acme Conseil », « Maison Léa »).
-- Hors périmètre (« comment je branche Notion ? ») : « ce skill pose la fondation ; on branche les outils dans une prochaine session, une fois que tu auras utilisé ton cerveau quelques jours ».
+- Hors périmètre (« comment je branche Notion ? ») : « ce skill pose la fondation ; on branche les outils dans une prochaine session, une fois que tu auras utilisé ton contexte quelques jours ».
 - Si `references/interview.md` ou `references/structure.md` manque, arrêter et le dire : ces fichiers font partie du skill, sans eux la génération dérive.

@@ -2,7 +2,7 @@
 # SessionStart hook : recupere ce qui a ete pousse depuis un autre poste ou par la routine du soir.
 # Rapide, non bloquant : pas de reseau ou verrou occupe, la session continue quand meme.
 
-VAULT_DIR="${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+VAULT_DIR="${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)}"
 VAULT_NAME="$(basename "$VAULT_DIR")"
 LOG_FILE="$HOME/Library/Logs/${VAULT_NAME}-session-pull.log"
 LOCK="$HOME/Library/Caches/${VAULT_NAME}-git.lock.d"
@@ -37,6 +37,6 @@ if git pull --rebase --autostash origin "$BRANCH" >> "$LOG_FILE" 2>&1; then
 else
   echo "[$TS] pull KO (offline ou conflit), session continue" >> "$LOG_FILE"
   git rebase --abort >> "$LOG_FILE" 2>&1 || true
-  osascript -e 'display notification "Recuperation echouee, sync a verifier" with title "Second cerveau" sound name "Basso"' 2>/dev/null || true
+  osascript -e 'display notification "Recuperation echouee, sync a verifier" with title "Dossier de contexte" sound name "Basso"' 2>/dev/null || true
 fi
 exit 0

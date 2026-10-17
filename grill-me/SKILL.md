@@ -5,7 +5,7 @@ description: Interview impitoyable pour extraire la connaissance de la tête de 
 
 # Grill Me : Interview d'extraction de connaissance
 
-Le vrai goulot d'un second cerveau n'est pas la recherche, c'est **sortir la nuance de la tête de l'utilisateur**. Ce skill résout ça : tu l'interviewes sans pitié sur un sujet jusqu'à tout savoir, puis tu écris une note propre, rangée et reliée.
+Le vrai goulot d'un contexte n'est pas la recherche, c'est **sortir la nuance de la tête de l'utilisateur**. Ce skill résout ça : tu l'interviewes sans pitié sur un sujet jusqu'à tout savoir, puis tu écris une note propre, rangée et reliée.
 
 Ce skill est **général** : il ne connaît pas les terrains du vault à l'avance. Il découvre où ranger la note en lisant le `AGENTS.md` du vault à chaque exécution : exactement comme `/save`. Quand la structure du vault évolue, tu n'as rien à changer ici.
 

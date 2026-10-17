@@ -1,6 +1,6 @@
 #!/bin/bash
-# Installe la plomberie d'un second cerveau sur une machine : sync git + releve du soir des messageries.
-# A lancer APRES le skill /onboarding (qui cree les fichiers), depuis n'importe ou.
+# Installe la plomberie d'un dossier de contexte sur une machine : sync git + releve du soir des messageries.
+# A lancer APRES le skill /create-context (qui cree les fichiers), depuis n'importe ou.
 #
 #   bash install.sh /chemin/vers/le/vault [heure_routine]
 #
@@ -25,13 +25,13 @@ echo "Routine: ${RECAP_HOUR}h00"
 echo
 
 # ------------------------------------------- 0. Version de Claude Code (AGENTS.md)
-# Le cerveau utilise AGENTS.md (lu aussi par Codex). Claude Code ne le charge
+# Le dossier de contexte utilise AGENTS.md (lu aussi par Codex). Claude Code ne le charge
 # qu'a partir de la 2.1.277 : en dessous, la session demarre sans aucun contexte.
 CC_VERSION="$("$CLAUDE_BIN" --version 2>/dev/null | awk '{print $1}')"
 CC_MIN="2.1.277"
 if [ -n "$CC_VERSION" ] && [ "$(printf '%s\n%s\n' "$CC_MIN" "$CC_VERSION" | sort -V | head -1)" != "$CC_MIN" ]; then
   echo "Claude Code $CC_VERSION < $CC_MIN : mise a jour (AGENTS.md ne serait pas lu)..."
-  "$CLAUDE_BIN" update || echo "ATTENTION : mise a jour impossible, lance 'claude update' a la main avant d'ouvrir le cerveau."
+  "$CLAUDE_BIN" update || echo "ATTENTION : mise a jour impossible, lance 'claude update' a la main avant d'ouvrir le dossier de contexte."
 fi
 
 # ---------------------------------------------------------------- 1. Git local
@@ -59,16 +59,16 @@ EOG
 fi
 
 if [ -z "$(git log -1 2>/dev/null)" ]; then
-  git add -A && git commit -q -m "Initialisation du second cerveau"
+  git add -A && git commit -q -m "Initialisation du contexte"
   echo "      premier commit fait"
 fi
 
 # ------------------------------------------------------ 2. Scripts de sync
-# Les scripts restent dans Skills/onboarding/setup/scripts/ (visible) : rien dans .claude/ a part settings.json
+# Les scripts restent dans Skills/create-context/setup/scripts/ (visible) : rien dans .claude/ a part settings.json
 chmod +x "$KIT_DIR/scripts/"*.sh
-SCRIPTS_REL="Skills/onboarding/setup/scripts"
+SCRIPTS_REL="Skills/create-context/setup/scripts"
 [ -d "$VAULT_DIR/$SCRIPTS_REL" ] || { echo "ATTENTION : $VAULT_DIR/$SCRIPTS_REL absent ; les hooks pointeront dessus, installe le pack dans Skills/ d'abord"; }
-rm -rf "$VAULT_DIR/.claude/scripts" "$VAULT_DIR/.claude/skills"   # ancienne methode : plus rien de tel dans le cerveau
+rm -rf "$VAULT_DIR/.claude/scripts" "$VAULT_DIR/.claude/skills"   # ancienne methode : plus rien de tel dans le dossier de contexte
 echo "[2/5] scripts : $SCRIPTS_REL (aucun script copie dans .claude/)"
 
 # ------------------------------------------------------ 3. Hooks SessionStart / SessionEnd
@@ -86,7 +86,7 @@ if os.path.exists(path):
         data = {}
 hooks = data.setdefault("hooks", {})
 for event, script in (("SessionStart", "session-pull.sh"), ("SessionEnd", "session-push.sh")):
-    cmd = 'bash "$CLAUDE_PROJECT_DIR/Skills/onboarding/setup/scripts/%s"' % script
+    cmd = 'bash "$CLAUDE_PROJECT_DIR/Skills/create-context/setup/scripts/%s"' % script
     entries = hooks.setdefault(event, [])
     existing = [h.get("command") for e in entries for h in e.get("hooks", [])]
     if cmd not in existing:
@@ -116,7 +116,7 @@ cat > "$PLIST" <<EOPL
     <array>
       <string>/bin/bash</string>
       <string>-c</string>
-      <string>cd "$VAULT_DIR" &amp;&amp; "$CLAUDE_BIN" -p "Lis le fichier $TASK_DIR/SKILL.md et execute exactement les instructions qu il contient, dans le vault courant ($VAULT_DIR). Ne pose aucune question, travaille en autonomie totale, termine proprement." --dangerously-skip-permissions ; CLAUDE_PROJECT_DIR="$VAULT_DIR" bash "$VAULT_DIR/Skills/onboarding/setup/scripts/session-push.sh"</string>
+      <string>cd "$VAULT_DIR" &amp;&amp; "$CLAUDE_BIN" -p "Lis le fichier $TASK_DIR/SKILL.md et execute exactement les instructions qu il contient, dans le vault courant ($VAULT_DIR). Ne pose aucune question, travaille en autonomie totale, termine proprement." --dangerously-skip-permissions ; CLAUDE_PROJECT_DIR="$VAULT_DIR" bash "$VAULT_DIR/Skills/create-context/setup/scripts/session-push.sh"</string>
     </array>
     <key>EnvironmentVariables</key>
     <dict>

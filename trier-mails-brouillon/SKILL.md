@@ -1,6 +1,6 @@
 ---
 name: trier-mails-brouillon
-description: "Vide ta boîte de réception Gmail non lue jusqu'au bout : identifie chaque expéditeur (ton CRM si tu en as un, ton historique Gmail, ton second cerveau), rédige une réponse en brouillon dans le même fil (jamais envoyée), supprime spam et promotions, étiquette et archive le reste avec tes vraies étiquettes Gmail. Utiliser quand l'utilisateur dit \"trie mes mails jusqu'au brouillon\", \"vide mon inbox\", \"fais le tri Gmail\", \"traite mes mails non lus\", ou tape \"/trier-mails-brouillon\"."
+description: "Vide ta boîte de réception Gmail non lue jusqu'au bout : identifie chaque expéditeur (ton CRM si tu en as un, ton historique Gmail, ton dossier de contexte), rédige une réponse en brouillon dans le même fil (jamais envoyée), supprime spam et promotions, étiquette et archive le reste avec tes vraies étiquettes Gmail. Utiliser quand l'utilisateur dit \"trie mes mails jusqu'au brouillon\", \"vide mon inbox\", \"fais le tri Gmail\", \"traite mes mails non lus\", ou tape \"/trier-mails-brouillon\"."
 ---
 
 # Trier les mails jusqu'au brouillon
@@ -11,8 +11,8 @@ Le skill construit en direct dans la vidéo « Rends ton entreprise AI native »
 
 - Gmail connecté à Claude (Personnaliser → Connecteurs → Gmail) : recherche, lecture de fil, brouillons, étiquettes, corbeille.
 - Optionnel : ton CRM connecté (Notion, HubSpot, Salesforce…) pour savoir qui est qui.
-- Optionnel : ton second cerveau (dossier clients) si tu en as un.
-- La première fois, demande à l'utilisateur en une question : où vit le contexte de ses clients (CRM, dossier, rien), et s'il veut archiver les mails triés ou les laisser visibles. Note la réponse dans le second cerveau s'il existe.
+- Optionnel : ton dossier de contexte (dossier clients) si tu en as un.
+- La première fois, demande à l'utilisateur en une question : où vit le contexte de ses clients (CRM, dossier, rien), et s'il veut archiver les mails triés ou les laisser visibles. Note la réponse dans le dossier de contexte s'il existe.
 
 ## Étapes
 
@@ -26,7 +26,7 @@ Le skill construit en direct dans la vidéo « Rends ton entreprise AI native »
 
 - Jamais d'envoi direct : uniquement des brouillons.
 - Jamais de prix ou d'offre inventés.
-- Le ton de l'utilisateur (lu dans son second cerveau s'il existe, sinon neutre et poli).
+- Le ton de l'utilisateur (lu dans son dossier de contexte s'il existe, sinon neutre et poli).
 - Ne jamais supprimer le mail d'une personne identifiable en cas de doute.
 - Ne pas poser un second brouillon sur un fil qui en a déjà un.
 
